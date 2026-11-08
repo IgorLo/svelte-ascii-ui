@@ -8,6 +8,7 @@
   let { palette = 'phosphor' }: { palette?: Palette } = $props();
   let feedback = $state('');
   let selectedIcons = $state('pixelarticons');
+  let showCenters = $state(false);
   const icons = $derived(iconCandidates.find(candidate => candidate.id === selectedIcons) ?? iconCandidates[0]);
   const iconNames = ['plus', 'minus', 'down', 'close', 'refresh', 'info'] as const;
   const frame = $derived(asciiFrame(palettes[palette].muted, 1, 1.4));
@@ -23,13 +24,14 @@
 </script>
 
 <Theme {palette}>
-  <main lang="ru" style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
+  <main lang="ru" class={{ 'show-centers': showCenters }} style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
     style:--icon-plus={`url("${icons.icons.plus}")`} style:--icon-minus={`url("${icons.icons.minus}")`} style:--icon-down={`url("${icons.icons.down}")`}>
     <header>
       <p class="eyebrow">Сравнение масштаба</p>
       <h1>Меньше текст и отступы — удобнее ли форма?</h1>
       <p>Во всех трёх вариантах текст уменьшен на 1 px. Это проба: размеры S и M в библиотеке не меняются.</p>
       <p class="note">На узком экране текст полей остаётся 16 px; для касания высота целей — не меньше 44 px. Проверьте ввод, Tab и выбор стрелками.</p>
+      <Checkbox size="s" label="Показать линии центра иконок" bind:checked={showCenters} />
     </header>
     <section class="icon-review" aria-label="Выбор SVG-иконок">
       <h2>Иконки: выберите набор для формы ниже</h2>
@@ -124,21 +126,22 @@
   .current-m .preferences { font-size: 15px; }
   .sample :global(input.aui-control), .sample :global(select.aui-control) { min-height: var(--demo-field-height); }
   .sample :global(.aui-button) { min-height: var(--demo-action-height); }
-  .sample :global(.inline > .aui-button) { flex: 0 0 var(--demo-field-height); inline-size: var(--demo-field-height); block-size: var(--demo-field-height); min-inline-size: var(--demo-field-height); min-block-size: var(--demo-field-height); padding: 0; display: grid; place-items: center; }
-  .sample :global(.chevron) { inline-size: 1em; display: grid; place-items: center; line-height: 1; }
-  .sample :global(.chevron) { font-size: 0; inline-size: var(--demo-icon-size); inset-inline-end: calc(var(--control-frame) + .75rem); }
-  .sample :global(.chevron)::after { content: ''; inline-size: var(--demo-icon-size); block-size: var(--demo-icon-size); background: currentColor; mask: var(--icon-down) center / contain no-repeat; }
+  .sample :global(.inline > .aui-button) { position: relative; flex: 0 0 var(--demo-field-height); inline-size: var(--demo-field-height); block-size: var(--demo-field-height); min-inline-size: var(--demo-field-height); min-block-size: var(--demo-field-height); padding: 0; display: grid; place-items: center; }
+  .sample :global(.chevron) { font-size: 0; inline-size: var(--demo-field-height); inset-inline-end: 0; display: block; line-height: 0; }
+  .sample :global(.chevron)::after { content: ''; position: absolute; inset: 0; margin: auto; inline-size: var(--demo-icon-size); block-size: var(--demo-icon-size); background: currentColor; mask: var(--icon-down) center / contain no-repeat; }
   .sample :global(.inline > .aui-button) { font-size: 0; }
   .sample :global(.inline > .aui-button > span) { display: none; }
-  .sample :global(.inline > .aui-button)::after { content: ''; inline-size: var(--demo-icon-size); block-size: var(--demo-icon-size); background: currentColor; mask: var(--icon-plus) center / contain no-repeat; }
+  .sample :global(.inline > .aui-button)::after { content: ''; position: absolute; inset: 0; margin: auto; inline-size: var(--demo-icon-size); block-size: var(--demo-icon-size); background: currentColor; mask: var(--icon-plus) center / contain no-repeat; }
   .sample :global(.inline > .aui-button:first-child)::after { mask-image: var(--icon-minus); }
   .sample :global(.aui-icon-button > span) { transform: none; }
+  .sample :global(.aui-icon-button) { min-height: var(--control-height); }
   .compact .preferences { font-size: 12px; gap: 10px; }
   .compact .actions, .compact .secondary-actions { gap: 8px; }
   .compact :global([data-size='s']) { --component-font: 12px; --control-height: 32px; --control-frame: 6px; --choice-box: 26px; --radio-font: 16px; --panel-inset: 10px; }
   .compact :global(.aui-control), .compact :global(.aui-button), .compact :global(.aui-frame) { border-image-width: 9px; }
   .compact :global(input.aui-control), .compact :global(select.aui-control), .compact :global(.aui-button) { padding-inline: .75ch; line-height: 1.4; }
-  .compact :global(select.aui-control) { padding-inline-end: 2.5em; }
+  .sample :global(select.aui-control) { padding-inline-end: calc(var(--demo-field-height) - var(--control-frame) + .75ch); }
+  .compact :global(input.aui-control) { padding-block: 0 2px; line-height: calc(1.4em - 2px); }
   .compact :global(.aui-button) { padding-block: 0; gap: 6px; }
   .compact :global(.aui-icon-button) { padding: 0; }
   .compact :global(.aui-control:not(:focus-visible):not([aria-invalid='true'])) { border-image-source: var(--demo-frame); }
@@ -146,6 +149,9 @@
   .compact :global(.aui-button[data-variant='primary']:not(:focus-visible)) { border-image-source: var(--demo-accent); }
   .compact :global(.aui-control[aria-invalid='true']:not(:focus-visible)) { border-image-source: var(--demo-error); }
   .compact :global(.field) { gap: 6px; }
+  .show-centers .sample :global(.inline > .aui-button),
+  .show-centers .sample :global(.aui-icon-button),
+  .show-centers .sample :global(.chevron) { background-image: linear-gradient(to right, transparent calc(50% - .5px), var(--danger) calc(50% - .5px), var(--danger) calc(50% + .5px), transparent calc(50% + .5px)), linear-gradient(to bottom, transparent calc(50% - .5px), var(--danger) calc(50% - .5px), var(--danger) calc(50% + .5px), transparent calc(50% + .5px)); background-origin: border-box; }
   @media (hover: hover) {
     .compact :global(.aui-control:enabled:hover:not(:focus-visible):not([aria-invalid='true'])),
     .compact :global(.aui-button:enabled:hover:not(:focus-visible)) { border-image-source: var(--demo-accent); }
@@ -156,6 +162,7 @@
     .sample :global(input.aui-control), .sample :global(select.aui-control) { font-size: 16px; }
   }
   @media (pointer: coarse) {
+    .sample :global(.aui-icon-button) { min-height: max(44px,var(--control-height)); }
     .sample { --demo-field-height: 44px; --demo-action-height: 44px; }
     .current-m { --demo-field-height: 48px; --demo-action-height: 48px; }
     .compact :global(input.aui-control), .compact :global(select.aui-control), .compact :global(.aui-button) { min-height: 44px; }

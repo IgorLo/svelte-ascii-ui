@@ -10,6 +10,8 @@ This experiment lives on `docs/compact-scale-comparison`. Library defaults remai
 - NumberInput stepper buttons must be equal squares, independent of plus/minus glyph width.
 - Select chevrons and icon-only actions need a consistent icon box and optical alignment independent of the text font.
 - Pixelarticons is the preferred visual candidate in the current review. Small/compact icon boxes use 18px artwork, large uses 24px; preserve the button dimensions. Stepper text must not create a second layout row beside the SVG.
+- Stepper SVGs are explicitly centered independently of grid tracks. Select uses a square trailing icon area with text padding reserved for it; its old zero-size glyph must not create an anonymous row before the SVG. Optional center guides help check optical alignment.
+- The compact input text is optically raised 1px without changing field height. The three treatments are candidates for S/M/L; public sizes have not been renamed.
 - Compare free SVG icon candidates before selecting a set. Preserve the selected files' license and copyright notice; do not import paid variants or the whole catalog.
 
 ## After approval
