@@ -1,5 +1,5 @@
 import { mount } from 'svelte';
-import './fonts.css';
+import './lib/fonts.css';
 
 import Prototype from './Prototype.svelte';
 import './prototype.css';

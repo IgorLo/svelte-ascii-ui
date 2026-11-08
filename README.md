@@ -38,7 +38,7 @@ npm pack
 npm install /absolute/path/to/svelte-ascii-ui-0.1.0.tgz
 ```
 
-Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtime dependencies; Storybook and experimental fonts are development-only.
+Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtime dependencies; Build, Storybook and test tools are development-only. The optional DotGothic16 subset is bundled locally; no font package is required.
 
 ```svelte
 <script lang="ts">

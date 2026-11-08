@@ -3,7 +3,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; }
 button, input, select, textarea { font: inherit; }
 button, select, summary, input[type='checkbox'], input[type='radio'], input[type='range'] { cursor: pointer; }
-.specimen { --bg: #181c19; --surface: #202621; --text: #e2e6d9; --muted: #a7b29e; --line: #65715f; --accent: #c4ed83; --on-accent: #192014; --danger: #ffb6a8; --warning: #e6d99b; --font-size: 15px; --row: 1.6em; font-family: 'Cascadia Mono', 'Consolas', 'Liberation Mono', monospace; font-size: var(--font-size); line-height: 1.6; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 6ch 9em; }
+.specimen { --bg: #181c19; --surface: #202621; --text: #e2e6d9; --muted: #a7b29e; --line: #65715f; --accent: #c4ed83; --on-accent: #192014; --danger: #ffb6a8; --warning: #e6d99b; --font-size: 15px; --row: 1.6em; font-family: 'DotGothic16 UI', monospace; font-size: var(--font-size); line-height: 1.6; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 6ch 9em; }
 .specimen[data-palette='paper'] { --bg: #eee9dc; --surface: #e4dece; --text: #2e332c; --muted: #5d6556; --line: #7c846f; --accent: #465d36; --on-accent: #fff9e9; --danger: #993e2e; --warning: #775515; }
 .specimen[data-palette='plum'] { --bg: #251e2c; --surface: #302638; --text: #ede1e4; --muted: #b9a7bd; --line: #8c7494; --accent: #e6b1d7; --on-accent: #302236; --danger: #ffb5a4; --warning: #e8d29e; }
 .grid-visible { background-image: linear-gradient(to right, color-mix(in srgb, var(--line) 18%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--line) 18%, transparent) 1px, transparent 1px); background-size: 1ch var(--row); }
@@ -197,8 +197,8 @@ dialog p { color: var(--muted); margin: 1.6em 0; }
 
 /* Experiment 02: fixed ASCII drawing layer, independently configurable text. */
 .specimen {
-  --text-font: 'Cascadia Code Variable', monospace;
-  --art-font: 'Cascadia Code Variable', monospace;
+  --text-font: 'DotGothic16 UI', monospace;
+  --art-font: monospace;
   --art-cell: 12px;
   --art-row: 12px;
   font-family: var(--text-font);
