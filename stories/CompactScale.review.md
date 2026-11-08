@@ -18,7 +18,7 @@ This experiment lives on `docs/compact-scale-comparison`. Library defaults remai
 
 The current prototype adds a 1px downward optical adjustment to the large Select chevron. Large stepper icons have an independently switchable 1px down/right adjustment for visual comparison; this is an optical preference, not evidence of an offset in their geometric center.
 
-The font picker includes ten locally served pixel monospace candidates alongside DotGothic16, with a multi-font shortlist. Six candidates contain the full Russian alphabet; the others explicitly identify Russian text as fallback. Font licenses and copyright notices accompany the demo assets. These assets are not public library exports or package dependencies. Font selection remains pending; DotGothic16 is still the default.
+The font picker retains Departure Mono, Monocraft and Pixel Code alongside DotGothic16 after visual review, with a multi-font shortlist. All remaining candidates contain the full Russian alphabet. Rejected candidates and their assets have been removed. Font licenses and copyright notices accompany the demo assets. These assets are not public library exports or package dependencies. Font selection remains pending; DotGothic16 is still the default.
 
 Use a shared, fixed SVG icon box with `currentColor` for built-in controls. Keep accessible names on the buttons and hide decorative SVGs from assistive technology. Preserve Button/IconButton snippet extension points. Vendor only the chosen small asset subset with its MIT notice; an icon font or a whole-catalog runtime dependency is unnecessary.
 
