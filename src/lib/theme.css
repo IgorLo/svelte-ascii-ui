@@ -14,17 +14,21 @@
 .ascii-theme *, .aui-control,.aui-button,.aui-frame{box-sizing:border-box}
 .aui-control,.aui-button,.aui-frame{font-family:var(--text-font);font-weight:300;font-variant-east-asian:inherit;font-size:var(--component-font);color:var(--text);border:var(--control-frame) solid transparent;border-image:var(--frame-source,var(--ascii-frame)) 12 / var(--frame-art) space;border-radius:0;max-width:100%;min-width:0}
 .aui-control{display:block;min-height:var(--field-height);width:100%;background:var(--bg);padding:0 var(--control-padding);line-height:1.4}
+.aui-control:where(input,select,textarea){background-color:color-mix(in srgb,var(--text) 7%,var(--bg));background-clip:padding-box}
 textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
 .aui-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--field-gap);min-height:var(--control-height);padding:0 var(--control-padding);background:transparent;border-image-source:var(--button-source,var(--ascii-button));line-height:1.4;cursor:pointer;text-align:center;text-decoration:none;white-space:normal;overflow-wrap:anywhere}
-.aui-button[data-variant='primary']{color:var(--accent);border-image-source:var(--accent-source,var(--ascii-accent))}
+.aui-button[data-variant='primary']{color:var(--accent);border-image-source:var(--accent-source,var(--ascii-accent));background-color:color-mix(in srgb,var(--accent) 10%,var(--bg));background-clip:padding-box}
 .aui-button[data-variant='danger']{color:var(--danger);border-image-source:var(--error-source,var(--ascii-error))}
 @media(hover:hover){
- .aui-button:where(:hover:not(:disabled):not(:focus-visible)){color:var(--accent);border-image-source:var(--accent-source,var(--ascii-accent));background:color-mix(in srgb,currentColor 8%,transparent)}
- .aui-control:where(input,select,textarea):where(:hover:enabled:not([readonly]):not(:focus-visible)){border-image-source:var(--accent-source,var(--ascii-accent));background-color:color-mix(in srgb,var(--text) 4%,var(--bg))}
+ .aui-button:where(:hover:not(:disabled):not(:focus-visible)){color:var(--accent);border-image-source:var(--accent-source,var(--ascii-accent));background-color:color-mix(in srgb,currentColor 8%,transparent)}
+ .aui-button[data-variant='primary']:where(:hover:not(:disabled):not(:focus-visible)){background-color:color-mix(in srgb,var(--accent) 16%,var(--bg))}
+ .aui-control:where(input,select,textarea):where(:hover:enabled:not([readonly]):not(:focus-visible)){border-image-source:var(--accent-source,var(--ascii-accent));background-color:color-mix(in srgb,var(--text) 10%,var(--bg))}
 }
 .aui-control:disabled,.aui-button:disabled{opacity:.45;cursor:not-allowed}
 .aui-control[aria-invalid='true']{border-image-source:var(--error-source,var(--ascii-error))}
 .aui-control:focus-visible,.aui-button:focus-visible{border-image-source:var(--ascii-focus);outline:2px solid transparent;background-color:color-mix(in srgb,var(--text) 7%,var(--bg))}
+.aui-control:where(input,select,textarea):focus-visible{background-color:color-mix(in srgb,var(--text) 12%,var(--bg))}
+.aui-button[data-variant='primary']:focus-visible{background-color:color-mix(in srgb,var(--accent) 18%,var(--bg))}
 .aui-frame{padding:var(--panel-inset);border-image-source:var(--ascii-muted);background:color-mix(in srgb,var(--text) 3.5%,var(--bg));background-clip:padding-box}
 .aui-link{color:var(--accent);text-underline-offset:4px}.aui-link:focus-visible{outline:2px dashed var(--text);outline-offset:4px}
 .aui-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

@@ -31,16 +31,18 @@ Theme.colors accepts semantic colors. Its current responsibilities are:
 
 | Theme color | Current use |
 | --- | --- |
-| background | Field interiors and floating overlay backgrounds; the application may also use the theme background for its page |
+| background | Base for control fills and floating overlay backgrounds; the application may also use it for its page |
 | surface | Toast background; it does not automatically fill every control or panel |
-| text | Main text; also mixed at 3.5% with background for Panel's default fill |
+| text | Main text; mixed with background for Panel (3.5%), fields (7%) and progress tracks (6%) |
 | muted | Secondary content and structural ASCII artwork |
-| accent | Primary action and selected/success emphasis |
+| accent | Primary action and selected/success emphasis; mixed at 10% with background for primary button fills |
 | danger / warning | Semantic feedback, accompanied by meaningful text |
 
 Theme itself does not paint a page background. Set an application-owned page background where appropriate. Changing background affects fields and overlays as well as any page that uses that color. A nested Theme can scope a palette change, but changes all roles within that scope; it is not an independent field-surface setting.
 
-Button starts transparent; its primary variant changes text and frame emphasis. Hover and keyboard focus have their own feedback. Progress starts with a transparent track and ASCII ink. There is no public fill variant or independent field/track surface token.
+Default and danger buttons start transparent. Primary buttons have an accent-tinted fill; text fields, selects and file inputs have a subtle neutral fill. Progress keeps a visible track even at zero. These fills stop inside the ASCII frame so the dashes remain separate from the surface.
+
+On hover and keyboard focus, fields increase the text mix to 10% and 12%; primary buttons increase the accent mix to 16% and 18%. Invalid frames retain their error color on hover, and disabled controls do not receive hover feedback. The same rules apply on the page and inside Panel. Storybook **Foundation / Surfaces** shows the states in all palettes and sizes. There is no independent field/track surface token or extra fill prop: use the existing semantic colors to configure the palette.
 
 If the public color roles cannot express a needed treatment, follow the [feedback workflow](agents/feedback.md) before introducing an exception.
 

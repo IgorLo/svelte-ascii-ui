@@ -50,6 +50,10 @@ around 68ch. Informative images need meaningful alt; decoration uses empty alt.
 ## Colors and interaction
 Override semantic colors through Theme.colors, not hard-coded page accents.
 Check custom palette text/focus contrast. Status needs text as well as color.
+Fields and progress tracks use quiet neutral fills; primary buttons use an
+accent-tinted fill. Derive these surfaces from the existing semantic colors and
+clip them inside ASCII frames. Keep the same treatment on the page and in Panel;
+see [surface roles and states](composition.md#surfaces-know-which-role-changes).
 Use Link for navigation, Button for action, IconButton with an accessible label.
 Built-in action icons use a small MIT-licensed Pixelarticons subset, centered in
 fixed SVG boxes: 18px in S/M and 24px in L. Button accepts a named icon or a snippet;
