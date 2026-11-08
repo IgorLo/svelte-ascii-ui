@@ -1,10 +1,10 @@
 /* Explicitly import this entry once. No resets or selectors for host-page elements. */
 .ascii-theme {
  --bg:#181c19;--surface:#202621;--text:#e2e6d9;--muted:#a7b29e;--line:#65715f;--accent:#c4ed83;--danger:#ffb6a8;--warning:#e6d99b;
- --text-font:'DotGothic16 UI',monospace;--art-font:Consolas,monospace;--font-size:16px;
+ --text-font:'Monocraft',monospace;--art-font:Consolas,monospace;--font-size:16px;
  --component-font:16px;--control-height:48px;--control-frame:12px;--choice-box:40px;--choice-row:52px;--choice-gap:14px;--radio-width:42px;--radio-font:20px;--group-gap:24px;--panel-inset:20px;
 }
-.ascii-theme{font-family:var(--text-font);font-size:var(--font-size);line-height:1.6;font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-variant-east-asian:full-width;color:var(--text);color-scheme:dark}
+.ascii-theme{font-family:var(--text-font);font-size:var(--font-size);line-height:1.6;font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-variant-east-asian:normal;color:var(--text);color-scheme:dark}
 .ascii-theme[data-palette='paper']{color-scheme:light}
 .ascii-theme *, .aui-control,.aui-button,.aui-frame{box-sizing:border-box}
 .ascii-theme[data-size='s'],.ascii-theme [data-size='s'],.aui-control[data-size='s'],.aui-button[data-size='s'],.aui-frame[data-size='s']{--component-font:14px;--control-height:36px;--control-frame:9px;--choice-box:30px;--choice-row:36px;--choice-gap:12px;--radio-width:30px;--radio-font:16px;--group-gap:12px;--panel-inset:12px}

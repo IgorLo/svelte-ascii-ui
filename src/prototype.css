@@ -3,7 +3,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; }
 button, input, select, textarea { font: inherit; }
 button, select, summary, input[type='checkbox'], input[type='radio'], input[type='range'] { cursor: pointer; }
-.specimen { --bg: #181c19; --surface: #202621; --text: #e2e6d9; --muted: #a7b29e; --line: #65715f; --accent: #c4ed83; --on-accent: #192014; --danger: #ffb6a8; --warning: #e6d99b; --font-size: 15px; --row: 1.6em; font-family: 'DotGothic16 UI', monospace; font-size: var(--font-size); line-height: 1.6; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 6ch 9em; }
+.specimen { --bg: #181c19; --surface: #202621; --text: #e2e6d9; --muted: #a7b29e; --line: #65715f; --accent: #c4ed83; --on-accent: #192014; --danger: #ffb6a8; --warning: #e6d99b; --font-size: 15px; --row: 1.6em; font-family: 'Monocraft', monospace; font-size: var(--font-size); line-height: 1.6; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 6ch 9em; }
 .specimen[data-palette='paper'] { --bg: #eee9dc; --surface: #e4dece; --text: #2e332c; --muted: #5d6556; --line: #7c846f; --accent: #465d36; --on-accent: #fff9e9; --danger: #993e2e; --warning: #775515; }
 .specimen[data-palette='plum'] { --bg: #251e2c; --surface: #302638; --text: #ede1e4; --muted: #b9a7bd; --line: #8c7494; --accent: #e6b1d7; --on-accent: #302236; --danger: #ffb5a4; --warning: #e8d29e; }
 .grid-visible { background-image: linear-gradient(to right, color-mix(in srgb, var(--line) 18%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--line) 18%, transparent) 1px, transparent 1px); background-size: 1ch var(--row); }
@@ -197,7 +197,7 @@ dialog p { color: var(--muted); margin: 1.6em 0; }
 
 /* Experiment 02: fixed ASCII drawing layer, independently configurable text. */
 .specimen {
-  --text-font: 'DotGothic16 UI', monospace;
+  --text-font: 'Monocraft', monospace;
   --art-font: monospace;
   --art-cell: 12px;
   --art-row: 12px;
@@ -463,7 +463,6 @@ dialog p { color: var(--muted); margin: 1.6em 0; }
 .size-scope[data-size='s'] .catalog .badge { font-size: .75em; }
 .size-scope[data-size='s'] dialog { padding: 12px; }
 .specimen[data-variant] dialog { background-color: var(--bg); }
-.specimen[data-font='DotGothic16'] { font-variant-east-asian: full-width; }
 .specimen[data-variant] .control-desk select { font-size: var(--font-size); }
 .specimen[data-variant] .dialog-heading { font-size: 1em; }
 .size-scope { margin-block: 3em 5em; }
@@ -531,7 +530,6 @@ dialog p { color: var(--muted); margin: 1.6em 0; }
     linear-gradient(var(--text),var(--text)) bottom right / 7px 2px no-repeat,
     linear-gradient(var(--text),var(--text)) bottom right / 2px 7px no-repeat;
 }
-.specimen[data-font='DotGothic16'] .size-scope[data-size='s'] :is(.catalog,dialog) button:not(.icon-button) { padding-block: 0 2px; line-height: 1.25; }
 .range-labels { position: relative; height: 2em; margin-inline: 26px; display: block; }
 .range-labels > span { position: absolute; top: 4px; transform: translateX(-50%); }
 .range-start { left: 0; }
@@ -603,7 +601,6 @@ button[aria-busy='true'] { color: var(--muted); }
 .specimen[data-variant] select { appearance: none; background-image: var(--ascii-chevron); background-repeat: no-repeat; background-size: 16px 12px; background-position: right 1ch center; background-origin: padding-box; padding-inline-end: calc(2ch + 16px); }
 .specimen[data-variant] select[aria-busy='true'] { background-image: none; }
 .specimen option { font-family: var(--text-font); font-size: inherit; }
-.specimen[data-font='DotGothic16'] option { font-variant-east-asian: full-width; font-feature-settings: 'fwid' 1; }
 .specimen summary { display: flex; align-items: baseline; gap: 1ch; list-style: none; min-height: 0; padding-block: .6em .3em; }
 .specimen summary::marker { content: ''; }
 .specimen summary::-webkit-details-marker { display: none; }

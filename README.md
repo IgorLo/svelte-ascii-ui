@@ -2,7 +2,7 @@
 
 Just a fun stylish vibecoded ASCII-like ui-kit for svelte
 
-Svelte 5 component library with ASCII frames, optional DotGothic16 typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples.
+Svelte 5 component library with ASCII frames, optional Monocraft typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples.
 
 ## Working with agents
 
@@ -38,13 +38,13 @@ npm pack
 npm install /absolute/path/to/svelte-ascii-ui-0.1.0.tgz
 ```
 
-Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtime dependencies; Build, Storybook and test tools are development-only. The optional DotGothic16 subset is bundled locally; no font package is required.
+Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtime dependencies; Build, Storybook and test tools are development-only. The optional Monocraft font is bundled locally; no font package is required.
 
 ```svelte
 <script lang="ts">
   import { Theme, Button, Input, Field } from 'svelte-ascii-ui';
   import 'svelte-ascii-ui/styles.css';
-  import 'svelte-ascii-ui/fonts.css'; // optional bundled OFL DotGothic16 subset
+  import 'svelte-ascii-ui/fonts.css'; // optional bundled OFL Monocraft font
   let name = $state('Новая заметка');
 </script>
 

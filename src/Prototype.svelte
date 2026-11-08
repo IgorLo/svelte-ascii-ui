@@ -1,8 +1,9 @@
-<!-- General component demo using the bundled DotGothic16 UI font. -->
+<!-- General component demo using the bundled Monocraft font. -->
 <script lang="ts">
   import WavesExample from './WavesExample.svelte';
   import ArticleExample from './ArticleExample.svelte';
   import SpecimenSet from './SpecimenSet.svelte';
+  const fontLicense = new URL('./lib/fonts/OFL-Monocraft.txt', import.meta.url).href;
   const variant = 'B';
   let palette = $state('phosphor');
   let size = $state('16');
@@ -21,7 +22,7 @@
 </script>
 
 
-<div class={["specimen", { "grid-visible": grid }]} data-variant={variant} data-palette={palette} data-font="DotGothic16" data-panel-fill={panelFill} style:--font-size={`${size}px`} style:--ascii-chevron={`url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12"><path d="m2 3 6 6 6-6" fill="none" stroke="${frameColors[palette][0]}" stroke-width="1.5"/></svg>`)}")`} style:--ascii-focus={asciiFrame(palette === 'paper' ? '#2e332c' : palette === 'plum' ? '#ede1e4' : '#e2e6d9', 1, 2.2)} style:--ascii-frame={asciiFrame(frameColors[palette][0])} style:--ascii-muted={asciiFrame(frameColors[palette][0], 0.48)} style:--ascii-button={asciiFrame(frameColors[palette][0], 0.85)} style:--ascii-accent={asciiFrame(frameColors[palette][1])} style:--ascii-error={asciiFrame(frameColors[palette][2])}>
+<div class={["specimen", { "grid-visible": grid }]} data-variant={variant} data-palette={palette} data-font="Monocraft" data-panel-fill={panelFill} style:--font-size={`${size}px`} style:--ascii-chevron={`url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12"><path d="m2 3 6 6 6-6" fill="none" stroke="${frameColors[palette][0]}" stroke-width="1.5"/></svg>`)}")`} style:--ascii-focus={asciiFrame(palette === 'paper' ? '#2e332c' : palette === 'plum' ? '#ede1e4' : '#e2e6d9', 1, 2.2)} style:--ascii-frame={asciiFrame(frameColors[palette][0])} style:--ascii-muted={asciiFrame(frameColors[palette][0], 0.48)} style:--ascii-button={asciiFrame(frameColors[palette][0], 0.85)} style:--ascii-accent={asciiFrame(frameColors[palette][1])} style:--ascii-error={asciiFrame(frameColors[palette][2])}>
   <a class="skip-link" href="#catalog">К компонентам</a>
   <div class="topline"><span>ASCII / UI</span><span class="topline-note">ЛАБОРАТОРИЯ ИНТЕРФЕЙСА</span><span>SPECIMEN 001 <span class="live-dot" aria-hidden="true">●</span></span></div>
   <header class="masthead">
@@ -49,7 +50,7 @@
     <nav class="size-links" aria-label="Размеры компонентов"><a href="#size-s">S · компактные ↓</a><a href="#size-m">M · обычные ↓</a><a href="#article">Текст и изображения ↓</a></nav><span class="grid-info">СНАЧАЛА S · НИЖЕ M</span>
   </section>
 
-  <div class="font-specimen"><p>DotGothic16 · пиксельный рисунок · латиница и кириллица</p><p class="font-proof">Aa Bb Gg Mm Rr 0123456789 · ( ) [ ] + − ×</p><p class="font-proof">Аа Бб Дд Жж Фф Яя · Съешь ещё этих мягких булок.</p><p class="hint">В своих проектах можно выбрать другой шрифт через Theme.font. Геометрия рамок от него не зависит.</p></div>
+  <div class="font-specimen"><a href={fontLicense} target="_blank" rel="noreferrer">Monocraft: SIL OFL 1.1</a><p>Monocraft · пиксельный рисунок · латиница и кириллица</p><p class="font-proof">Aa Bb Gg Mm Rr 0123456789 · ( ) [ ] + − ×</p><p class="font-proof">Аа Бб Дд Жж Фф Яя · Съешь ещё этих мягких булок.</p><p class="hint">В своих проектах можно выбрать другой шрифт через Theme.font. Геометрия рамок от него не зависит.</p></div>
 
   <main id="catalog"><WavesExample pageBackground /><SpecimenSet componentSize="s" /><SpecimenSet componentSize="m" /><ArticleExample /></main>
   <footer>ASCII / UI · S + M</footer>

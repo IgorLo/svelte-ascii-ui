@@ -33,7 +33,7 @@ the body scrolls. Drawer is a modal panel, not permanent navigation. Resizable
 panes are a composition recipe, not a shipped drag library.
 
 ## Typography and media
-DotGothic16 is optional. Theme.font selects a loaded font; decoration uses its
+Monocraft is optional. Theme.font selects a loaded font; decoration uses its
 own monospace font. Article handles semantic HTML; Quote, Callout and Figure
 compose inside. Article fills available width; a readable example column is
 around 68ch. Informative images need meaningful alt; decoration uses empty alt.

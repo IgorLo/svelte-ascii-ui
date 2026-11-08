@@ -11,14 +11,14 @@ This experiment lives on `docs/compact-scale-comparison`. Library defaults remai
 - Select chevrons and icon-only actions need a consistent icon box and optical alignment independent of the text font.
 - Pixelarticons is the preferred visual candidate in the current review. Small/compact icon boxes use 18px artwork, large uses 24px; preserve the button dimensions. Stepper text must not create a second layout row beside the SVG.
 - Stepper SVGs are explicitly centered independently of grid tracks. Select uses a square trailing icon area with text padding reserved for it; its old zero-size glyph must not create an anonymous row before the SVG. Optional center guides help check optical alignment.
-- The compact input text is optically raised 1px without changing field height. The three treatments are candidates for S/M/L; public sizes have not been renamed.
+- Compact input text uses symmetric vertical padding with Monocraft; the former 1px upward adjustment has been removed. The three treatments are candidates for S/M/L; public sizes have not been renamed.
 - Compare free SVG icon candidates before selecting a set. Preserve the selected files' license and copyright notice; do not import paid variants or the whole catalog.
 
 ## After approval
 
-The current prototype adds a 1px downward optical adjustment to the large Select chevron. Large stepper icons have an independently switchable 1px down/right adjustment for visual comparison; this is an optical preference, not evidence of an offset in their geometric center.
+Select chevrons and stepper icons use geometric centering with no optical translation. The former 1px corrections and their toggle have been removed after review. The frame SVG is symmetric; raster checks of the large plus/minus at 100% showed matching frame and icon centers. Do not introduce a global frame translation without a reproducible asymmetric case.
 
-The font picker retains Departure Mono, Monocraft and Pixel Code alongside DotGothic16 after visual review, with a multi-font shortlist. All remaining candidates contain the full Russian alphabet. Rejected candidates and their assets have been removed. Font licenses and copyright notices accompany the demo assets. These assets are not public library exports or package dependencies. Font selection remains pending; DotGothic16 is still the default.
+Monocraft is approved as the default font for the library and demos. The font picker and rejected font assets are removed. The unmodified font and OFL notice are bundled under src/lib/fonts; the optional fonts.css entry and Theme.font override remain supported. The size/icon prototype still needs final visual review before its implementation is moved into public components.
 
 Use a shared, fixed SVG icon box with `currentColor` for built-in controls. Keep accessible names on the buttons and hide decorative SVGs from assistive technology. Preserve Button/IconButton snippet extension points. Vendor only the chosen small asset subset with its MIT notice; an icon font or a whole-catalog runtime dependency is unnecessary.
 
