@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/svelte';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import Example from '../stories/overlays/PopoverCompactExample.svelte';
 import '../src/lib/theme.css';
 
@@ -51,4 +51,27 @@ for (const size of ['s', 'm'] as const) {
     await userEvent.keyboard('{Escape}');
     expect(document.activeElement).toBe(neighbor);
   });
+}
+
+for (const size of ['s', 'm'] as const) {
+  for (const width of [320, 390]) {
+    for (const edge of [false, true]) {
+      test(`long Cyrillic help fits ${width}px at ${edge ? 'bottom right' : 'top left'} (${size})`, async () => {
+        await page.viewport(width, 640);
+        render(Example, { size, edge });
+        await userEvent.click(screen.getByRole('button', { name: 'About retention' }));
+        const dialog = screen.getByRole('dialog', { name: 'Retention help' });
+        expect(dialog.textContent).toContain('случайно удалённые материалы');
+        const rect = dialog.getBoundingClientRect();
+        expect(rect.left).toBeGreaterThanOrEqual(0);
+        expect(rect.right).toBeLessThanOrEqual(document.documentElement.clientWidth);
+        expect(rect.top).toBeGreaterThanOrEqual(0);
+        expect(rect.bottom).toBeLessThanOrEqual(document.documentElement.clientHeight);
+        expect(dialog.scrollWidth).toBeLessThanOrEqual(dialog.clientWidth);
+        expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(document.documentElement.clientWidth);
+        await userEvent.keyboard('{Escape}');
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: 'About retention' }));
+      });
+    }
+  }
 }

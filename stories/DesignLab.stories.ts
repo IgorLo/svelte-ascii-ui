@@ -20,3 +20,4 @@ export const Surfaces: Story = { args: { concern: 'surfaces' } };
 export const ScoreComposition: Story = { args: { concern: 'composition' } };
 export const PaperSurfaces: Story = { args: { concern: 'surfaces', palette: 'paper' } };
 export const PlumSurfaces: Story = { args: { concern: 'surfaces', palette: 'plum' } };
+export const ScoreCompositionMedium: Story = { args: { concern: 'composition', size: 'm' } };
