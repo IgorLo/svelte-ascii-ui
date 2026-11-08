@@ -17,15 +17,16 @@ function run(args, cwd = root, capture = false) {
   return result.stdout;
 }
 
+run(['run', 'check:release']);
 run(['run', 'build:lib']);
 const [archive] = JSON.parse(run(['pack', '--ignore-scripts', '--json', '--cache', '.npm-cache'], root, true));
 const files = new Set(archive.files.map(file => file.path));
 for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/theme.css', 'dist/fonts.css',
-  'README.md', 'LICENSE', 'docs/agents/using.md', 'docs/agents/maintaining.md', 'docs/agents/feedback.md']) {
+  'README.md', 'LICENSE', 'CHANGELOG.md', 'docs/agents/using.md', 'docs/agents/maintaining.md', 'docs/agents/feedback.md']) {
   assert(files.has(required), `Package missing ${required}`);
 }
 for (const file of files) {
-  assert(/^(dist\/|docs\/agents\/|docs\/(components|design-system)\.md$|package\.json$|README\.md$|LICENSE)/i.test(file),
+  assert(/^(dist\/|docs\/agents\/|docs\/(components|design-system)\.md$|package\.json$|README\.md$|CHANGELOG\.md$|LICENSE)/i.test(file),
     `Unexpected published file: ${file}`);
 }
 // README and shipped guides must not direct installed-package users to absent files.
