@@ -1,7 +1,23 @@
 {
   "name": "svelte-ascii-ui",
-  "private": true,
   "version": "0.1.0",
+  "author": {
+    "name": "Igor Lopatinskii",
+    "url": "https://github.com/IgorLo"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgorLo/svelte-ascii-ui.git"
+  },
+  "homepage": "https://github.com/IgorLo/svelte-ascii-ui#readme",
+  "bugs": {
+    "url": "https://github.com/IgorLo/svelte-ascii-ui/issues"
+  },
+  "keywords": ["svelte", "svelte5", "ascii", "ui-kit", "components", "design-system", "terminal"],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
@@ -41,7 +57,7 @@
     "@fontsource/pt-mono": "^5.3.0",
     "@fontsource/space-mono": "^5.3.0"
   },
-  "description": "Accessible ASCII-inspired Svelte 5 components",
+  "description": "Just a fun stylish vibecoded ASCII-like ui-kit for svelte",
   "files": [
     "dist",
     "docs/agents",

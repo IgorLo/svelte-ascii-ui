@@ -1,5 +1,7 @@
 # Svelte ASCII UI
 
+Just a fun stylish vibecoded ASCII-like ui-kit for svelte
+
 Svelte 5 component library with ASCII frames, optional DotGothic16 typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples. The npm registry release is not published yet; install the local tarball in another project.
 
 ## Working with agents
@@ -50,7 +52,7 @@ Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtim
 </Theme>
 ```
 
-Import styles once. Theme scopes tokens and frame SVGs around a screen or application. Native forms use `type="submit"` on their submit Button; default is button. Supply visible labels or aria-labels.
+Theme imports the base styles and scopes tokens and frame SVGs around a screen or application. The explicit `styles.css` entry is available for integrations that manage stylesheet imports separately; importing it alongside Theme is optional. The `fonts.css` entry loads the bundled font separately. Native forms use `type="submit"` on their submit Button; default is button. Supply visible labels or aria-labels.
 
 ## Themes
 
@@ -60,7 +62,28 @@ Import styles once. Theme scopes tokens and frame SVGs around a screen or applic
 </Theme>
 ```
 
-Colors: background, surface, text, muted, accent, danger, warning. Theme regenerates matching frame images. Its `font` prop selects another loaded font. Text can wrap differently; frame geometry is independent. The optional font entry includes its OFL license.
+The seven semantic colors are `background` (control/overlay background), `surface` (secondary surfaces), `text` (main text/focus), `muted` (secondary text/borders), `accent` (primary actions/selection), `danger` (errors/destructive states), and `warning` (warnings). Pass any subset; omitted colors come from the selected preset. For a fully custom palette, assign all seven roles. A partial override does not regenerate the other base colors or guarantee contrast.
+
+Keep the configuration in an application file rather than repeating literals in markup:
+
+```ts
+// theme.ts in the consuming application
+import type { ThemeColors } from 'svelte-ascii-ui';
+
+export const appColors = {
+  background: '#181c19',
+  surface: '#202621',
+  text: '#e2e6d9',
+  muted: '#a7b29e',
+  accent: '#c4ed83',
+  danger: '#ffb6a8',
+  warning: '#e6d99b',
+} satisfies ThemeColors;
+```
+
+Import `appColors` in the application and pass `colors={appColors}` to Theme. Use resolved color values such as hex or RGB; host-page CSS variables do not resolve inside the generated SVG frame images. For a light custom palette, use `palette="paper"` as the base so native controls receive the light color scheme.
+
+Theme generates frame images from these colors, including muted/button opacity and a stronger text-colored focus frame. Component styles derive additional translucent fills and disabled states. These are not a complete palette generator: assign colors from your chosen palette to the seven roles and check the resulting text, borders and states in Storybook. Theme's `font` prop selects another loaded font. Text can wrap differently; frame geometry is independent. Theme supplies tokens; the application owns the page background and layout.
 
 S/M controls are 36/48 CSS pixels high; coarse pointers have at least 44px targets. Article has no S/M variant and occupies available width. Width constraints belong to the page. See [design guide](docs/design-system.md).
 
@@ -103,3 +126,7 @@ GitHub Actions runs these checks plus demo and Storybook builds on pushes and pu
 Outputs: dist (library), demo-dist (visual specimen), storybook-static (static catalogue). The tarball contains dist, package metadata/README and the selected guidance listed in package.json. Stories, prototype files and fixtures stay out. Inspect `npm pack --dry-run --json` when changing package contents.
 
 Version 0.1.0 APIs may evolve with real project use. Accessibility checks are not certification: applications own labels, content, palette contrast and page structure.
+
+## License
+
+[MIT](LICENSE) — Copyright (c) 2026 Igor Lopatinskii. Bundled fonts retain their own licenses, included alongside the font assets.
