@@ -21,6 +21,9 @@
   input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: inherit; }
   .mark { display: grid; place-content: center; min-height: var(--choice-box); width: calc(var(--choice-box) + 24px); height: var(--choice-box); padding: 0; font-family: var(--art-font); font-variant-east-asian: normal; }
   input:checked + .mark { color: var(--accent); }
+  @media (hover: hover) {
+    .choice:hover input:enabled:not(:focus-visible) + .mark { border-image-source: var(--ascii-accent); background-color: color-mix(in srgb, var(--text) 4%, var(--bg)); }
+  }
   input:focus-visible + .mark { outline: 2px dashed var(--accent); outline-offset: 3px; }
   .choice:has(input:disabled) { color: var(--muted); cursor: not-allowed; }
   input:disabled + .mark { opacity: .55; }
