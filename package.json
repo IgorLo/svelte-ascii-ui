@@ -71,7 +71,8 @@
     "CHANGELOG.md",
     "docs/agents",
     "docs/design-system.md",
-    "docs/components.md"
+    "docs/components.md",
+    "docs/composition.md"
   ],
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",

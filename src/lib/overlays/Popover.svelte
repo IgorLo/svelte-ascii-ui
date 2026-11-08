@@ -6,9 +6,9 @@
   import './floating.css';
 
   type Props = Omit<HTMLButtonAttributes, 'children' | 'size'> & {
-    label: string; title?: string; open?: boolean; trigger?: Snippet; children?: Snippet<[() => void]>; size?: Size;
+    label: string; title?: string; open?: boolean; trigger?: Snippet; children?: Snippet<[() => void]>; size?: Size; triggerVariant?: 'button' | 'compact';
   };
-  let { label, title, open = $bindable(false), trigger, children, size = 's', type = 'button',
+  let { label, title, open = $bindable(false), trigger, children, size = 's', triggerVariant = 'button', type = 'button',
     class: className, onclick, ...rest }: Props = $props();
   const id = $props.id();
   let anchor: HTMLButtonElement;
@@ -34,11 +34,11 @@
   if (open && panel && event.target !== anchor && !panel.contains(event.target as Node)) dismiss(false);
 }} />
 
-<button {...rest} bind:this={anchor} {type} class={['aui-button', className]} data-size={size} aria-label={rest['aria-label'] ?? label}
+<button {...rest} bind:this={anchor} {type} class={['aui-button', className]} data-size={size} data-trigger-variant={triggerVariant} aria-label={rest['aria-label'] ?? label}
   aria-haspopup="dialog" aria-controls={open ? id : undefined} aria-expanded={open}
   onclick={(event) => { onclick?.(event); if (!event.defaultPrevented) open = !open; }}
   onkeydown={(event) => { rest.onkeydown?.(event); if (open && !event.defaultPrevented && event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); dismiss(); } }}>
-  {#if trigger}{@render trigger()}{:else}{label}{/if}
+  {#if trigger}{@render trigger()}{:else if triggerVariant === 'compact'}<span aria-hidden="true">[?]</span>{:else}{label}{/if}
 </button>
 {#if open}
   <div bind:this={panel} {id} popover="manual" role="dialog" aria-label={title ?? label} tabindex="-1"
@@ -48,3 +48,30 @@
     {@render children?.(dismiss)}
   </div>
 {/if}
+
+<style>
+  .aui-button[data-trigger-variant='compact'] {
+    border: 0;
+    border-image: none;
+    min-inline-size: 24px;
+    min-block-size: 24px;
+    min-height: 24px;
+    padding: 2px;
+    line-height: 1.25;
+    flex-shrink: 0;
+  }
+  .aui-button[data-trigger-variant='compact']:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+  @media (pointer: coarse) {
+    .aui-button[data-trigger-variant='compact'] {
+      min-inline-size: 44px;
+      min-block-size: 44px;
+      min-height: 44px;
+    }
+  }
+  @media (forced-colors: active) {
+    .aui-button[data-trigger-variant='compact']:focus-visible { outline-color: Highlight; }
+  }
+</style>
