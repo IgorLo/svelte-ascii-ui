@@ -67,6 +67,9 @@ jobs:
         # Offline preview also works when manually checking an already released version.
         # The real publish below still performs registry/version/authentication checks.
         run: npm publish "./$PACKAGE_ARCHIVE" --dry-run --offline --ignore-scripts --access public
+      - name: Diagnose trusted publishing authentication
+        if: github.event_name == 'workflow_dispatch'
+        run: npm publish "./$PACKAGE_ARCHIVE" --dry-run --ignore-scripts --access public --loglevel verbose
       - name: Publish verified archive with npm trusted publishing
         if: github.event_name == 'release'
         run: npm publish "./$PACKAGE_ARCHIVE" --ignore-scripts --access public
