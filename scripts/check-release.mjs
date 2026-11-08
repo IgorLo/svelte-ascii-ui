@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { validateRelease } from './release-policy.mjs';
 
 try {
@@ -9,6 +9,8 @@ try {
     ? JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')).release : undefined;
   let published = [];
   if (publishing) {
+    const pending = readdirSync('.changeset').filter(file => file.endsWith('.md') && file !== 'README.md');
+    if (pending.length) throw new Error('Consume pending changesets with release:version before publishing');
     const response = await fetch(`https://registry.npmjs.org/${encodeURIComponent(pkg.name)}`, { signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error(`Cannot verify npm versions (HTTP ${response.status}); publication stopped`);
     const metadata = await response.json();

@@ -141,3 +141,5 @@ Stable GitHub Releases trigger the npm publishing workflow after verification. M
 ## License
 
 [MIT](LICENSE) — Copyright (c) 2026 Igor Lopatinskii. Bundled fonts retain their own licenses, included alongside the font assets.
+
+Contributions target `develop` and include a changeset (`npm run changeset`). Preview the batch with `npm run check:changesets`; prepare an authorized release with `npm run release:version`. See [release rules](docs/agents/releasing.md). Neither command publishes to npm.
