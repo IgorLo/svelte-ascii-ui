@@ -42,6 +42,8 @@ Missing evidence must be marked unknown, not invented. A source standard is need
 
 ## Kit maintainer: choose a disposition
 
+For visual, interaction, accessibility or composition reports, follow [design analysis](design-review.md) to select skills, inspect shared causes and gather evidence before the decision table.
+
 Before implementation, read the relevant issues and comments together, reproduce against the reported version and current code, and separate the user's need from the reporter's proposed implementation. Mark unverified claims and missing evidence explicitly.
 
 Check related components, shared tokens/styles and similar reports before deciding scope. Look for a common cause rather than patching only the named component. A shared cause can justify a system-wide correction; one screenshot does not justify changing unrelated controls. Consistent interaction rules need not produce identical visuals everywhere.
