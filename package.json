@@ -1,6 +1,6 @@
 {
   "name": "svelte-ascii-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Igor Lopatinskii",
     "url": "https://github.com/IgorLo"
@@ -14,7 +14,15 @@
   "bugs": {
     "url": "https://github.com/IgorLo/svelte-ascii-ui/issues"
   },
-  "keywords": ["svelte", "svelte5", "ascii", "ui-kit", "components", "design-system", "terminal"],
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "ascii",
+    "ui-kit",
+    "components",
+    "design-system",
+    "terminal"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -27,22 +35,28 @@
     "build:lib": "svelte-package",
     "storybook": "storybook dev -p 6006 --no-open",
     "build:storybook": "storybook build",
-    "test": "npm run test:unit && npm run test:browser",
-    "test:unit": "node --experimental-strip-types --test bench/frame-loop.test.mjs bench/sine-pattern.test.mjs tests/release-policy.test.mjs",
+    "test": "npm run test:unit && npm run test:browser && npm run test:browser:choice-touch",
+    "test:unit": "node --experimental-strip-types --test bench/frame-loop.test.mjs bench/sine-pattern.test.mjs tests/release-policy.test.mjs tests/changesets.test.mjs",
     "check:release": "node scripts/check-release.mjs",
     "release:notes": "node scripts/check-release.mjs --notes",
     "test:browser": "vitest run",
+    "test:browser:choice-touch": "vitest run --config vitest.choice-touch.config.ts",
     "test:package": "node scripts/check-package.mjs",
-    "prepack": "npm run check:release && npm run build:lib"
+    "prepack": "npm run check:release && npm run build:lib",
+    "changeset": "changeset",
+    "changeset:status": "changeset status",
+    "check:changesets": "node scripts/check-changesets.mjs",
+    "release:version": "npm run check:changesets && changeset version && npm install --package-lock-only --ignore-scripts"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@changesets/get-release-plan": "^5.0.2",
     "@storybook/addon-a11y": "^10.6.6",
     "@storybook/addon-docs": "^10.6.6",
     "@storybook/svelte-vite": "^10.6.6",
     "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@testing-library/svelte": "^5.4.2",
-    "@testing-library/user-event": "^14.6.8",
     "@vitest/browser-playwright": "^5.1.0",
     "playwright": "^1.65.0",
     "storybook": "^10.6.6",
@@ -50,14 +64,7 @@
     "svelte-check": "^4.6.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16",
-    "vitest": "^5.1.0",
-    "@fontsource-variable/cascadia-code": "^5.3.0",
-    "@fontsource/courier-prime": "^5.3.0",
-    "@fontsource/dotgothic16": "^5.3.1",
-    "@fontsource/ibm-plex-mono": "^5.3.0",
-    "@fontsource/jetbrains-mono": "^5.3.0",
-    "@fontsource/pt-mono": "^5.3.0",
-    "@fontsource/space-mono": "^5.3.0"
+    "vitest": "^5.1.0"
   },
   "description": "Just a fun stylish vibecoded ASCII-like ui-kit for svelte",
   "files": [
@@ -65,7 +72,8 @@
     "CHANGELOG.md",
     "docs/agents",
     "docs/design-system.md",
-    "docs/components.md"
+    "docs/components.md",
+    "docs/composition.md"
   ],
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",

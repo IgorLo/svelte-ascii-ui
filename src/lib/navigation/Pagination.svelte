@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
   import type { Size } from '../types';
+  import Icon from '../Icon.svelte';
 
   type Props = Omit<HTMLAttributes<HTMLElement>, 'children' | 'onchange'> & {
     page?: number; totalPages: number; disabled?: boolean; size?: Size; label?: string;
@@ -33,7 +34,7 @@
 <nav aria-label={label} {...rest}>
   <div class="pages">
     <button type="button" class="aui-button" data-size={size} aria-label={previousLabel} disabled={disabled || current <= 1}
-      onclick={(event) => select(current - 1, event)}><span aria-hidden="true">&lt;</span></button>
+      onclick={(event) => select(current - 1, event)}><span class="previous" aria-hidden="true"><Icon name="chevron-down" /></span></button>
     {#each pages as entry (entry)}
       {#if typeof entry === 'number'}
         <button type="button" class="aui-button" data-size={size} data-variant={current === entry ? 'primary' : undefined}
@@ -42,7 +43,7 @@
       {:else}<span class="gap" aria-hidden="true">...</span>{/if}
     {/each}
     <button type="button" class="aui-button" data-size={size} aria-label={nextLabel} disabled={disabled || current >= total}
-      onclick={(event) => select(current + 1, event)}><span aria-hidden="true">&gt;</span></button>
+      onclick={(event) => select(current + 1, event)}><span class="next" aria-hidden="true"><Icon name="chevron-down" /></span></button>
   </div>
 </nav>
 
@@ -50,4 +51,8 @@
   .pages { display: flex; flex-wrap: wrap; align-items: center; gap: .35em; }
   .gap { padding-inline: .25ch; color: var(--muted); }
   button { min-width: 36px; }
+  .previous { display: block; transform: rotate(90deg); }
+  .next { display: block; transform: rotate(-90deg); }
+  .previous:dir(rtl) { transform: rotate(-90deg); }
+  .next:dir(rtl) { transform: rotate(90deg); }
 </style>

@@ -12,6 +12,7 @@ export function asciiFrame(color: string, opacity = 1, stroke = 1): string {
 }
 export function themeStyle(colors: ThemeColors): string {
   const entries: Record<string,string> = {bg:colors.background,surface:colors.surface,text:colors.text,muted:colors.muted,accent:colors.accent,danger:colors.danger,warning:colors.warning,line:colors.muted,
+    'ascii-frame-compact':asciiFrame(colors.muted,1,1.4),'ascii-button-compact':asciiFrame(colors.muted,1,1.4),'ascii-accent-compact':asciiFrame(colors.accent,1,1.4),'ascii-error-compact':asciiFrame(colors.danger,1,1.4),
     'ascii-frame':asciiFrame(colors.muted),'ascii-muted':asciiFrame(colors.muted,.48),'ascii-button':asciiFrame(colors.muted,.85),'ascii-accent':asciiFrame(colors.accent),'ascii-error':asciiFrame(colors.danger),'ascii-focus':asciiFrame(colors.text,1,2.2)};
   return Object.entries(entries).map(([key,value])=>`--${key}:${value}`).join(';');
 }

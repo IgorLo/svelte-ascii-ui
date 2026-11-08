@@ -1,3 +1,3 @@
 <script lang="ts">import type{Snippet}from'svelte';import type{Tone}from'../types';let{title='Важно',children,message,tone='default'}:{title?:string;children?:Snippet;message?:string;tone?:Tone}=$props();</script>
 <aside aria-label={title} data-tone={tone}><strong><span aria-hidden="true">[!] </span>{title}</strong>{#if message}<p>{message}</p>{/if}{@render children?.()}</aside>
-<style>aside{padding:.8em 2ch;border:1px dashed var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--bg));overflow-wrap:anywhere}strong{font-weight:400}p{margin:.6em 0 0}[data-tone='danger']{border-color:var(--danger)}[data-tone='warning']{border-color:var(--warning)}</style>
+<style>aside{padding:.8em 2ch;border:1px dashed var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--bg));overflow-wrap:anywhere}strong{font-weight:600}p{margin:.6em 0 0}[data-tone='danger']{border-color:var(--danger)}[data-tone='warning']{border-color:var(--warning)}</style>

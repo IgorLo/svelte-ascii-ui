@@ -4,11 +4,12 @@ Work from the current issue, code and product request. Public documentation desc
 
 - For component, token, accessibility or public API changes, follow `docs/agents/maintaining.md`, including its documentation impact checklist before declaring completion.
 - For use in another project, follow `docs/agents/using.md`. It defines application vs library ownership and the consumer-project instruction to install.
-- For a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
+- For incoming issue triage, closure, a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
+- For design-related issues and audits, follow `docs/agents/design-review.md` for evidence, skill selection and research before proposing fixes.
 - For visual decisions, use `docs/design-system.md`. For audits, record the applicable criterion, reproducible evidence and untested cases alongside each finding.
-- For changes, version selection, changelog entries or releases, follow `docs/agents/releasing.md`. Develop on a task branch and merge through a passing PR. Major version increases require the human's explicit approval; a general request to publish is not approval for a major bump.
+- For changes, Changesets, version selection, changelog entries or releases, follow `docs/agents/releasing.md`. Branch from develop and target develop for ordinary task PRs; promote a batch to main only through an authorized release PR. Release preparation, version bumps, tags and publication each require an explicit human release request; permission to merge is not release permission. Major version increases require the human's explicit approval; a general request to publish is not approval for a major bump.
 
-`src/lib` and its public exports are the reusable implementation. Stories exercise it. The general demo currently uses mostly historical prototype code; changing that code alone does not fix the package. Verify which implementation a reported screenshot uses.
+`src/lib` and its public exports are the reusable implementation. Storybook and `src/Gallery.svelte` exercise those same components. Keep component behavior and styling in the library; gallery CSS owns only page composition. Temporary visual experiments must be removed after their accepted decisions are implemented and documented.
 
 Use the public API, documented theme settings and composition for integrations. Internal style overrides, copied components and patches to installed dependencies require the user's explicit approval for the particular exception; prepare the feedback draft instead of silently introducing them.
 

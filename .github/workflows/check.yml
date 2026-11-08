@@ -8,11 +8,17 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run check:changesets
+        env:
+          CHANGESET_BASE: ${{ github.event.pull_request.base.sha }}
+          APPROVED_MAJOR_VERSION: ${{ vars.APPROVED_MAJOR_VERSION }}
       - run: npm run check:release
       - run: npx playwright install --with-deps chromium
       - run: npm run check

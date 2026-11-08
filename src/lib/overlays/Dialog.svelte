@@ -73,7 +73,7 @@
   [data-overlay-size='fit'] { width: fit-content; max-width: min(70ch, calc(100vw - 32px)); }
   .header, .footer { display: flex; justify-content: space-between; align-items: flex-start; gap: .75em; padding: 1em; flex: 0 0 auto; }
   .header > div { min-width: 0; overflow-wrap: anywhere; }
-  .header h2 { margin: 0; font-size: 1.15em; font-weight: normal; }
+  .header h2 { margin: 0; font-size: 1.15em; font-weight: 600; }
   .body { padding: 0 1em 1em; min-height: 0; overflow: auto; overscroll-behavior: contain; overflow-wrap: anywhere; scrollbar-color: var(--muted) var(--bg); }
   .body :global(p:first-child) { margin-top: 0; }
   .footer { justify-content: flex-end; flex-wrap: wrap; border-top: 1px dashed var(--line); }

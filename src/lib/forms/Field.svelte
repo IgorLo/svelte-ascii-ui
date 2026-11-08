@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .field { display: grid; gap: .5rem; }
+  .field { font-size: var(--component-font); display: grid; gap: var(--field-gap, 8px); }
   .hint,.error { font-size: .875em; }
   .hint { color: var(--muted); }
   .required { display: inline-block; margin-inline-start: .5ch; white-space: nowrap; }

@@ -19,11 +19,14 @@
 <style>
   .choice { position: relative; display: inline-flex; align-items: center; gap: .65ch; min-height: var(--control-height, 48px); cursor: pointer; }
   input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: inherit; }
-  .mark { display: grid; place-content: center; min-height: var(--choice-box); width: var(--choice-box); height: var(--choice-box); padding: 0; font-family: var(--art-font); font-variant-east-asian: normal; }
+  .mark { flex: none; min-width: var(--choice-box); display: grid; place-content: center; min-height: var(--choice-box); width: var(--choice-box); height: var(--choice-box); padding: 0; font-family: var(--art-font); font-variant-east-asian: normal; }
   input:checked + .mark, input:indeterminate + .mark { color: var(--accent); }
+  @media (hover: hover) {
+    .choice:hover input:enabled:not(:focus-visible) + .mark { border-image-source: var(--ascii-accent); background-color: color-mix(in srgb, var(--text) 4%, var(--bg)); }
+  }
   input:focus-visible + .mark { outline: 2px dashed var(--accent); outline-offset: 3px; }
   .choice:has(input:disabled) { color: var(--muted); cursor: not-allowed; }
   input:disabled + .mark { opacity: .55; }
-  @media (pointer: coarse) { .choice { min-height: max(44px, var(--control-height)); } }
+  @media (pointer: coarse) { .choice { min-inline-size: 44px; min-height: max(44px, var(--control-height)); } }
   @media (forced-colors: active) { input:focus-visible + .mark { outline-color: Highlight; } }
 </style>

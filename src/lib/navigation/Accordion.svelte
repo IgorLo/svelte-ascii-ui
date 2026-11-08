@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from 'svelte/elements';
   import type { Size } from '../types';
   import type { AccordionItem } from './types';
+  import Icon from '../Icon.svelte';
 
   type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onchange'> & {
     items: readonly AccordionItem[]; value?: string | string[]; multiple?: boolean; size?: Size;
@@ -30,7 +31,7 @@
         <button type="button" class="aui-button toggle" data-size={size} disabled={item.disabled}
           aria-label={item.title} aria-expanded={expanded} aria-controls={id}
           onclick={() => toggle(item.id)}>
-          <span class="chevron" aria-hidden="true">{expanded ? 'v' : '>'}</span>
+          <span class={['chevron', { collapsed: !expanded }]} aria-hidden="true"><Icon name="chevron-down" /></span>
           {#if header}{@render header(item, expanded)}{:else}{item.title}{/if}
         </button>
       </svelte:element>
@@ -45,6 +46,8 @@
   .accordion { display: grid; gap: .45em; }
   .heading { margin: 0; font: inherit; }
   .toggle { width: 100%; justify-content: flex-start; text-align: start; gap: .75ch; }
-  .chevron { width: 1ch; flex: none; font-family: var(--art-font); font-variant-east-asian: normal; }
+  .chevron { display: grid; place-items: center; flex: none; }
+  .chevron.collapsed { transform: rotate(-90deg); }
+  .chevron.collapsed:dir(rtl) { transform: rotate(90deg); }
   .content { margin-block-start: .35em; padding-inline: 1ch; overflow-wrap: anywhere; }
 </style>

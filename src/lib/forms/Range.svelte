@@ -62,8 +62,9 @@
 </div>
 
 <style>
-  .scale { --scale-height: 30px; min-width: 0; }
+  .scale { --scale-height: 27px; min-width: 0; }
   .scale[data-size='s'] { --scale-height: 24px; }
+  .scale[data-size='l'] { --scale-height: 30px; }
   .track { position: relative; height: var(--scale-height); margin-block: 6px; }
   .drawing { position: absolute; inset: 0; color: var(--muted); font: 16px/20px var(--art-font); font-variant-east-asian: normal; pointer-events: none; }
   .start, .end, .handle { position: absolute; top: 50%; transform: translateY(-50%); }
@@ -81,7 +82,7 @@
   .track:has(input:disabled) { opacity: .55; }
   input:disabled { cursor: not-allowed; }
   .track:has(input:focus-visible) { outline: 2px dashed var(--accent); outline-offset: 2px; }
-  @media (pointer: coarse) { .scale, .scale[data-size='s'] { --scale-height: 44px; } }
+  @media (pointer: coarse) { .scale, .scale[data-size] { --scale-height: 44px; } }
   @media (forced-colors: active) { .track:has(input:focus-visible) { outline-color: Highlight; } .dashes .chosen, .handle { color: Highlight; } }
   .lower { clip-path: inset(0 calc(100% - (10px + (100% - 20px) * var(--split))) 0 0); }
   .upper { clip-path: inset(0 0 0 calc(10px + (100% - 20px) * var(--split))); }

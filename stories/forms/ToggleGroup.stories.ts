@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', label: 'Text formatting', options: formats, value: 'bold' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     label: { control: 'text' }, multiple: { control: 'boolean' }, options: { control: 'object' },
   },
@@ -20,3 +20,5 @@ export const Playground: Story = {};
 export const Small: Story = { args: { size: 's' } };
 export const Multiple: Story = { args: {multiple:true,value:['bold','italic']} };
 export const Disabled: Story = { args: {disabled:true} };
+
+export const Large: Story = { args: { size: 'l' } };
