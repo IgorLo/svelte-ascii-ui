@@ -4,7 +4,7 @@ Work from the current issue, code and product request. Public documentation desc
 
 - For component, token, accessibility or public API changes, follow `docs/agents/maintaining.md`, including its documentation impact checklist before declaring completion.
 - For use in another project, follow `docs/agents/using.md`. It defines application vs library ownership and the consumer-project instruction to install.
-- For a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
+- For incoming issue triage, closure, a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
 - For visual decisions, use `docs/design-system.md`. For audits, record the applicable criterion, reproducible evidence and untested cases alongside each finding.
 - For changes, Changesets, version selection, changelog entries or releases, follow `docs/agents/releasing.md`. Branch from develop and target develop for ordinary task PRs; promote a batch to main only through an authorized release PR. Release preparation, version bumps, tags and publication each require an explicit human release request; permission to merge is not release permission. Major version increases require the human's explicit approval; a general request to publish is not approval for a major bump.
 

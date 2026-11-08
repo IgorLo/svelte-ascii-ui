@@ -42,7 +42,13 @@ Missing evidence must be marked unknown, not invented. A source standard is need
 
 ## Kit maintainer: choose a disposition
 
-Reproduce against the reported version and current code before choosing:
+Before implementation, read the relevant issues and comments together, reproduce against the reported version and current code, and separate the user's need from the reporter's proposed implementation. Mark unverified claims and missing evidence explicitly.
+
+Check related components, shared tokens/styles and similar reports before deciding scope. Look for a common cause rather than patching only the named component. A shared cause can justify a system-wide correction; one screenshot does not justify changing unrelated controls. Consistent interaction rules need not produce identical visuals everywhere.
+
+Present a decision table to the user before fixing the batch: issue, evidence/cause, owner (application, documentation, component or system), proposed disposition, affected components and acceptance checks. After approval, implement autonomously within that scope. Return for agreement if new findings materially change scope, public API or visual direction.
+
+Choose the smallest coherent response, including guidance or no library change where appropriate:
 
 | Finding | Disposition |
 | --- | --- |
@@ -55,4 +61,12 @@ Reproduce against the reported version and current code before choosing:
 
 One consumer can reveal a real bug; a second project is not required to fix it. Equally, one screenshot does not justify changing every component's density. Acceptance of an issue does not oblige the maintainer to implement its suggested solution.
 
-For an accepted change, follow [maintaining](maintaining.md). Link the regression story/test and release version back to the report. A merged fix and a verified consumer upgrade are separate outcomes: close the loop by retesting the original consuming flow, not just the component demo. Any closure comment or other external write must be within the user's authorization.
+Propose refusals (out of scope, unsupported or intentional behavior) with reasons and a supported alternative where one exists. Obtain the user's agreement before closing without implementation; agreement can be given in the batch decision table. Missing evidence or inability to reproduce alone is not a rejection: state what needs checking.
+
+For an accepted change, follow [maintaining](maintaining.md), including regression coverage, related variants and the original scenario. Record general design decisions in the design guide; keep issue-specific evidence and rationale with the issue. Public guides contain reusable rules, not private consumer context.
+
+## Close after verified integration
+
+Once the agreed solution is implemented, acceptance checks pass and the PR is merged into develop, reply to the issue and close it. Explain the result, link the merged PR and relevant verification, and say: **Fixed in develop; will be included in the next release. Not published yet.** Do not close on a plan, an unmerged PR or while agreed implementation/verification remains incomplete. For documentation changes, describe the guidance added rather than claiming a runtime fix.
+
+A consumer upgrade retest is distinct from kit verification; state any untested consumer outcome without making it a release-dependent closure requirement. No routine follow-up comment after publication is required. Do not promise a version or release date before one is agreed. Closing an issue never authorizes a release; follow [release rules](releasing.md).

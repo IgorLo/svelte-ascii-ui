@@ -4,7 +4,7 @@ Read this for changes to components, tokens, accessibility, packaging, docs, or 
 
 ## Change workflow
 
-1. Identify the source implementation, public contract and consumer case. For incoming feedback, use [feedback](feedback.md). Reproduce defects; for a design change state the intended behavior and affected variants. Completion: expected and actual behavior are distinguishable without guessing from a screenshot.
+1. Identify the source implementation, public contract and consumer case. For incoming feedback, use [feedback](feedback.md) for batch decisions, shared-cause assessment, approval and closure. Reproduce defects; for a design change state the intended behavior and affected variants. Completion: expected and actual behavior are distinguishable without guessing from a screenshot.
 2. Choose the smallest coherent change: usage guidance, composition, existing API, then a new primitive if justified. Changes to system-wide defaults need representative screen comparisons. Completion: decision and acceptance checks are recorded in the task/issue or a linked repo note.
 3. Implement in the library. Keep routing, fetching and business state in consumers. Update stories for the changed states and add meaningful regression tests for behavior. Completion: consumers can reach the result through public exports and documented extension points.
 4. Verify the affected variants, multiple instances where relevant, keyboard behavior and responsive composition. Use a fixed seed/paused motion for visual comparisons. Run appropriate checks from package.json; packaging/API changes require an installed-package consumer and SSR check. Completion: report actual commands/results and untested cases.
