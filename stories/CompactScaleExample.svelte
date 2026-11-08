@@ -4,11 +4,14 @@
   import type { Palette } from '../src/lib';
   import { asciiFrame, palettes } from '../src/lib/theme';
   import { iconCandidates } from './icon-candidates';
+  import FontPicker from './FontPicker.svelte';
 
   let { palette = 'phosphor' }: { palette?: Palette } = $props();
   let feedback = $state('');
+  let demoFont = $state("'DotGothic16 UI', monospace");
   let selectedIcons = $state('pixelarticons');
   let showCenters = $state(false);
+  let opticalStepper = $state(true);
   const icons = $derived(iconCandidates.find(candidate => candidate.id === selectedIcons) ?? iconCandidates[0]);
   const iconNames = ['plus', 'minus', 'down', 'close', 'refresh', 'info'] as const;
   const frame = $derived(asciiFrame(palettes[palette].muted, 1, 1.4));
@@ -23,8 +26,8 @@
   const modes = [{ value: 'draft', label: 'Сохранить как черновик' }, { value: 'review', label: 'Передать на проверку' }];
 </script>
 
-<Theme {palette}>
-  <main lang="ru" class={{ 'show-centers': showCenters }} style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
+<Theme {palette} font={demoFont}>
+  <main lang="ru" class={{ 'show-centers': showCenters, 'optical-stepper': opticalStepper }} style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
     style:--icon-plus={`url("${icons.icons.plus}")`} style:--icon-minus={`url("${icons.icons.minus}")`} style:--icon-down={`url("${icons.icons.down}")`}>
     <header>
       <p class="eyebrow">Сравнение масштаба</p>
@@ -32,7 +35,9 @@
       <p>Во всех трёх вариантах текст уменьшен на 1 px. Это проба: размеры S и M в библиотеке не меняются.</p>
       <p class="note">На узком экране текст полей остаётся 16 px; для касания высота целей — не меньше 44 px. Проверьте ввод, Tab и выбор стрелками.</p>
       <Checkbox size="s" label="Показать линии центра иконок" bind:checked={showCenters} />
+      <Checkbox size="s" label="Крупные +/−: оптическая поправка на 1 px вниз и вправо" bind:checked={opticalStepper} />
     </header>
+    <FontPicker {palette} bind:font={demoFont} />
     <section class="icon-review" aria-label="Выбор SVG-иконок">
       <h2>Иконки: выберите набор для формы ниже</h2>
       <p class="note">Оба набора — бесплатные SVG по MIT. Уведомления об авторстве сохранены. Новых зависимостей нет.</p>
@@ -47,7 +52,8 @@
               {/each}
             </div>
             <Button size="s" label={selectedIcons === candidate.id ? 'Выбран' : 'Посмотреть в форме'} aria-pressed={selectedIcons === candidate.id} onclick={() => selectedIcons = candidate.id} />
-            <a href={candidate.source} target="_blank" rel="noreferrer">Исходники и лицензия</a>
+            <div><a href={candidate.source} target="_blank" rel="noreferrer">Исходники</a>
+            · <a href={candidate.licenseUrl} target="_blank" rel="noreferrer">Лицензия</a></div>
           </Panel>
         {/each}
       </div>
@@ -133,6 +139,8 @@
   .sample :global(.inline > .aui-button > span) { display: none; }
   .sample :global(.inline > .aui-button)::after { content: ''; position: absolute; inset: 0; margin: auto; inline-size: var(--demo-icon-size); block-size: var(--demo-icon-size); background: currentColor; mask: var(--icon-plus) center / contain no-repeat; }
   .sample :global(.inline > .aui-button:first-child)::after { mask-image: var(--icon-minus); }
+  .current-m :global(.chevron)::after { transform: translateY(1px); }
+  .optical-stepper .current-m :global(.inline > .aui-button)::after { transform: translate(1px,1px); }
   .sample :global(.aui-icon-button > span) { transform: none; }
   .sample :global(.aui-icon-button) { min-height: var(--control-height); }
   .compact .preferences { font-size: 12px; gap: 10px; }

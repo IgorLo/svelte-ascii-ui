@@ -1,0 +1,136 @@
+export interface FontCandidate {
+  id: string;
+  label: string;
+  family: string;
+  url: string;
+  format: 'woff2' | 'truetype' | 'woff';
+  /** Complete Russian alphabet U+0410–044F plus Ё/ё, verified from the font cmap. */
+  cyrillic: boolean;
+  notes: string;
+  license: string;
+  source: string;
+  recommendedSize: number;
+}
+
+export const fontCandidates: readonly FontCandidate[] = [
+  {
+    id: "departure-mono",
+    label: "Departure Mono",
+    family: "Demo Departure Mono",
+    url: new URL('./departure-mono/DepartureMono-1.500.woff2', import.meta.url).href,
+    format: "woff2",
+    cyrillic: true,
+    notes: "Технический пиксельный моноширинный шрифт; автор рекомендует размеры, кратные 11 px.",
+    license: "OFL-1.1",
+    source: "https://github.com/rektdeckard/departure-mono/tree/75152a3f1e6dacdd248a6c397c97dbf27e33eea0",
+    recommendedSize: 11,
+  },
+  {
+    id: "monocraft",
+    label: "Monocraft",
+    family: "Demo Monocraft",
+    url: new URL('./monocraft/Monocraft.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: true,
+    notes: "Пиксельный моноширинный шрифт в духе Minecraft, с лигатурами для кода.",
+    license: "OFL-1.1",
+    source: "https://github.com/IdreesInc/Monocraft/tree/e498bf70aeb25b4bdcff1e44d878fb2cb4f7c2a9",
+    recommendedSize: 16,
+  },
+  {
+    id: "pixel-code",
+    label: "Pixel Code",
+    family: "Demo Pixel Code",
+    url: new URL('./pixel-code/PixelCode.woff2', import.meta.url).href,
+    format: "woff2",
+    cyrillic: true,
+    notes: "Пиксельный моноширинный шрифт для кода с плотными, открытыми формами букв.",
+    license: "OFL-1.1",
+    source: "https://github.com/qwerasd205/PixelCode/tree/eefe4180f376b5bd9a9d3c39f1fca6956fdbb702",
+    recommendedSize: 16,
+  },
+  {
+    id: "cozette",
+    label: "Cozette",
+    family: "Demo Cozette",
+    url: new URL('./cozette/CozetteVector.woff2', import.meta.url).href,
+    format: "woff2",
+    cyrillic: true,
+    notes: "Компактный моноширинный шрифт в растровом стиле, рассчитанный на 13 px.",
+    license: "MIT",
+    source: "https://github.com/the-moonwitch/Cozette/releases/tag/v.1.30.0",
+    recommendedSize: 13,
+  },
+  {
+    id: "tamzen",
+    label: "Tamzen",
+    family: "Demo Tamzen",
+    url: new URL('./tamzen/Tamzen7x13r.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: false,
+    notes: "Классический компактный терминальный шрифт с сеткой 7×13.",
+    license: "Tamzen/Tamsyn permissive",
+    source: "https://github.com/sunaku/tamzen-font/tree/3255e8259bc9b880c60ab8b737ec8aa574e00d75",
+    recommendedSize: 13,
+  },
+  {
+    id: "vt323",
+    label: "VT323",
+    family: "Demo VT323",
+    url: new URL('./vt323/VT323-Regular.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: false,
+    notes: "Высокий узкий пиксельный моноширинный шрифт в духе терминалов DEC.",
+    license: "OFL-1.1",
+    source: "https://github.com/google/fonts/tree/5bb28733cec313b63fbd415b574b5ae35c8aa8b8/ofl/vt323",
+    recommendedSize: 16,
+  },
+  {
+    id: "press-start-2p",
+    label: "Press Start 2P",
+    family: "Demo Press Start 2P",
+    url: new URL('./press-start-2p/PressStart2P-Regular.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: true,
+    notes: "Широкий аркадный пиксельный шрифт; особенно подходит для коротких надписей.",
+    license: "OFL-1.1",
+    source: "https://github.com/google/fonts/tree/5bb28733cec313b63fbd415b574b5ae35c8aa8b8/ofl/pressstart2p",
+    recommendedSize: 16,
+  },
+  {
+    id: "spleen",
+    label: "Spleen 8x16",
+    family: "Demo Spleen 8x16",
+    url: new URL('./spleen/spleen-8x16.woff2', import.meta.url).href,
+    format: "woff2",
+    cyrillic: true,
+    notes: "Угловатый терминальный моноширинный шрифт с сеткой 8×16.",
+    license: "BSD-2-Clause",
+    source: "https://github.com/fcambus/spleen/releases/tag/2.2.0",
+    recommendedSize: 16,
+  },
+  {
+    id: "scientifica",
+    label: "scientifica",
+    family: "Demo scientifica",
+    url: new URL('./scientifica/scientifica.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: false,
+    notes: "Очень компактный тонкий моноширинный шрифт для кода, рассчитанный на 11 px.",
+    license: "OFL-1.1",
+    source: "https://github.com/oppiliappan/scientifica/releases/tag/v2.3",
+    recommendedSize: 11,
+  },
+  {
+    id: "proggy-clean",
+    label: "Proggy Clean",
+    family: "Demo Proggy Clean",
+    url: new URL('./proggy-clean/ProggyClean.ttf', import.meta.url).href,
+    format: "truetype",
+    cyrillic: false,
+    notes: "Лаконичный пиксельный шрифт для кода, рассчитанный на 13 px.",
+    license: "MIT",
+    source: "https://github.com/bluescan/proggyfonts/tree/139ec08a38096161291792313ef5803fc4f0e37b",
+    recommendedSize: 13,
+  },
+];

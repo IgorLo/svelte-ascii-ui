@@ -2,6 +2,7 @@
 export const iconCandidates = [
   {
     id: 'pixelarticons',
+    licenseUrl: new URL('./pixelarticons/LICENSE', import.meta.url).href,
     label: 'Pixelarticons',
     license: 'MIT · Gerrit Halfmann',
     source: 'https://github.com/halfmage/pixelarticons/tree/c9ecc2da61afde85dbe539025e3d931c6152ad75',
@@ -17,6 +18,7 @@ export const iconCandidates = [
   },
   {
     id: 'teenyicons',
+    licenseUrl: new URL('./teenyicons/LICENSE', import.meta.url).href,
     label: 'Teenyicons (minimal outline)',
     license: 'MIT · Anja van Staden',
     source: 'https://github.com/smhmd/teenyicons/tree/32620e2449b66b03a41c862f437cc184698bc041',
