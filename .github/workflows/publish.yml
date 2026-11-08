@@ -22,6 +22,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -42,6 +44,18 @@ jobs:
           }
           appendFileSync(process.env.GITHUB_ENV, `PACKAGE_ARCHIVE=${pkg.name}-${pkg.version}.tgz\n`);
           NODE
+      - name: Require release commit on protected main
+        if: github.event_name == 'release'
+        run: |
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main
+      - name: Validate changelog
+        run: npm run check:release
+      - name: Require unused version and matching release notes
+        if: github.event_name == 'release'
+        env:
+          APPROVED_MAJOR_VERSION: ${{ vars.APPROVED_MAJOR_VERSION }}
+        run: npm run check:release -- --publish
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run check

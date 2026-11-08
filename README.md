@@ -114,10 +114,13 @@ Canvas pauses offscreen, in hidden tabs, for reduced motion, at zero opacity or 
 
 ## Build and verify
 
+See [CHANGELOG.md](CHANGELOG.md) for released and upcoming changes. Contributors follow the [release guide](docs/agents/releasing.md) for version selection and release notes.
+
 ```sh
 npm ci
 npx playwright install chromium --only-shell
 npm run check
+npm run check:release
 npm test
 npm run build:lib
 npm run build:demo
