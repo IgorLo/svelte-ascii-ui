@@ -35,7 +35,7 @@ Confirm the package identity, version, license, release channel and publication 
 
 ### GitHub release workflow
 
-`.github/workflows/publish.yml` publishes stable versions after a GitHub Release is published. A push or pull request alone does not publish. A manual workflow dispatch runs the full verification and publication dry run without uploading a version to npm. Prereleases are deliberately excluded from this workflow.
+`.github/workflows/publish.yml` publishes stable versions after a GitHub Release is published. A push or pull request alone does not publish. A manual workflow dispatch runs the full verification and an offline publication dry run without uploading a version to npm. Offline preview allows checking already published versions; it does not test registry authentication or version availability. Prereleases are deliberately excluded from this workflow.
 
 One-time npm setup: in the package's Settings, add a GitHub Actions trusted publisher with user `IgorLo`, repository `svelte-ascii-ui`, and workflow filename `publish.yml`. Leave the optional environment empty and allow direct `npm publish`. This uses OIDC; do not add an npm token secret. Saving the configuration is an account-owner operation and can require interactive authentication. A newly configured publisher must successfully publish within npm's activation window; the dry run does not validate OIDC publication.
 

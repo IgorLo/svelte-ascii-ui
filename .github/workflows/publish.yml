@@ -50,7 +50,9 @@ jobs:
       - run: npm run build:storybook
       - run: npm run test:package
       - name: Preview publication
-        run: npm publish "./$PACKAGE_ARCHIVE" --dry-run --ignore-scripts --access public
+        # Offline preview also works when manually checking an already released version.
+        # The real publish below still performs registry/version/authentication checks.
+        run: npm publish "./$PACKAGE_ARCHIVE" --dry-run --offline --ignore-scripts --access public
       - name: Publish verified archive with npm trusted publishing
         if: github.event_name == 'release'
         run: npm publish "./$PACKAGE_ARCHIVE" --ignore-scripts --access public
