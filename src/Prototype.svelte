@@ -1,5 +1,6 @@
 <!-- General component demo using the bundled Monocraft font. -->
 <script lang="ts">
+  import './demo-typography.css';
   import WavesExample from './WavesExample.svelte';
   import ArticleExample from './ArticleExample.svelte';
   import SpecimenSet from './SpecimenSet.svelte';

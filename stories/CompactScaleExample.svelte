@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../src/demo-typography.css';
   // Experiment decisions and production follow-up: CompactScale.review.md.
   import { Button, Checkbox, Field, IconButton, Input, NumberInput, Panel, RadioGroup, Select, Theme } from '../src/lib';
   import type { Palette } from '../src/lib';
@@ -24,7 +25,7 @@
 </script>
 
 <Theme {palette}>
-  <main lang="ru" class={{ 'show-centers': showCenters }} style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
+  <main lang="ru" class={{ 'weight-preview': true, 'show-centers': showCenters }} style:--demo-frame={frame} style:--demo-accent={accent} style:--demo-error={errorFrame}
     style:--icon-plus={`url("${icons.icons.plus}")`} style:--icon-minus={`url("${icons.icons.minus}")`} style:--icon-down={`url("${icons.icons.down}")`}>
     <header>
       <p class="eyebrow">Сравнение масштаба</p>
