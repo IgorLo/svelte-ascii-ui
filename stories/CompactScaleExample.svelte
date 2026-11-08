@@ -17,7 +17,7 @@
   const errorFrame = $derived(asciiFrame(palettes[palette].danger, 1, 1.4));
   const samples = [
     { id: 'current-s', title: 'Проба · S / 13 px', size: 's', description: 'Текст 14 → 13 px. Размер контролов сохранён.' },
-    { id: 'compact', title: 'Проба · компакт / 12 px', size: 's', description: 'Текст 13 → 12 px. Компактные отступы и рисунок рамки сохранены.' },
+    { id: 'compact', title: 'Проба · компакт / 13 px', size: 's', description: 'Текст 13 px. Компактные отступы и рисунок рамки сохранены.' },
     { id: 'current-m', title: 'Проба · M / 15 px', size: 'm', description: 'Текст 16 → 15 px. Крупные контролы сохранены.' },
   ] as const;
   const collections = [{ value: 'personal', label: 'Личная коллекция' }, { value: 'shared', label: 'Общая коллекция редакции' }];
@@ -31,7 +31,7 @@
       <p class="eyebrow">Сравнение масштаба</p>
       <h1>Меньше текст и отступы — удобнее ли форма?</h1>
       <p class="note">Шрифт: Monocraft · <a href={new URL('../src/lib/fonts/OFL-Monocraft.txt', import.meta.url).href} target="_blank" rel="noreferrer">SIL OFL 1.1</a></p>
-      <p>Во всех трёх вариантах текст уменьшен на 1 px. Это проба: размеры S и M в библиотеке не меняются.</p>
+      <p>Размеры текста: 13 / 13 / 15 px. Это проба: размеры S и M в библиотеке не меняются.</p>
       <p class="note">На узком экране текст полей остаётся 16 px; для касания высота целей — не меньше 44 px. Проверьте ввод, Tab и выбор стрелками.</p>
       <Checkbox size="s" label="Показать линии центра иконок" bind:checked={showCenters} />
     </header>
@@ -138,9 +138,9 @@
   .sample :global(.inline > .aui-button:first-child)::after { mask-image: var(--icon-minus); }
   .sample :global(.aui-icon-button > span) { transform: none; }
   .sample :global(.aui-icon-button) { min-height: var(--control-height); }
-  .compact .preferences { font-size: 12px; gap: 10px; }
+  .compact .preferences { font-size: 13px; gap: 10px; }
   .compact .actions, .compact .secondary-actions { gap: 8px; }
-  .compact :global([data-size='s']) { --component-font: 12px; --control-height: 32px; --control-frame: 6px; --choice-box: 26px; --radio-font: 16px; --panel-inset: 10px; }
+  .compact :global([data-size='s']) { --component-font: 13px; --control-height: 32px; --control-frame: 6px; --choice-box: 26px; --radio-font: 16px; --panel-inset: 10px; }
   .compact :global(.aui-control), .compact :global(.aui-button), .compact :global(.aui-frame) { border-image-width: 9px; }
   .compact :global(input.aui-control), .compact :global(select.aui-control), .compact :global(.aui-button) { padding-inline: .75ch; line-height: 1.4; }
   .sample :global(select.aui-control) { padding-inline-end: calc(var(--demo-field-height) - var(--control-frame) + .75ch); }

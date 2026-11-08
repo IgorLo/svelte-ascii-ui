@@ -7,11 +7,19 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Monocraft';
+  src: url('./demo-fonts/Monocraft-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
 .specimen.specimen, .specimen.specimen *, .weight-preview, .weight-preview * {
   font-weight: 300;
   font-synthesis: none;
 }
 .specimen.specimen :is(h1,h2,h3,h4,h5,h6,strong,b),
 .weight-preview :is(h1,h2,h3,h4,h5,h6,strong,b) {
-  font-weight: 400;
+  font-weight: 600;
 }

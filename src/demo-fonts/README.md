@@ -1,6 +1,6 @@
 # Monocraft Light — demo-only experiment
 
-Unmodified `Monocraft-Light.ttf` from IdreesInc/Monocraft revision `e498bf70aeb25b4bdcff1e44d878fb2cb4f7c2a9`, path `dist/Monocraft-ttf/weights/Monocraft-Light.ttf`.
+Unmodified `Monocraft-Light.ttf` and `Monocraft-SemiBold.ttf` from IdreesInc/Monocraft revision `e498bf70aeb25b4bdcff1e44d878fb2cb4f7c2a9`, directory `dist/Monocraft-ttf/weights/`.
 
 Source: https://github.com/IdreesInc/Monocraft/tree/e498bf70aeb25b4bdcff1e44d878fb2cb4f7c2a9/dist/Monocraft-ttf/weights
 

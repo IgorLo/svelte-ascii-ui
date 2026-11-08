@@ -4,7 +4,7 @@ This experiment lives on `docs/compact-scale-comparison`. Library defaults remai
 
 ## Current comparison
 
-- Three text scales: 13px, 12px compact, and 15px large. Reduce labels and control text together; preserve optical centering.
+- Three text scales: 13px, 13px compact, and 15px large. The compact variant keeps smaller spacing, with text raised from 12px for readability. Demo body text uses Monocraft Light 300; headings and emphasis use SemiBold 600.
 - Narrow-screen input text remains 16px. Coarse-pointer targets remain at least 44px.
 - Checkbox and Switch non-shrinking geometry is fixed in the library via PR #14. This prototype uses that implementation; it has no local shrink-prevention override.
 - NumberInput stepper buttons must be equal squares, independent of plus/minus glyph width.
