@@ -2,9 +2,13 @@
 
 ## Record changes while doing the work
 
-Work on a named task branch, not main. Commit coherent verified changes and open a PR. Main requires the `verify` check, an up-to-date branch and resolved conversations; direct pushes, force pushes and deletion are blocked, including for admins. PRs do not require a second person's approval because this repository can be maintained by one person. Do not bypass or relax branch protection to complete a task.
+Start ordinary task branches from up-to-date develop and target develop in their PRs. Develop accumulates verified changes; main is the release branch. Both require the `verify` check, an up-to-date branch and resolved conversations; direct pushes, force pushes and deletion are blocked, including for admins. PRs do not require a second person's approval because this repository can be maintained by one person. Do not bypass or relax branch protection.
 
-For each change, review the diff against the latest published tag. Add its user-visible effect to `CHANGELOG.md` under `Unreleased` in the same PR. Include component behavior, public props/types/defaults, visual and accessibility changes, installation/runtime requirements, removed behavior and required migration steps. Contributor workflow changes belong there when they affect how people build, test or release the library. Pure refactors with no observable effect need no bullet; explain that omission in the PR. Completion: every meaningful effect is represented once, and unrelated history is left intact.
+Keep the package version unchanged during ordinary work. Each PR contributes a human-written change entry under `Unreleased`; these entries are the batch's pending change set. Use the existing changelog and validator rather than a separate Changesets dependency. Resolve overlapping entries without losing another PR's changes. A merge into develop or main never publishes by itself.
+
+When a release is requested, create a release branch from develop, consolidate the whole batch and bump the version once. Merge preparation back into develop through a passing PR, then open develop → main as the release PR. Use a merge commit for this promotion to preserve the shared history of the long-lived branches. After release, merge main back into develop through a passing PR before starting the next batch. If an urgent fix must start from main, include its versioned notes in the hotfix release and merge it back into develop; retain unrelated Unreleased entries there.
+
+For each task, review its diff against develop; when preparing a release, review the whole batch against the latest published tag. Add its user-visible effect to `CHANGELOG.md` under `Unreleased` in the same PR. Include component behavior, public props/types/defaults, visual and accessibility changes, installation/runtime requirements, removed behavior and required migration steps. Contributor workflow changes belong there when they affect how people build, test or release the library. Pure refactors with no observable effect need no bullet; explain that omission in the PR. Completion: every meaningful effect is represented once, and unrelated history is left intact.
 
 ## Write for readers
 
@@ -32,7 +36,7 @@ Use the highest impact in the release. A fix that requires consumer changes is i
 ## Prepare and publish
 
 1. Decide the version using the table. Update package.json and package-lock.json together, plus affected fixture/install examples. Move all Unreleased notes into `## [x.y.z] - YYYY-MM-DD`, newest release first, and leave an empty Unreleased section. Completion: the version entry is dated and complete, with no placeholders or pending notes.
-2. Run `npm run check:release`, relevant tests and `npm run test:package`. Open the release PR and merge after required checks pass. Completion: the intended release commit belongs to protected main.
+2. Run `npm run check:release`, relevant tests and `npm run test:package`. Follow the develop → main promotion above and merge after required checks pass. Completion: the intended release commit belongs to protected main.
 3. Run `npm run release:notes --silent` and use its output as the GitHub Release body, without adding generated commit lists. Tag the merged commit as `v<x.y.z>`. Publish the GitHub Release only when authorized. Completion: the tag, package, lockfile, changelog and release body agree.
 4. The publish workflow rejects commits outside main, prerelease version strings, reused/older npm versions, missing notes, nonempty Unreleased entries and unapproved major bumps. Registry errors stop publication. See [trusted publishing setup](maintaining.md#github-release-workflow). Completion: GitHub checks and npm publication succeed, then verify installation from npm.
 

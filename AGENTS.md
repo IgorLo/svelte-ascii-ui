@@ -6,7 +6,7 @@ Work from the current issue, code and product request. Public documentation desc
 - For use in another project, follow `docs/agents/using.md`. It defines application vs library ownership and the consumer-project instruction to install.
 - For a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
 - For visual decisions, use `docs/design-system.md`. For audits, record the applicable criterion, reproducible evidence and untested cases alongside each finding.
-- For changes, version selection, changelog entries or releases, follow `docs/agents/releasing.md`. Develop on a task branch and merge through a passing PR. Major version increases require the human's explicit approval; a general request to publish is not approval for a major bump.
+- For changes, version selection, changelog entries or releases, follow `docs/agents/releasing.md`. Branch from develop and target develop for ordinary task PRs; promote a batch to main only through an authorized release PR. Major version increases require the human's explicit approval; a general request to publish is not approval for a major bump.
 
 `src/lib` and its public exports are the reusable implementation. Stories exercise it. The general demo currently uses mostly historical prototype code; changing that code alone does not fix the package. Verify which implementation a reported screenshot uses.
 

@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Changed
+- Contributions accumulate on protected develop with Unreleased notes; release preparation promotes a batch to main with one version bump.
+- The demo uses only the bundled DotGothic16 font. Remove comparison-font packages, duplicate font assets and the unused direct user-event test dependency; custom consumer fonts remain supported.
 - Stable GitHub Releases can publish to npm automatically after tests, builds and package installation checks. Ordinary pushes do not publish a version.
 - Releases require a dated changelog entry, matching package and tag versions, and a version not previously published to npm.
 - Releases must come from main. Major version increases require explicit maintainer approval.
