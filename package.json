@@ -44,8 +44,8 @@
     "prepack": "npm run check:release && npm run build:lib",
     "changeset": "changeset",
     "changeset:status": "changeset status",
-    "check:changesets": "node scripts/changesets.mjs check",
-    "release:version": "node scripts/changesets.mjs version"
+    "check:changesets": "node scripts/check-changesets.mjs",
+    "release:version": "npm run check:changesets && changeset version && npm install --package-lock-only --ignore-scripts"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
