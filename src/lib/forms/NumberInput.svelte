@@ -2,7 +2,7 @@
   import type { Size } from '../types';
   import type { HTMLInputAttributes } from 'svelte/elements';
   type Base = Omit<HTMLInputAttributes, 'size' | 'type' | 'value' | 'children'>;
-  import Button from '../Button.svelte';
+  import IconButton from '../IconButton.svelte';
   interface Props extends Omit<Base, 'min' | 'max' | 'step'> {
     value?: number;
     size?: Size;
@@ -27,13 +27,13 @@
 </script>
 
 <div class="inline" data-size={size}>
-  <Button {size} label="−" aria-label={decrementLabel} disabled={disabled || readonly || (min !== undefined && value !== undefined && value <= min)} onclick={() => adjust(-1)} />
+  <IconButton {size} icon="minus" label={decrementLabel} disabled={disabled || readonly || (min !== undefined && value !== undefined && value <= min)} onclick={() => adjust(-1)} />
   <input {...attrs} type="number" {@attach (element) => { input = element; }} bind:value {min} {max} {step} {disabled} {readonly} class={['aui-control', className]} />
-  <Button {size} label="+" aria-label={incrementLabel} disabled={disabled || readonly || (max !== undefined && value !== undefined && value >= max)} onclick={() => adjust(1)} />
+  <IconButton {size} icon="plus" label={incrementLabel} disabled={disabled || readonly || (max !== undefined && value !== undefined && value >= max)} onclick={() => adjust(1)} />
 </div>
 
 <style>
-  .inline { display: flex; align-items: stretch; gap: .5rem; }
+  .inline { --icon-button-size: var(--field-height,var(--control-height)); display: flex; align-items: stretch; gap: .5rem; }
   input { min-width: 0; flex: 1 1 0; appearance: textfield; }
   input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { appearance: none; margin: 0; }
 </style>

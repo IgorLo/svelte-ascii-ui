@@ -1,8 +1,7 @@
 import { mount } from 'svelte';
 import './lib/fonts.css';
 
-import Prototype from './Prototype.svelte';
-import './prototype.css';
+import Gallery from './Gallery.svelte';
 
-mount(Prototype, { target: document.getElementById('app')! });
+mount(Gallery, { target: document.getElementById('app')! });
 

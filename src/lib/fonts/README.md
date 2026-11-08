@@ -1,11 +1,9 @@
-# DotGothic16 UI subset
+# Monocraft
 
-`dotgothic16-ui.woff2` is a subset of the official Fontworks DotGothic16 font,
-preserving its OpenType full-width (`fwid`) alternates for Latin text.
+`Monocraft-Light.ttf` (300), `Monocraft.ttf` (400) and `Monocraft-SemiBold.ttf` (600)
+are unmodified fonts from IdreesInc/Monocraft. Body and controls use Light; headings
+and emphasis use SemiBold. Regular remains available for custom typography.
+Distributed under SIL OFL 1.1; see `OFL-Monocraft.txt` for the original copyright and license.
+See `SOURCE.md` for the pinned source and file checksum.
 
-Copyright 2020 The DotGothic16 Project Authors.
-Distributed under SIL OFL 1.1; see `OFL-DotGothic16.txt` in this directory.
-
-Source: https://github.com/fontworks-fonts/DotGothic16/blob/master/fonts/ttf/DotGothic16-Regular.ttf
-
-The source name/copyright tables and full-width alternates were preserved.
+Import `svelte-ascii-ui/fonts.css` to load it locally. `Theme.font` still accepts a custom loaded font stack.

@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Article tags', value: ['design','ASCII'], placeholder: 'Enter a tag' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     value: { control: 'object' }, placeholder: { control: 'text' }, addLabel: { control: 'text' },
   },
@@ -20,3 +20,5 @@ export const Small: Story = { args: { size: 's' } };
 export const Empty: Story = { args: {value:[]} };
 export const Disabled: Story = { args: {disabled:true} };
 export const ReadOnly: Story = { args: {readonly:true} };
+
+export const Large: Story = { args: { size: 'l' } };

@@ -5,7 +5,7 @@ Public imports come from `svelte-ascii-ui`. Wrap the application or a section in
 | Area | Public components |
 | --- | --- |
 | Foundation | Theme, Panel, Separator |
-| Actions | Button, IconButton, Link |
+| Actions | Button, IconButton, Icon, Link |
 | Forms | Field, Input, Textarea, Select, Checkbox, RadioGroup, Switch, ToggleGroup, NumberInput, SearchInput, PasswordInput, Combobox, MultiSelect, TagInput, FileInput, Slider, Range |
 | Feedback | Loader, Progress, Skeleton, Badge, Alert, Toast, EmptyState, DataState |
 | Overlays | Dialog, Drawer, Tooltip, Popover, DropdownMenu, ContextMenu |
@@ -15,10 +15,13 @@ Public imports come from `svelte-ascii-ui`. Wrap the application or a section in
 
 ## Composition and state ownership
 
+- Components with a control `size` support `s`, `m`, `l`. Pass matching sizes to related controls; defaults remain component-owned. Dialog/Drawer window sizes and Article typography are separate.
+- Button `icon`/`iconEnd` accept `plus`, `minus`, `chevron-down`, `close`, `refresh`, `info`, or a Svelte snippet. IconButton accepts an `icon` name and requires its accessible `label`; custom `children` and `glyph` still work. Icon is decorative by default; supply `label` when it independently conveys information.
+
 - `bind:value` controls inputs and selection; checkboxes and switches use `bind:checked`. Checkbox also supports `bind:indeterminate`.
 - Range has independent `bind:lower` and `bind:upper` values. Progress takes a normalized 0–1 value.
 - Field's child snippet receives an ID, description and invalid attributes to spread onto the actual input.
-- Popover's `triggerVariant="compact"` shows a small `[?]` help trigger with `label` as its accessible name. Its native button keeps a 24px minimum target (44px with a coarse pointer) in normal layout flow; allow room for that target beside labels and other actions. A `trigger` snippet replaces only the button content, so do not nest an interactive element. The default `button` variant and S/M sizing stay unchanged. Essential instructions still belong beside the field.
+- Popover's `triggerVariant="compact"` shows a small `[?]` help trigger with `label` as its accessible name. Its native button keeps a 24px minimum target (44px with a coarse pointer) in normal layout flow; allow room for that target beside labels and other actions. A `trigger` snippet replaces only the button content, so do not nest an interactive element. The default `button` variant and S/M/L sizing are available. Essential instructions still belong beside the field.
 - Dialog/Drawer use `bind:open`, a required accessible title and header/body/footer snippets. Window size is separate from control size.
 - Figure has an optional expanded image dialog. Article's width is owned by the page; the demo limits it for readability.
 - Loader is decorative: put a text status or `aria-busy` on the loading region. Skeleton is hidden from assistive technology for the same reason.

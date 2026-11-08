@@ -1,7 +1,7 @@
 <script lang="ts">
   import Collapsible from '../../src/lib/navigation/Collapsible.svelte';
   let { title = 'Advanced settings', disabled = false, initialOpen = false, size = 's' }: {
-    title?: string; disabled?: boolean; initialOpen?: boolean; size?: 's' | 'm';
+    title?: string; disabled?: boolean; initialOpen?: boolean; size?: 's' | 'm' | 'l';
   } = $props();
   let open = $derived(initialOpen);
 </script>

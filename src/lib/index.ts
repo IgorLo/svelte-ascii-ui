@@ -1,6 +1,8 @@
 export { default as Theme } from './Theme.svelte';
 export { default as Button } from './Button.svelte';
 export { default as IconButton } from './IconButton.svelte';
+export { default as Icon } from './Icon.svelte';
+export type { IconName } from './icons/pixelarticons';
 export { default as Link } from './Link.svelte';
 export { default as Loader } from './Loader.svelte';
 export { default as Panel } from './feedback/Panel.svelte';

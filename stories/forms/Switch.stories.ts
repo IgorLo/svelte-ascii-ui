@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', label: 'Enable notifications', checked: false },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     label: { control: 'text' }, checked: { control: 'boolean' },
   },
@@ -19,3 +19,5 @@ export const Playground: Story = {};
 export const Small: Story = { args: { size: 's' } };
 export const On: Story = { args: {checked:true} };
 export const Disabled: Story = { args: {disabled:true} };
+
+export const Large: Story = { args: { size: 'l' } };

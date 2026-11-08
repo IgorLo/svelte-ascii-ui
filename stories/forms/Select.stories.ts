@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Publication state', options, value: 'draft' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     options: { control: 'object' }, loading: { control: 'boolean' }, error: { control: 'text' },
   },
@@ -22,3 +22,5 @@ export const Disabled: Story = { args: {disabled:true} };
 export const Loading: Story = { args: {loading:true} };
 export const Error: Story = { args: {error:'Could not load publication states.'} };
 export const Empty: Story = { args: {options:[],value:''} };
+
+export const Large: Story = { args: { size: 'l' } };

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button, Panel, Field, Input, Textarea, Select, TagInput, Checkbox, Alert, DataState } from '../src/lib';
-  let { size = 's' }: { size?: 's' | 'm' } = $props();
+  let { size = 's' }: { size?: 's' | 'm' | 'l' } = $props();
   let title = $state('Ночь в терминале');
   let body = $state('Тихие волны символов на фоне. Несколько строк о новом проекте.');
   let tags = $state(['ASCII', 'Заметки']);
@@ -42,6 +42,6 @@
 <style>
   .editor { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;max-width:1000px }
   form {display:grid;gap:16px} .actions{display:flex;align-items:center;gap:12px}
-  h2{font-size:1.15em;font-weight:400}p{white-space:pre-wrap;overflow-wrap:anywhere}small{color:var(--muted)}
+  h2{font-size:1.15em}p{white-space:pre-wrap;overflow-wrap:anywhere}small{color:var(--muted)}
   @media(max-width:680px){.editor{grid-template-columns:minmax(0,1fr)}}
 </style>

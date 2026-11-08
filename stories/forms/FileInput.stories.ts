@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Attach files', accept: '.md,.txt', multiple: true },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     multiple: { control: 'boolean' }, accept: { control: 'text' }, loading: { control: 'boolean' }, error: { control: 'text' },
   },
@@ -21,3 +21,5 @@ export const Disabled: Story = { args: {disabled:true} };
 export const Loading: Story = { args: {loading:true} };
 export const Error: Story = { args: {error:'Choose a Markdown or text file.'} };
 export const Single: Story = { args: {multiple:false} };
+
+export const Large: Story = { args: { size: 'l' } };

@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Article title', placeholder: 'Enter a title' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' }, value: { control: 'text' },
   },
@@ -20,3 +20,5 @@ export const Small: Story = { args: { size: 's' } };
 export const Disabled: Story = { args: {disabled:true,value:'Unavailable'} };
 export const ReadOnly: Story = { args: {readonly:true,value:'/notes/first-post'} };
 export const Invalid: Story = { args: {'aria-invalid':true,value:'Incomplete'} };
+
+export const Large: Story = { args: { size: 'l' } };

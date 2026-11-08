@@ -22,6 +22,8 @@ run(['run', 'build:lib']);
 const [archive] = JSON.parse(run(['pack', '--ignore-scripts', '--json', '--cache', '.npm-cache'], root, true));
 const files = new Set(archive.files.map(file => file.path));
 for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/theme.css', 'dist/fonts.css',
+  'dist/fonts/Monocraft.ttf', 'dist/fonts/Monocraft-Light.ttf', 'dist/fonts/Monocraft-SemiBold.ttf', 'dist/fonts/OFL-Monocraft.txt',
+  'dist/Icon.svelte', 'dist/icons/LICENSE-Pixelarticons.txt',
   'README.md', 'LICENSE', 'CHANGELOG.md', 'docs/composition.md', 'docs/agents/using.md', 'docs/agents/maintaining.md', 'docs/agents/feedback.md']) {
   assert(files.has(required), `Package missing ${required}`);
 }

@@ -2,7 +2,7 @@
   import Menu from '../../src/lib/overlays/DropdownMenu.svelte';
   import type { MenuItem } from '../../src/lib/overlays/types';
   let { label = 'File actions', size = 's', empty = false }: {
-    label?: string; size?: 's' | 'm'; empty?: boolean;
+    label?: string; size?: 's' | 'm' | 'l'; empty?: boolean;
   } = $props();
   let result = $state('');
   const items: MenuItem[] = [

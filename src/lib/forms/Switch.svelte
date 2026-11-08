@@ -27,6 +27,6 @@
   input:focus-visible + .mark { outline: 2px dashed var(--accent); outline-offset: 3px; }
   .choice:has(input:disabled) { color: var(--muted); cursor: not-allowed; }
   input:disabled + .mark { opacity: .55; }
-  @media (pointer: coarse) { .choice { min-height: max(44px, var(--control-height)); } }
+  @media (pointer: coarse) { .choice { min-inline-size: 44px; min-height: max(44px, var(--control-height)); } }
   @media (forced-colors: active) { input:focus-visible + .mark { outline-color: Highlight; } }
 </style>

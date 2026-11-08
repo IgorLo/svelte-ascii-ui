@@ -4,6 +4,7 @@
   import { formReset } from './form-reset';
   import Loader from '../Loader.svelte';
   import Button from '../Button.svelte';
+  import Icon from '../Icon.svelte';
 
   interface Props extends PickerProps { selected: string[]; onSelection: (next: string[]) => void; multiple?: boolean; }
   const uid = $props.id();
@@ -65,7 +66,7 @@
         {@const label = options.find(option => option.value === item)?.label ?? item}
         <li class="chip">
           <span>{label}</span>
-          <button type="button" aria-label={removeLabel + ' ' + label} disabled={disabled || readonly || loading} onclick={() => remove(item)}>×</button>
+          <button type="button" aria-label={removeLabel + ' ' + label} disabled={disabled || readonly || loading} onclick={() => remove(item)}><Icon name="close" /></button>
         </li>
       {/each}
     </ul>
@@ -112,19 +113,19 @@
 <style>
   .picker { display: grid; gap: .5rem; }
   .shell { position: relative; min-width: 0; }
-  .shell:has(.loader) input { padding-inline-end: 4em; }
-  .loader { position: absolute; top: 0; inset-inline-end: 1rem; height: 100%; display: grid; align-items: center; pointer-events: none; }
+  .shell:has(.loader) input { padding-inline-end: calc(var(--field-height) - var(--control-frame)); }
+  .loader { position: absolute; top: 0; inset-inline-end: 0; width: var(--field-height); height: 100%; display: grid; place-items: center; pointer-events: none; }
   .popup { position: absolute; z-index: 2; inset-inline: 0; top: 100%; background: var(--bg); padding: .25rem; max-height: 15rem; overflow: auto; }
   .popup button { display: block; width: 100%; border: 0; padding: .5em; min-height: var(--control-height); background: none; color: inherit; font: inherit; text-align: start; cursor: pointer; }
   .popup button[data-active='true'], .popup button:not(:disabled):hover { outline: 1px solid var(--accent); outline-offset: -1px; }
-  .popup button[aria-selected='true'] { color: var(--accent); font-weight: bold; }
+  .popup button[aria-selected='true'] { color: var(--accent); font-weight: 600; }
   .popup button:disabled { color: var(--muted); cursor: not-allowed; }
   p { margin: .25em; }
   .status { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; }
   .error { color: var(--danger); font-size: .875em; }
   .chips { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin: 0; padding: 0; }
   .chip { display: flex; align-items: center; gap: .5ch; padding-inline-start: .5ch; border: 1px dashed var(--muted); overflow-wrap: anywhere; }
-  .chip button { min-width: 28px; min-height: 28px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+  .chip button { display: grid; place-items: center; flex: none; min-width: 28px; min-height: 28px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
   .chip button:focus-visible { outline: 2px dashed var(--accent); }
   @media (pointer: coarse) { .chip button { min-height: 44px; min-width: 44px; } .popup button { min-height: 44px; } }
   @media (forced-colors: active) { .chip button:focus-visible, .popup button[data-active='true'] { outline-color: Highlight; } }
