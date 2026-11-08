@@ -1,0 +1,2 @@
+import type{Meta,StoryObj}from'@storybook/svelte-vite';import PanelExample from'./PanelExample.svelte';
+const meta={title:'Foundation/Panel',component:PanelExample,tags:['autodocs'],args:{title:'Панель',size:'m'},argTypes:{size:{control:'select',options:['s','m']}}} satisfies Meta<typeof PanelExample>;export default meta;type Story=StoryObj<typeof meta>;export const Playground:Story={};export const Small:Story={args:{size:'s'}};

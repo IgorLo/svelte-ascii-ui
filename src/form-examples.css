@@ -1,0 +1,32 @@
+.form-examples { min-width: 0; }
+.form-examples .form-example-stack { margin-top: 1.5em; }
+.form-examples label:not(.check-label) { display: block; margin-top: .8em; }
+.form-examples .form-inline { display: flex; align-items: center; gap: 1ch; min-width: 0; }
+.form-examples .form-inline input { flex: 1; min-width: 0; margin-top: 0; }
+.form-examples .form-inline button { flex: 0 0 auto; }
+.form-examples .number-stepper { max-width: 24ch; }
+.form-examples .number-stepper input { text-align: center; }
+.form-examples .form-scenarios { display: flex; flex-wrap: wrap; gap: .5em; margin-block: 1em; }
+.specimen[data-variant] .form-examples button[aria-pressed='true'] { color: var(--accent); border-image-source: var(--ascii-accent); background-color: color-mix(in srgb,var(--accent) 6%,transparent); }
+.specimen[data-variant] .form-examples button[aria-pressed='true']:focus-visible { border-image-source: var(--ascii-focus); }
+.form-examples .form-combo { position: relative; }
+.form-examples .form-combo-loader { position: absolute; right: 1ch; top: .8em; color: var(--accent); pointer-events: none; }
+.form-examples .form-options { display: grid; margin-top: .5em; max-height: 14em; overflow-y: auto; background: var(--bg); }
+.form-examples .form-options:empty { display: none; }
+.specimen[data-variant] .form-examples .form-options button { text-align: left; width: 100%; }
+.specimen[data-variant] .form-examples .form-options button[data-highlighted='true'] { border-image-source: var(--ascii-focus); color: var(--text); background: color-mix(in srgb,var(--text) 8%,var(--bg)); }
+.form-examples .form-options button[aria-disabled='true'] { opacity: .45; cursor: not-allowed; }
+.form-examples .form-nested { margin-inline-start: 1ch; padding-inline-start: 1ch; border-inline-start: 1px dashed var(--line); }
+.specimen[data-variant] .form-examples input[type='checkbox']:indeterminate { border-image-source: var(--ascii-accent); }
+.specimen[data-variant] .form-examples input[type='checkbox']:indeterminate::after { content: '−'; font: var(--radio-font)/1 var(--art-font); color: var(--accent); }
+.specimen[data-variant] .form-examples input[type='checkbox']:indeterminate:focus-visible { border-image-source: var(--ascii-focus); }
+.form-examples .form-toggle-group { display: flex; flex-wrap: wrap; gap: .5em 1ch; }
+.form-examples .form-tag-list { display: flex; flex-wrap: wrap; list-style: none; gap: 1ch; padding: 0; }
+.form-examples .form-tag-list li { display: flex; align-items: center; gap: .5ch; padding-inline-start: .5ch; max-width: 100%; background: color-mix(in srgb,var(--text) 5%,transparent); }
+.form-examples .form-tag-list li > span { min-width: 0; overflow-wrap: anywhere; }
+.form-examples :is(.hint,.error-text) { overflow-wrap: anywhere; }
+@media (max-width: 520px) {
+  .form-examples .form-inline:not(.number-stepper) { flex-wrap: wrap; }
+  .form-examples .form-inline:not(.number-stepper) input { flex-basis: 100%; }
+  .form-examples .form-options { max-height: 18em; }
+}

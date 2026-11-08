@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Storybook smoke check</title>
+<style>body{font:16px system-ui;background:#171c17;color:#e2e8d5;margin:20px}button{padding:12px}iframe{width:100%;height:500px;border:1px solid #556}pre{white-space:pre-wrap}</style>
+<h1>Storybook smoke check</h1><p>Loads every story in a real preview iframe. Checks rendering and Storybook error screens; interaction and accessibility tests are separate.</p>
+<label>Story ID filter (optional) <input id="filter"></label> <button id="run">Run all stories</button><p role="status" id="status">Ready</p><pre id="results"></pre><iframe title="Story under test"></iframe>
+<script type="module">
+const button=document.querySelector('button'),status=document.querySelector('#status'),results=document.querySelector('#results');let frame=document.querySelector('iframe');
+button.onclick=async()=>{
+ button.disabled=true;results.textContent='';
+ const index=await fetch('./index.json').then(r=>r.json());
+ const filter=document.querySelector('#filter').value.trim();
+ const stories=Object.values(index.entries).filter(s=>s.type==='story'&&(!filter||s.id.includes(filter)));const failures=[];let done=0;
+ for(const story of stories){
+  status.textContent=`Checking ${++done}/${stories.length}: ${story.title} / ${story.name}`;
+  const next=document.createElement('iframe');next.title='Story under test';
+  next.src=`./iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`;frame.replaceWith(next);frame=next;
+  const result=await new Promise(resolve=>{
+   const start=performance.now();let stable=0;
+   const timer=setInterval(()=>{
+    if(performance.now()-start>15000){clearInterval(timer);resolve('Timed out waiting for rendered story');return;}
+    const doc=frame.contentDocument;
+    if(!doc||!doc.location.search.includes(story.id))return;
+    if(doc.body.classList.contains('sb-show-errordisplay')||doc.body.classList.contains('sb-show-nopreview')){clearInterval(timer);resolve(doc.body.innerText.slice(0,600));return;}
+    if(doc.body.classList.contains('sb-show-main')&&doc.querySelector('#storybook-root')?.childElementCount){
+     if(++stable>=3){clearInterval(timer);resolve(null);return;}
+    }else stable=0;
+   },150);
+  });
+  if(result){failures.push({id:story.id,error:result});results.textContent=JSON.stringify(failures,null,2);}
+ }
+ status.textContent=`Finished: ${stories.length-failures.length}/${stories.length} rendered; ${failures.length} failures.`;
+ if(!failures.length)results.textContent='All stories rendered successfully.';
+ button.disabled=false;
+};
+</script></html>

@@ -1,0 +1,1 @@
+import type{Meta,StoryObj}from'@storybook/svelte-vite';import Introduction from'./Introduction.svelte';const meta={title:'Introduction/Start here',component:Introduction,parameters:{controls:{disable:true},layout:'fullscreen'}}satisfies Meta<typeof Introduction>;export default meta;type Story=StoryObj<typeof meta>;export const Overview:Story={};

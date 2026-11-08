@@ -1,0 +1,1 @@
+import{render}from'svelte/server';import App from'./App.svelte';export function verifySSR(){const result=render(App);if(!result.body.includes('Установленный пакет'))throw new Error('SSR output missing');return{ok:true,bytes:result.body.length};}

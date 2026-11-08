@@ -1,0 +1,2 @@
+<script lang="ts">import Theme from'../src/lib/Theme.svelte';import Button from'../src/lib/Button.svelte';import Panel from'../src/lib/feedback/Panel.svelte';import type{Palette}from'../src/lib/theme';let{palette='phosphor',accent='#c4ed83',size='m'}:{palette?:Palette;accent?:string;size?:'s'|'m'}=$props();</script>
+<Theme {palette} colors={{accent}} {size}><Panel title="Ваша палитра" {size}><p>Меняются цвета. Геометрия рамки остаётся прежней.</p><Button {size} label="Применить" variant="primary"/> <Button {size} label="Удалить" variant="danger"/></Panel></Theme>

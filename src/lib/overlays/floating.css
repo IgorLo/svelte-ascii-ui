@@ -1,0 +1,15 @@
+.aui-floating {
+  position: fixed;
+  inset: 0 auto auto 0;
+  margin: 0;
+  z-index: 1000;
+  width: min(36ch, calc(100vw - 16px));
+  max-height: min(60dvh, 500px);
+  overflow: auto;
+  padding: .65em 1ch;
+  background: var(--bg);
+  color: var(--text);
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+}
+.aui-floating[hidden] { display: none; }

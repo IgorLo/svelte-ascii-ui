@@ -1,0 +1,25 @@
+import type { Meta, StoryObj } from '@storybook/svelte-vite';
+import { expect, userEvent, within } from 'storybook/test';
+import Component from './FormContracts.svelte';
+const meta={title:'Examples/Form contracts',component:Component,tags:['autodocs']} satisfies Meta<typeof Component>;
+export default meta;
+export const DefaultsAndEvents: StoryObj<typeof meta>={play:async({canvasElement})=>{
+  const c=within(canvasElement);
+  await expect(c.getByRole('checkbox')).toBeChecked();
+  await expect(c.getByRole('switch')).toBeChecked();
+  await expect(c.getByLabelText('Password')).toHaveValue('secret');
+  await expect(c.getByRole('searchbox')).toHaveValue('ASCII');
+  await userEvent.click(c.getByRole('button',{name:'Clear search'}));
+  await expect(c.getByRole('searchbox')).toHaveValue('');
+  await expect(c.getByLabelText('Input events')).toHaveTextContent('1');
+  await userEvent.click(c.getByRole('button',{name:'Increase value'}));
+  await expect(c.getByRole('spinbutton')).toHaveValue(3);
+  await expect(c.getByLabelText('Input events')).toHaveTextContent('2');
+  await userEvent.type(c.getByRole('textbox',{name:'Tag'}),'x');
+  await expect(c.getByLabelText('Input events')).toHaveTextContent('3');
+  await expect(c.getByRole('button',{name:'Remove Alpha'})).toBeDisabled();
+  await userEvent.click(c.getByRole('combobox'));
+  await expect(c.getByLabelText('Click events')).toHaveTextContent('1');
+  await userEvent.click(c.getByRole('button',{name:'Reset'}));
+  await expect(c.getByRole('searchbox')).toHaveValue('ASCII');
+}};
