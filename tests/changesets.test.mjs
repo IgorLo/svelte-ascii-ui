@@ -1,9 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, cpSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { validateRelease } from '../scripts/release-policy.mjs';
 
 const root = process.cwd();
@@ -11,7 +12,9 @@ function fixture(t, types) {
   const cwd = mkdtempSync(join(tmpdir(), 'ascii-changesets-test-'));
   t.after(() => rmSync(cwd, { recursive: true, force: true }));
   mkdirSync(join(cwd, '.changeset'));
-  for (const file of ['config.json', 'changelog.mjs']) cpSync(join(root, '.changeset', file), join(cwd, '.changeset', file));
+  const config = JSON.parse(readFileSync(join(root, '.changeset/config.json')));
+  config.changelog = import.meta.resolve('@changesets/cli/changelog');
+  writeFileSync(join(cwd, '.changeset/config.json'), JSON.stringify(config));
   writeFileSync(join(cwd, 'package.json'), JSON.stringify({ name: 'svelte-ascii-ui', version: '0.1.0' }));
   writeFileSync(join(cwd, 'package-lock.json'), JSON.stringify({ name: 'svelte-ascii-ui', version: '0.1.0', lockfileVersion: 3, packages: { '': { name: 'svelte-ascii-ui', version: '0.1.0' } } }));
   writeFileSync(join(cwd, 'CHANGELOG.md'), '# Changelog\n\n## [0.1.0] - 2026-01-01\n\n- Initial release.\n');
@@ -19,21 +22,23 @@ function fixture(t, types) {
   return cwd;
 }
 function run(cwd, command, extra = {}) {
-  return spawnSync(process.execPath, [resolve(root, 'scripts/changesets.mjs'), command], {
+  return spawnSync(process.execPath, [resolve(root, 'scripts/check-changesets.mjs')], {
     cwd, encoding: 'utf8', env: { ...process.env, CHANGESET_BASE: '', APPROVED_MAJOR_VERSION: '', ...extra },
   });
 }
 test('patch plus minor prepares one minor release, consumes notes and preserves history', t => {
   const cwd = fixture(t, ['patch', 'minor']);
-  const result = run(cwd, 'version');
+  const result = spawnSync(process.execPath, [fileURLToPath(import.meta.resolve('@changesets/cli/bin.js')), 'version'], { cwd, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
+  const lockUpdate = spawnSync('npm', ['install', '--package-lock-only', '--ignore-scripts', '--offline', '--no-audit', '--no-fund'], { cwd, encoding: 'utf8', shell: process.platform === 'win32' });
+  assert.equal(lockUpdate.status, 0, lockUpdate.stdout + lockUpdate.stderr);
   const pkg = JSON.parse(readFileSync(join(cwd, 'package.json')));
   const lock = JSON.parse(readFileSync(join(cwd, 'package-lock.json')));
   assert.equal(pkg.version, '0.2.0');
   assert.equal(lock.version, pkg.version);
   assert.equal(lock.packages[''].version, pkg.version);
   const notes = readFileSync(join(cwd, 'CHANGELOG.md'), 'utf8');
-  assert.match(notes, /## \[0\.2\.0\] - \d{4}-\d{2}-\d{2}/);
+  assert.match(notes, /## 0\.2\.0\n/);
   assert.match(notes, /Description 0/);
   assert.match(notes, /Description 1/);
   assert.match(notes, /## \[0\.1\.0\] - 2026-01-01/);
@@ -46,7 +51,7 @@ test('patch plus minor prepares one minor release, consumes notes and preserves 
 test('unapproved major stops before changing files', t => {
   const cwd = fixture(t, ['major']);
   const before = readFileSync(join(cwd, 'package.json'), 'utf8');
-  const result = run(cwd, 'version');
+  const result = run(cwd, 'check');
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /APPROVED_MAJOR_VERSION/);
   assert.equal(readFileSync(join(cwd, 'package.json'), 'utf8'), before);

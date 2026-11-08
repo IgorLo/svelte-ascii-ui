@@ -20,13 +20,15 @@ export function validateRelease({ version, lockVersion, lockPackageVersion, chan
   const entries = new Map();
   for (let i = 0; i < headings.length; i++) {
     const [, heading] = headings[i];
-    const match = /^\[(Unreleased|\d+\.\d+\.\d+)\](?: - (\d{4}-\d{2}-\d{2}))?$/.exec(heading);
+    // Accept standard Changesets headings and preserve the historical dated entries.
+    const match = /^(\d+\.\d+\.\d+)$/.exec(heading)
+      ?? /^\[(Unreleased|\d+\.\d+\.\d+)\](?: - (\d{4}-\d{2}-\d{2}))?$/.exec(heading);
     assert(match, `Invalid changelog heading: ${heading}`);
     const [, key, date] = match;
     assert(!entries.has(key), `Duplicate changelog entry: ${key}`);
     if (key !== 'Unreleased') {
       assert(stable.test(key), `Invalid changelog version: ${key}`);
-      assert(date && !Number.isNaN(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date && date <= today,
+      assert(!date || (!Number.isNaN(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date && date <= today),
         `Invalid or future release date: ${date}`);
     }
     entries.set(key, normalize(text.slice(headings[i].index + headings[i][0].length, headings[i + 1]?.index)));
