@@ -14,6 +14,12 @@ space between unrelated sections. Avoid nested frames when a heading suffices.
 Structural borders are quieter than interactive borders. Focus is brighter and
 thicker without changing layout.
 
+Checkbox marks stay square at 30px (S) or 40px (M), including beside wrapped
+labels. Switch marks retain their 54px (S) or 64px (M) width and the same
+30px/40px height. Narrow containers do not compress these marks. On coarse
+pointers, the surrounding choice target remains at least 44px tall without
+enlarging the mark.
+
 For dense forms, surface roles and numerical summaries, use the
 [composition guide](composition.md). Its Storybook experiments compare alternatives;
 they do not change the supported S/M treatments.
