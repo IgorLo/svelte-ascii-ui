@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Quantity', min: 1, max: 12, step: 1, value: 3 },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     min: { control: 'number' }, max: { control: 'number' }, step: { control: 'number' },
   },
@@ -22,3 +22,5 @@ export const ReadOnly: Story = { args: {readonly:true} };
 export const AtMinimum: Story = { args: {value:1} };
 export const AtMaximum: Story = { args: {value:12} };
 export const Empty: Story = { args: {value:undefined} };
+
+export const Large: Story = { args: { size: 'l' } };

@@ -4,7 +4,7 @@ Use this before choosing an implementation for a visual, interaction, accessibil
 
 ## 1. Frame the task and evidence
 
-Read the issue, comments, related reports and design-system contract. State the user task, observed obstacle, affected component/states, exact reported version and current revision. Separate the request from its proposed solution. Reproduce in the reusable library, not only the historical demo, and inspect the real composition when available. Completion: each claim is observed, source-confirmed or explicitly unverified; missing evidence is not a reason to reject the need.
+Read the issue, comments, related reports and design-system contract. State the user task, observed obstacle, affected component/states, exact reported version and current revision. Separate the request from its proposed solution. Reproduce with public library components and inspect the real composition when available. Completion: each claim is observed, source-confirmed or explicitly unverified; missing evidence is not a reason to reject the need.
 
 ## 2. Choose the review tools
 
@@ -31,7 +31,7 @@ Use only the relevant domain skills for a focused issue. A broad interface revie
 
 ## 3. Inspect the surrounding system
 
-Map shared tokens, styles, state rules and sibling components. Inspect the original scenario plus representative neighboring states: ready/hover/focus/pressed, selected/invalid, disabled/read-only/loading as applicable. Include S/M where supported, built-in palettes and a representative custom font/theme, narrow layout, keyboard and touch. Add forced-colors, reduced-motion or zoom checks when the behavior can be affected. Completion: the likely root cause and confirmed affected locations are named; untested combinations remain explicit.
+Map shared tokens, styles, state rules and sibling components. Inspect the original scenario plus representative neighboring states: ready/hover/focus/pressed, selected/invalid, disabled/read-only/loading as applicable. Include S/M/L where supported, built-in palettes and a representative custom font/theme, narrow layout, keyboard and touch. Add forced-colors, reduced-motion or zoom checks when the behavior can be affected. Completion: the likely root cause and confirmed affected locations are named; untested combinations remain explicit.
 
 Look for adjacent problems exposed by the scenario, including semantic misuse, unclear primary actions, color-only status, excessive nested frames, clipping and inaccessible help. Record each separately with its owner and evidence. Do not silently expand the agreed implementation scope.
 

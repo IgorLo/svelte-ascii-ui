@@ -6,10 +6,12 @@ const meta = {
   component: Component,
   tags: ['autodocs'],
   args: { items: [{ id: 'details', title: 'Session details', content: 'View the current workspace and terminal profile.' }, { id: 'logs', title: 'Logs', content: 'Review commands run in this session.' }, { id: 'archive', title: 'Archive', disabled: true }], size: 's' },
-  argTypes: { size: { control: 'inline-radio', options: ['s', 'm'] }, items: { control: 'object' }, value: { control: 'object' }, multiple: { control: 'boolean' }, header: { control: false }, children: { control: false } }
+  argTypes: { size: { control: 'inline-radio', options: ['s', 'm', 'l'] }, items: { control: 'object' }, value: { control: 'object' }, multiple: { control: 'boolean' }, header: { control: false }, children: { control: false } }
 } satisfies Meta<typeof Component>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 export const Multiple: Story = { args: { multiple: true, value: ['details', 'logs'] } };
 export const Open: Story = { args: { value: 'details' } };
+
+export const Large: Story = { args: { size: 'l' } };

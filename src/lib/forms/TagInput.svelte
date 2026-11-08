@@ -3,6 +3,7 @@
   import type { HTMLInputAttributes } from 'svelte/elements';
   import type { Size } from '../types';
   import Button from '../Button.svelte';
+  import Icon from '../Icon.svelte';
   import { formReset } from './form-reset';
   interface Props extends Omit<HTMLInputAttributes, 'size' | 'type' | 'value' | 'children'> {
     value?: string[];
@@ -39,7 +40,7 @@
   {#if tags.length}
     <ul aria-label="Tags">
       {#each tags as tag (tag)}
-        <li><span>{tag}</span><button type="button" disabled={disabled || readonly} aria-label={removeLabel + ' ' + tag} onclick={() => remove(tag)}>×</button></li>
+        <li><span>{tag}</span><button type="button" disabled={disabled || readonly} aria-label={removeLabel + ' ' + tag} onclick={() => remove(tag)}><Icon name="close" /></button></li>
       {/each}
     </ul>
   {/if}
@@ -63,7 +64,7 @@
   .row input { flex: 1 1 0; min-width: 0; }
   ul { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin: 0; padding: 0; }
   li { display: flex; align-items: center; gap: .5ch; padding-inline-start: .5ch; border: 1px dashed var(--muted); overflow-wrap: anywhere; }
-  li button { min-width: 28px; min-height: 28px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+  li button { display: grid; place-items: center; flex: none; min-width: 28px; min-height: 28px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
   li button:focus-visible { outline: 2px dashed var(--accent); }
   p { color: var(--danger); margin: 0; font-size: .875em; }
   @media (pointer: coarse) { li button { min-width: 44px; min-height: 44px; } }

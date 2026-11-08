@@ -1,3 +1,3 @@
 <script lang="ts">import type{Snippet}from'svelte';import type{Size,Tone}from'../types';let{children,label,tone='default',size='m'}:{children?:Snippet;label?:string;tone?:Tone;size?:Size}=$props();</script>
 <span data-tone={tone} data-size={size}><span aria-hidden="true">[ </span>{#if children}{@render children()}{:else}{label}{/if}<span aria-hidden="true"> ]</span></span>
-<style>span{font-size:.85em;color:var(--muted)}span span{font-family:var(--art-font);font-variant-east-asian:normal}[data-size='s']{font-size:.75em}[data-tone='success']{color:var(--accent)}[data-tone='warning']{color:var(--warning)}[data-tone='danger']{color:var(--danger)}</style>
+<style>span{font-size:var(--component-font);color:var(--muted)}span span{font-family:var(--art-font);font-variant-east-asian:normal}[data-tone='success']{color:var(--accent)}[data-tone='warning']{color:var(--warning)}[data-tone='danger']{color:var(--danger)}</style>

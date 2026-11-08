@@ -2,7 +2,7 @@
 
 Just a fun stylish vibecoded ASCII-like ui-kit for svelte
 
-Svelte 5 component library with ASCII frames, optional Monocraft typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples.
+Svelte 5 component library with ASCII frames, optional Monocraft typography, configurable palettes, keyboard focus, S/M/L controls and responsive Storybook examples.
 
 ## Working with agents
 
@@ -21,7 +21,7 @@ npm run storybook
 
 Open http://localhost:6006. Each component has Controls, named states and an API page. The palette toolbar switches Phosphor/Paper/Plum. Use the viewport toolbar for narrow screens. Snippets and callbacks have composed examples rather than JSON editors.
 
-The original visual specimen remains at `npm run dev` (5173). It is a historical visual reference; production integrations import the library, not prototype/example files.
+Run `npm run dev` (5173) for the component gallery. It uses the same public library components as Storybook and consumer applications.
 
 ## Install
 
@@ -91,7 +91,7 @@ Import `appColors` in the application and pass `colors={appColors}` to Theme. Us
 
 Theme generates frame images from these colors, including muted/button opacity and a stronger text-colored focus frame. Component styles derive additional translucent fills and disabled states. These are not a complete palette generator: assign colors from your chosen palette to the seven roles and check the resulting text, borders and states in Storybook. Theme's `font` prop selects another loaded font. Text can wrap differently; frame geometry is independent. Theme supplies tokens; the application owns the page background and layout.
 
-S/M controls are 36/48 CSS pixels high; coarse pointers have at least 44px targets. Article has no S/M variant and occupies available width. Width constraints belong to the page. See [design guide](docs/design-system.md).
+S/M/L controls have minimum heights of 32/39/48 CSS pixels and text sizes of 13/13/15px. Narrow-screen text inputs use 16px; coarse pointers retain at least 44px targets. Article has no size variant and occupies available width. Width constraints belong to the page. See [design guide](docs/design-system.md).
 
 See the [complete component inventory and verification guide](docs/components.md). The catalogue keeps composed examples alongside individual components.
 
@@ -115,7 +115,7 @@ Canvas pauses offscreen, in hidden tabs, for reduced motion, at zero opacity or 
 ## Build and verify
 
 For dense forms, theme surface roles and numerical summaries, see the
-[composition guide](docs/composition.md) and Storybook's Examples / Design Lab.
+[composition guide](docs/composition.md) and Storybook's Foundation / Control sizes and Examples / Score composition.
 
 See [CHANGELOG.md](CHANGELOG.md) for released and upcoming changes. Contributors follow the [release guide](docs/agents/releasing.md) for version selection and release notes.
 

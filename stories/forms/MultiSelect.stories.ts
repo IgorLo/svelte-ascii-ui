@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', 'aria-label': 'Topics', options: topics, value: ['design'] },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     options: { control: 'object' }, loading: { control: 'boolean' }, value: { control: 'object' },
   },
@@ -23,3 +23,5 @@ export const ReadOnly: Story = { args: {readonly:true} };
 export const Loading: Story = { args: {loading:true} };
 export const Error: Story = { args: {error:'Could not load topics.'} };
 export const Empty: Story = { args: {options:[],value:[]} };
+
+export const Large: Story = { args: { size: 'l' } };

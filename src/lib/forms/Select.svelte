@@ -4,6 +4,7 @@
   import type { HTMLSelectAttributes } from 'svelte/elements';
   import type { Option } from './types';
   import Loader from '../Loader.svelte';
+  import Icon from '../Icon.svelte';
   interface Props extends Omit<HTMLSelectAttributes, 'size' | 'value' | 'multiple'> {
     value?: string;
     size?: Size;
@@ -26,7 +27,7 @@
       <option value={option.value} disabled={option.disabled} selected={initial === option.value}>{option.label}</option>
     {/each}
     </select>
-    <span class="chevron" aria-hidden="true">{#if loading}<Loader {size} />{:else}⌄{/if}</span>
+    <span class="chevron" aria-hidden="true">{#if loading}<Loader {size} />{:else}<Icon name="chevron-down" />{/if}</span>
   </div>
   {#if loading}<span class="status" role="status">{loadingText}</span>
   {:else if error}<span id={uid + '-error'} class="error">! {error}</span>{/if}
@@ -35,8 +36,8 @@
 <style>
   .select { position: relative; display: grid; gap: .5rem; }
   .target { position: relative; }
-  select { width: 100%; appearance: none; padding-inline-end: 2.5em; }
-  .chevron { position: absolute; inset-inline-end: 1.25rem; inset-block: 0; display: grid; align-items: center; pointer-events: none; font-family: var(--art-font); }
+  select { width: 100%; appearance: none; padding-inline-end: calc(var(--field-height,var(--control-height)) - var(--control-frame) + .75ch); }
+  .chevron { position: absolute; inset-inline-end: 0; inset-block: 0; inline-size: var(--field-height,var(--control-height)); display: grid; place-items: center; pointer-events: none; }
   @media (forced-colors: active) { select { appearance: auto; } .chevron { display: none; } }
   .status { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; }
   .error { color: var(--danger); font-size: .875em; }

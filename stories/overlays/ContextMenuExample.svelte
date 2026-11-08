@@ -2,7 +2,7 @@
   import Menu from '../../src/lib/overlays/ContextMenu.svelte';
   import type { MenuItem } from '../../src/lib/overlays/types';
   let { label = 'File context actions', size = 's', empty = false, buttonLabel = 'More actions' }: {
-    label?: string; size?: 's' | 'm'; empty?: boolean; buttonLabel?: string;
+    label?: string; size?: 's' | 'm' | 'l'; empty?: boolean; buttonLabel?: string;
   } = $props();
   let result = $state('');
   const items: MenuItem[] = [

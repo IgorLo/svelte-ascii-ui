@@ -4,7 +4,7 @@ Use the public components with application-owned layout. The [design guide](desi
 
 ## Density: first separate spacing from control geometry
 
-Choose S for compact groups and M for prominent actions. Pass the same size to related controls explicitly; a Theme size does not replace an individual component's size default. Start with 12px between compact groups and 24px between normal groups. Use a responsive grid that collapses without squeezing labels:
+Choose S for compact groups, M for everyday controls and L for prominent actions. Pass the same size to related controls explicitly; a Theme size does not replace an individual component's size default. Start with 12px between compact groups and 24px between normal groups. Use a responsive grid that collapses without squeezing labels:
 
 ```css
 .preferences {
@@ -21,9 +21,9 @@ Choose S for compact groups and M for prominent actions. Pass the same size to r
 
 Keep labels, hints and errors in Field and avoid wrapping every field in another Panel. A plain heading inside a Panel is often enough. Panel's title/header adds a divider and section spacing; use it for a distinct section rather than repeating it for each control.
 
-S/M describe complete control treatments, not exact rendered heights. The ASCII border occupies layout space; content line height, font metrics and border widths can make a control taller than its minimum. A narrow layout also keeps text inputs at a readable font size, and coarse-pointer controls retain a 44px minimum. Renaming M to S or shrinking text does not resolve the source of excess space.
+S/M/L describe complete control treatments, not exact rendered heights. The ASCII border occupies layout space; content line height, font metrics and border widths can make a control taller than its minimum. A narrow layout also keeps text inputs at a readable font size, and coarse-pointer controls retain a 44px minimum. Keep spacing and control sizing separate; choose the supported size instead of overriding internal CSS.
 
-Storybook **Examples / Design Lab / Density** compares current S and M, an independent spacing-only experiment, and a compact frame with stronger ASCII strokes. The compact experiment separates a 6px layout inset from 9px artwork, preserving recognizable dash and corner shapes without reducing text size. The experimental internal CSS is isolated to that story and is not a supported consumer customization recipe. Review label wrapping, focus, touch targets, font changes and real screens before accepting new defaults.
+Storybook **Foundation / Control sizes** presents S/M/L using the public components. S separates a 6px layout inset from 9px artwork to preserve recognizable dash and corner shapes. M uses a 9px frame, and L uses 12px. Review label wrapping, focus, touch targets and font changes in real compositions.
 
 ## Surfaces: know which role changes
 
@@ -42,7 +42,7 @@ Theme itself does not paint a page background. Set an application-owned page bac
 
 Button starts transparent; its primary variant changes text and frame emphasis. Hover and keyboard focus have their own feedback. Progress starts with a transparent track and ASCII ink. There is no public fill variant or independent field/track surface token.
 
-Storybook **Examples / Design Lab / Surfaces** keeps the same content while comparing the default treatment, a subtle primary fill, and separate field/track fills across the built-in palettes. Those alternatives are explicitly experimental. Do not copy their internal selectors into integrations. If the public roles cannot express a needed treatment, follow the [feedback workflow](agents/feedback.md) before introducing an exception.
+If the public color roles cannot express a needed treatment, follow the [feedback workflow](agents/feedback.md) before introducing an exception.
 
 ## Numerical summaries: value, scale, meaning
 
@@ -62,7 +62,7 @@ Use Panel for the group, Badge for a written status, and Separator between relat
 </Panel>
 ```
 
-This supported recipe appears in **Examples / Design Lab / Score Composition**. Status stays understandable without color. Do not put the number only inside a small Badge or rely on a tinted rectangle to explain its meaning.
+This supported recipe appears in **Examples / Score composition**. Status stays understandable without color. Do not put the number only inside a small Badge or rely on a tinted rectangle to explain its meaning.
 
 Progress has progressbar semantics and a normalized value from 0 to 1. Use it for completion of work, such as importing records. A quality rating, temperature, allocation or contribution to a score is a measurement, not task completion. A labelled numeric value is often clearest. When a graphical bounded measurement is useful, use a labelled native meter with the actual scale:
 

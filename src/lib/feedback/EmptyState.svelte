@@ -1,3 +1,3 @@
 <script lang="ts">import type{Snippet}from'svelte';let{title='Пока ничего нет',description='',symbol='[ · ]',children,actions}:{title?:string;description?:string;symbol?:string;children?:Snippet;actions?:Snippet}=$props();</script>
 <div class="empty"><span aria-hidden="true">{symbol}</span><h3>{title}</h3>{#if description}<p>{description}</p>{/if}{@render children?.()}{#if actions}<div class="actions">{@render actions()}</div>{/if}</div>
-<style>.empty{padding:1.5em;text-align:center;overflow-wrap:anywhere}.empty>span{font:2em var(--art-font);color:var(--muted)}h3{font-size:1.1em;font-weight:400;margin:.8em 0}p{color:var(--muted);margin:.6em 0}.actions{margin-top:1em}</style>
+<style>.empty{padding:1.5em;text-align:center;overflow-wrap:anywhere}.empty>span{font:2em var(--art-font);color:var(--muted)}h3{font-size:1.1em;font-weight:600;margin:.8em 0}p{color:var(--muted);margin:.6em 0}.actions{margin-top:1em}</style>

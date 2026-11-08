@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Theme, Popover, Button } from '../../src/lib';
-  let { size = 's', edge = false }: { size?: 's' | 'm'; edge?: boolean } = $props();
+  let { size = 's', edge = false }: { size?: 's' | 'm' | 'l'; edge?: boolean } = $props();
 </script>
 
 <Theme {size}>

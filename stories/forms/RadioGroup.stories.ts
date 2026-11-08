@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { size: 'm', label: 'Publication state', options, value: 'draft' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['s', 'm'] },
+    size: { control: 'inline-radio', options: ['s', 'm', 'l'] },
     disabled: { control: 'boolean' },
     label: { control: 'text' }, options: { control: 'object' },
   },
@@ -20,3 +20,5 @@ export const Playground: Story = {};
 export const Small: Story = { args: { size: 's' } };
 export const Disabled: Story = { args: {disabled:true} };
 export const Unselected: Story = { args: {value:''} };
+
+export const Large: Story = { args: { size: 'l' } };

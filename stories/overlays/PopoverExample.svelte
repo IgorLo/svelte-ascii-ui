@@ -2,7 +2,7 @@
   import Button from '../../src/lib/Button.svelte';
   import Popover from '../../src/lib/overlays/Popover.svelte';
   let { label = 'Display options', title = 'Display options', size = 's', triggerVariant = 'button' }: {
-    label?: string; title?: string; size?: 's' | 'm'; triggerVariant?: 'button' | 'compact';
+    label?: string; title?: string; size?: 's' | 'm' | 'l'; triggerVariant?: 'button' | 'compact';
   } = $props();
   let compact = $state(false);
 </script>

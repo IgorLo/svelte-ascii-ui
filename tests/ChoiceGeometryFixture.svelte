@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Checkbox, Switch, Theme } from '../src/lib';
-  let { size = 's', width = 120 }: { size?: 's' | 'm'; width?: number } = $props();
+  let { size = 's', width = 120 }: { size?: 's' | 'm' | 'l'; width?: number } = $props();
 </script>
 
 <Theme>

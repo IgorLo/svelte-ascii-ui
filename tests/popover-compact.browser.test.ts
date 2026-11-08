@@ -6,7 +6,7 @@ import '../src/lib/theme.css';
 
 afterEach(cleanup);
 
-for (const size of ['s', 'm'] as const) {
+for (const size of ['s', 'm', 'l'] as const) {
   test(`compact help preserves native keyboard and overlay behavior at ${size}`, async () => {
     render(Example, { size });
     const trigger = screen.getByRole('button', { name: 'About retention' });
@@ -44,7 +44,7 @@ for (const size of ['s', 'm'] as const) {
     const a = trigger.getBoundingClientRect();
     const b = neighbor.getBoundingClientRect();
     expect(a.right <= b.left || a.bottom <= b.top).toBe(true);
-    expect(regular.getBoundingClientRect().height).toBeGreaterThanOrEqual(matchMedia('(pointer: coarse)').matches ? 44 : size === 's' ? 36 : 48);
+    expect(regular.getBoundingClientRect().height).toBeGreaterThanOrEqual(matchMedia('(pointer: coarse)').matches ? 44 : { s: 32, m: 39, l: 48 }[size]);
     await userEvent.click(neighbor);
     expect(screen.getByRole('dialog', { name: 'About backups' })).toBeTruthy();
     expect(neighbor.textContent?.trim()).toBe('[i]');
@@ -53,7 +53,7 @@ for (const size of ['s', 'm'] as const) {
   });
 }
 
-for (const size of ['s', 'm'] as const) {
+for (const size of ['s', 'm', 'l'] as const) {
   for (const width of [320, 390]) {
     for (const edge of [false, true]) {
       test(`long Cyrillic help fits ${width}px at ${edge ? 'bottom right' : 'top left'} (${size})`, async () => {
