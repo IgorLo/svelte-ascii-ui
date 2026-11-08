@@ -124,7 +124,6 @@
   .current-m .preferences { font-size: 15px; }
   .sample :global(input.aui-control), .sample :global(select.aui-control) { min-height: var(--demo-field-height); }
   .sample :global(.aui-button) { min-height: var(--demo-action-height); }
-  .sample :global(.mark.aui-control) { flex: 0 0 var(--choice-box); min-inline-size: var(--choice-box); inline-size: var(--choice-box); block-size: var(--choice-box); aspect-ratio: 1; }
   .sample :global(.inline > .aui-button) { flex: 0 0 var(--demo-field-height); inline-size: var(--demo-field-height); block-size: var(--demo-field-height); min-inline-size: var(--demo-field-height); min-block-size: var(--demo-field-height); padding: 0; display: grid; place-items: center; }
   .sample :global(.chevron) { inline-size: 1em; display: grid; place-items: center; line-height: 1; }
   .sample :global(.chevron) { font-size: 0; inline-size: var(--demo-icon-size); inset-inline-end: calc(var(--control-frame) + .75rem); }

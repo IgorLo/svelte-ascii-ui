@@ -6,13 +6,15 @@ This experiment lives on `docs/compact-scale-comparison`. Library defaults remai
 
 - Three text scales: 13px, 12px compact, and 15px large. Reduce labels and control text together; preserve optical centering.
 - Narrow-screen input text remains 16px. Coarse-pointer targets remain at least 44px.
-- Checkbox artwork must retain its square dimensions when a long label wraps. The mark must not flex-shrink.
+- Checkbox and Switch non-shrinking geometry is fixed in the library via PR #14. This prototype uses that implementation; it has no local shrink-prevention override.
 - NumberInput stepper buttons must be equal squares, independent of plus/minus glyph width.
 - Select chevrons and icon-only actions need a consistent icon box and optical alignment independent of the text font.
 - Pixelarticons is the preferred visual candidate in the current review. Small/compact icon boxes use 18px artwork, large uses 24px; preserve the button dimensions. Stepper text must not create a second layout row beside the SVG.
 - Compare free SVG icon candidates before selecting a set. Preserve the selected files' license and copyright notice; do not import paid variants or the whole catalog.
 
 ## After approval
+
+Use a shared, fixed SVG icon box with `currentColor` for built-in controls. Keep accessible names on the buttons and hide decorative SVGs from assistive technology. Preserve Button/IconButton snippet extension points. Vendor only the chosen small asset subset with its MIT notice; an icon font or a whole-catalog runtime dependency is unnecessary.
 
 Move the selected treatment into the reusable components rather than copying story overrides into applications. Inspect Checkbox/Switch, NumberInput, Select, IconButton, button icon snippets and other directional controls for the same causes. Preserve native semantics, names, keyboard/focus behavior, disabled/loading states and forced colors.
 
