@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .ascii-progress{padding:6px;background:transparent}
+  .ascii-progress{padding:6px;background:color-mix(in srgb,var(--text) 6%,var(--bg));background-clip:padding-box}
   .measured-progress { position: relative; min-width: 0; overflow: hidden; height: 20px; font: 16px/20px var(--art-font); font-variant-east-asian: normal; letter-spacing: 0; }
   .glyph-measure { position: absolute; display: inline-block; visibility: hidden; white-space: pre; }
   .progress-dots { position: absolute; inset: 0; display: flex; justify-content: space-between; color: var(--line); }
