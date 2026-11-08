@@ -14,6 +14,10 @@ space between unrelated sections. Avoid nested frames when a heading suffices.
 Structural borders are quieter than interactive borders. Focus is brighter and
 thicker without changing layout.
 
+For dense forms, surface roles and numerical summaries, use the
+[composition guide](composition.md). Its Storybook experiments compare alternatives;
+they do not change the supported S/M treatments.
+
 ## Responsive layout
 Use repeat(auto-fit,minmax(min(100%,18rem),1fr)) for cards and minmax(0,1fr) for
 content beside a sidebar. Collapse sidebars or use Drawer on small screens.
@@ -36,6 +40,13 @@ Field connects labels/hints/errors. Essential instructions belong beside the
 field, not only in Tooltip. Keep errors until corrected. Loading must not submit
 twice. Error/action toasts remain until dismissed. Keyboard focus must stay
 visible and return to overlay triggers.
+
+On hover-capable pointers, editable fields and choice targets gain frame or
+surface emphasis without changing geometry or selection. Disabled and read-only
+fields do not advertise editing. Invalid fields retain their error frame on hover;
+keyboard focus remains distinct. Danger buttons retain their danger color.
+Use Popover's compact trigger for contextual help beside a label; its native
+button keeps an accessible name and a separate focus indicator.
 
 Native Select suits short lists. Combobox adds search; MultiSelect chooses several
 values. Empty, no matches, loading failure and disabled options are distinct.

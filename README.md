@@ -114,6 +114,9 @@ Canvas pauses offscreen, in hidden tabs, for reduced motion, at zero opacity or 
 
 ## Build and verify
 
+For dense forms, theme surface roles and numerical summaries, see the
+[composition guide](docs/composition.md) and Storybook's Examples / Design Lab.
+
 See [CHANGELOG.md](CHANGELOG.md) for released and upcoming changes. Contributors follow the [release guide](docs/agents/releasing.md) for version selection and release notes.
 
 ```sh

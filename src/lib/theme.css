@@ -16,7 +16,10 @@ textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
 .aui-button[data-size='s']{gap:8px;padding-bottom:2px;line-height:1.25}
 .aui-button[data-variant='primary']{color:var(--accent);border-image-source:var(--ascii-accent)}
 .aui-button[data-variant='danger']{color:var(--danger);border-image-source:var(--ascii-error)}
-.aui-button:hover:not(:disabled){color:var(--accent);border-image-source:var(--ascii-accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+@media(hover:hover){
+ .aui-button:where(:hover:not(:disabled):not(:focus-visible)){color:var(--accent);border-image-source:var(--ascii-accent);background:color-mix(in srgb,currentColor 8%,transparent)}
+ .aui-control:where(input,select,textarea):where(:hover:enabled:not([readonly]):not(:focus-visible)){border-image-source:var(--ascii-accent);background-color:color-mix(in srgb,var(--text) 4%,var(--bg))}
+}
 .aui-control:disabled,.aui-button:disabled{opacity:.45;cursor:not-allowed}
 .aui-control[aria-invalid='true']{border-image-source:var(--ascii-error)}
 .aui-control:focus-visible,.aui-button:focus-visible{border-image-source:var(--ascii-focus);outline:2px solid transparent;background-color:color-mix(in srgb,var(--text) 7%,var(--bg))}
