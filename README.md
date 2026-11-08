@@ -2,7 +2,7 @@
 
 Just a fun stylish vibecoded ASCII-like ui-kit for svelte
 
-Svelte 5 component library with ASCII frames, optional DotGothic16 typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples. The npm registry release is not published yet; install the local tarball in another project.
+Svelte 5 component library with ASCII frames, optional DotGothic16 typography, configurable palettes, keyboard focus, S/M controls and responsive Storybook examples.
 
 ## Working with agents
 
@@ -24,6 +24,12 @@ Open http://localhost:6006. Each component has Controls, named states and an API
 The original visual specimen remains at `npm run dev` (5173). It is a historical visual reference; production integrations import the library, not prototype/example files.
 
 ## Install
+
+```sh
+npm install --save-exact svelte-ascii-ui@0.1.0
+```
+
+To test an unpublished local change instead:
 
 ```sh
 # In this repository:
@@ -126,6 +132,8 @@ GitHub Actions runs these checks plus demo and Storybook builds on pushes and pu
 Outputs: dist (library), demo-dist (visual specimen), storybook-static (static catalogue). The tarball contains dist, package metadata/README and the selected guidance listed in package.json. Stories, prototype files and fixtures stay out. Inspect `npm pack --dry-run --json` when changing package contents.
 
 Version 0.1.0 APIs may evolve with real project use. Accessibility checks are not certification: applications own labels, content, palette contrast and page structure.
+
+Stable GitHub Releases trigger the npm publishing workflow after verification. Manual runs of that workflow only perform checks and a publication dry run. Maintainers must configure npm Trusted Publishing first; see the [release workflow](docs/agents/maintaining.md#github-release-workflow).
 
 ## License
 

@@ -1,0 +1,63 @@
+name: Publish npm package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Validate release identity
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+          assert.equal(pkg.name, 'svelte-ascii-ui');
+          assert.match(pkg.version, /^\d+\.\d+\.\d+$/);
+          if (process.env.GITHUB_EVENT_NAME === 'release') {
+            assert.equal(process.env.RELEASE_TAG, `v${pkg.version}`, 'Release tag must match package.json');
+          }
+          appendFileSync(process.env.GITHUB_ENV, `PACKAGE_ARCHIVE=${pkg.name}-${pkg.version}.tgz\n`);
+          NODE
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm test
+      - run: npm run build:demo
+      - run: npm run build:storybook
+      - run: npm run test:package
+      - name: Preview publication
+        run: npm publish "./$PACKAGE_ARCHIVE" --dry-run --ignore-scripts --access public
+      - name: Publish verified archive with npm trusted publishing
+        if: github.event_name == 'release'
+        run: npm publish "./$PACKAGE_ARCHIVE" --ignore-scripts --access public
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: publish-failure-screenshots
+          path: .vitest/attachments/
+          include-hidden-files: true
+          if-no-files-found: ignore
