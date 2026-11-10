@@ -1,3 +1,5 @@
+![Svelte ASCII UI — pixel-style Svelte logo over a gallery of ASCII interface components.](https://raw.githubusercontent.com/IgorLo/svelte-ascii-ui/e35332d36ac527f83e0180810c7db997c7f09538/docs/screenshots/cover.png)
+
 # Svelte ASCII UI
 
 Just a fun stylish vibecoded ASCII-like ui-kit for svelte
