@@ -4,6 +4,24 @@ Just a fun stylish vibecoded ASCII-like ui-kit for svelte
 
 Svelte 5 component library with ASCII frames, optional Monocraft typography, configurable palettes, keyboard focus, S/M/L controls and responsive Storybook examples.
 
+## Gallery
+
+**Actions · Phosphor**
+
+![Primary and secondary actions, an icon button, and destructive, disabled and loading buttons.](https://raw.githubusercontent.com/IgorLo/svelte-ascii-ui/194fd27c34642bf9db2f13adc109040e2dc903e0/docs/screenshots/actions.png)
+
+**Fields and filters · Paper**
+
+![A focused name field and an invalid email beside search, multi-select, tags and a loading select.](https://raw.githubusercontent.com/IgorLo/svelte-ascii-ui/194fd27c34642bf9db2f13adc109040e2dc903e0/docs/screenshots/fields-and-filters.png)
+
+**Choices and progress · Phosphor**
+
+![Unchecked, indeterminate and disabled checkboxes, an enabled switch and radio choices beside sliders, a file input and 37% progress.](https://raw.githubusercontent.com/IgorLo/svelte-ascii-ui/194fd27c34642bf9db2f13adc109040e2dc903e0/docs/screenshots/choices-and-progress.png)
+
+**Confirmation dialog · Plum**
+
+![An open confirmation dialog with close, cancel and destructive confirm actions.](https://raw.githubusercontent.com/IgorLo/svelte-ascii-ui/194fd27c34642bf9db2f13adc109040e2dc903e0/docs/screenshots/dialog.png)
+
 ## Working with agents
 
 - **Using or migrating an application:** read the installed version's [consumer guide](docs/agents/using.md), including the short instruction to add to the application's own agent rules.
