@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import UpdatesExample from './examples/UpdatesExample.svelte';
   import {
     Accordion, Alert, Article, Background, Badge, Breadcrumbs, Button, Callout,
     Checkbox, Collapsible, Combobox, ContextMenu, DataState, Dialog, Drawer,
@@ -46,16 +47,18 @@
       <h1>Символы. Система.</h1>
       <p>Компоненты библиотеки в трёх размерах. Одинаковые API, доступность и состояния в приложении и в Storybook.</p>
       <div class="settings">
-        <Field label="Палитра">{#snippet children(control)}<Select {...control} size="m" value={palette} onchange={event => palette = event.currentTarget.value as Palette} options={[{value:'phosphor',label:'Phosphor'},{value:'paper',label:'Paper'},{value:'plum',label:'Plum'}]} />{/snippet}</Field>
+        <Field label="Палитра">{#snippet children(control)}<Select {...control} size="m" showPlaceholder={false} value={palette} onchange={event => palette = event.currentTarget.value as Palette} options={[{value:'phosphor',label:'Phosphor'},{value:'paper',label:'Paper'},{value:'plum',label:'Plum'}]} />{/snippet}</Field>
         <Switch size="m" label="Приостановить фон" bind:checked={paused} />
       </div>
       <nav aria-label="Разделы витрины" class="links">
         {#each sizes as size (size)}<Link href={`#size-${size}`} label={`Размер ${size.toUpperCase()}`} />{/each}
+        <Link href="#updates" label="Новые возможности" />
         <Link href="#overlays" label="Окна и навигация" /><Link href="#article" label="Текст и изображения" />
       </nav>
     </header>
 
     <main id="components">
+      <section id="updates" class="size-section" aria-labelledby="updates-title"><h2 id="updates-title">Новые возможности</h2><UpdatesExample {palette} /></section>
       {#each sizes as size (size)}
         <section id={`size-${size}`} class="size-section" aria-labelledby={`heading-${size}`}>
           <h2 id={`heading-${size}`}>Размер {size.toUpperCase()}</h2>
