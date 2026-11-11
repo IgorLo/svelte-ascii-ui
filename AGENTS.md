@@ -18,3 +18,7 @@ At handoff, report code, story/test and documentation changes together, commands
 Keep personal plans, session notes, internal research and consumer-specific migration context out of public documentation and package contents. Publish only library-relevant guidance and shareable evidence approved for the issue.
 
 Preserve development history: make a descriptive Git commit after each completed, verified logical change. Inspect the staged diff before committing; include only the task's changes and never local notes, credentials or generated artifacts. Report the commit hash and actual verification at handoff. Do not amend or rewrite existing history unless explicitly requested. Commit locally even when remote authentication is unavailable; push when authorized by the current request.
+
+## Shared conventions
+
+For software projects, resolve the current main commit of https://github.com/IgorLo/igorlo-llm-hub at the start of each task. Read AGENTS.md and its task-relevant links at that exact commit. Keep this revision for the task. If offline, use the last available approved revision and state its SHA; if none is available, say so and use project instructions. Follow project-specific contracts and release rules.
