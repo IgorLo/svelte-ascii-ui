@@ -29,3 +29,9 @@ test('themed region scrolls with the keyboard and keeps visible focus', async ()
   expect(getComputedStyle(region).scrollbarColor).toBe('rgb(196, 237, 131) rgb(24, 28, 25)');
   expect(getComputedStyle(region).outlineStyle).not.toBe('none');
 });
+
+test('native scrollbar colors inherit within the opted-in subtree', () => {
+  render(Fixture);
+  expect(getComputedStyle(screen.getByRole('region', { name: 'Nested settings' })).scrollbarColor).toBe('rgb(167, 178, 158) rgb(24, 28, 25)');
+  expect(getComputedStyle(screen.getByRole('region', { name: 'Native settings' })).scrollbarColor).toBe('auto');
+});
