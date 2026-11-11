@@ -43,3 +43,9 @@ The accessibility addon runs axe checks per story. Inconclusive results require 
 ## Public native scrollbar style
 
 `aui-scrollbar` is an opt-in class provided by the Theme stylesheet, not a ScrollArea component. Add it to an application-owned scroll container under Theme. See [native scroll containers](composition.md#native-scroll-containers) for keyboard naming, layout ownership and platform fallbacks.
+
+## Optional native Select choices
+
+`Select showPlaceholder={false}` omits the inserted empty choice. Supply a bound initial value matching an enabled option when a visible initial selection is required. On initial render an empty or unmatched bound value remains unselected; the component does not silently choose the first option. Native form reset is a separate action: if no option matches the initial value, the browser selects the first enabled option and the binding follows that value. With the default `showPlaceholder={true}`, `placeholder` supplies the empty option label and an optional Select can return to an empty value.
+
+`required` independently controls native form validity. It does not show or hide choices. Bindings, `name`/FormData and native form reset remain supported; reset restores the matching initial selection. See Storybook **Forms / Select / Options only**, **Optional** and **Required**.
