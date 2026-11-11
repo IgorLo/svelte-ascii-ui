@@ -99,3 +99,7 @@ Checkbox frame tiles fit the available mark using complete rescaled repeats. A s
 ## Reading typography
 
 Body and long Article text can use a separate reading scale while controls retain their S/M/L geometry. Theme text tokens and `size="inherit"` for inline Link/Badge are documented in the [composition guide](composition.md#reading-text-without-enlarging-controls). Existing compact defaults remain supported. Compare longer reading text at 16–18px with Regular 400 using real content; this is a design starting point, not a universal accessibility threshold. Keep sources and adjacent dates at one scale, permit wrapping and preserve browser text enlargement.
+
+## Modal detail sheets
+
+Use `Drawer side="bottom"` for bottom-aligned details and a centered Dialog for confirmations. Short sheets use content height; long sheets scroll within the available viewport while keeping header/footer actions accessible. Preserve safe-area space and keyboard focus. Bottom sheets do not inherit the left/right drawer width setting. The [component guidance](components.md#bottom-drawer) describes viewport and host-page requirements.

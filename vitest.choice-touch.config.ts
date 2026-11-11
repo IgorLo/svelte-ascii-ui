@@ -7,7 +7,7 @@ export default defineConfig({
   define: { 'import.meta.env.CHOICE_TOUCH': true },
   test: {
     ...config.test,
-    include: ['tests/choice-geometry.browser.test.ts', 'tests/control-scale.browser.test.ts'],
+    include: ['tests/choice-geometry.browser.test.ts', 'tests/control-scale.browser.test.ts', 'tests/bottom-drawer.browser.test.ts'],
     browser: {
       ...config.test!.browser,
       provider: playwright({ contextOptions: { hasTouch: true } }),

@@ -7,7 +7,7 @@
     open?: boolean; title: string; size?: 's' | 'm' | 'l' | 'xl' | 'fit';
     header?: Snippet; children?: Snippet; footer?: Snippet;
     closeOnEscape?: boolean; closeOnBackdrop?: boolean; closeLabel?: string;
-    drawerSide?: 'left' | 'right';
+    drawerSide?: 'left' | 'right' | 'bottom';
   };
   let {
     open = $bindable(false), title, size = 'm', header, children, footer,
@@ -21,6 +21,33 @@
   $effect(() => {
     if (open && !element.open) element.showModal();
     else if (!open && element.open) element.close();
+  });
+
+
+  $effect(() => {
+    if (!open || drawerSide !== 'bottom' || !window.visualViewport) return;
+    const viewport = window.visualViewport;
+    function updateViewport() {
+      // Pinch zoom keeps the layout size so users can pan across the content.
+      if (viewport.scale !== 1) {
+        element.style.removeProperty('--drawer-viewport-height');
+        element.style.removeProperty('--drawer-viewport-bottom');
+        return;
+      }
+      element.style.setProperty('--drawer-viewport-height', `${viewport.height}px`);
+      element.style.setProperty('--drawer-viewport-bottom', `${Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)}px`);
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && element.contains(active)) active.scrollIntoView({ block: 'nearest' });
+    }
+    updateViewport();
+    viewport.addEventListener('resize', updateViewport);
+    viewport.addEventListener('scroll', updateViewport);
+    return () => {
+      viewport.removeEventListener('resize', updateViewport);
+      viewport.removeEventListener('scroll', updateViewport);
+      element.style.removeProperty('--drawer-viewport-height');
+      element.style.removeProperty('--drawer-viewport-bottom');
+    };
   });
 
   function onBackdrop(event: MouseEvent | PointerEvent) {
@@ -84,9 +111,17 @@
   [data-drawer][data-overlay-size='s'] { --overlay-width: 25vw; }
   [data-drawer][data-overlay-size='l'] { --overlay-width: 50vw; }
   [data-drawer][data-overlay-size='xl'] { --overlay-width: 67vw; }
+  .dialog[data-drawer='bottom'] {
+    position: fixed; inset: auto 0 var(--drawer-viewport-bottom, 0); margin: 0;
+    width: 100%; max-width: 100%; height: auto;
+    max-height: var(--drawer-viewport-height, 100dvh);
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  .dialog[data-drawer='bottom'] .body { scroll-padding-block: var(--control-height); }
+  :global(html:has(dialog[data-drawer='bottom']:modal)) { overflow: hidden; }
   @media (max-width: 600px) {
     .dialog { width: 100vw; max-width: 100vw; max-height: 75dvh; }
-    [data-drawer] { max-height: 100dvh; margin: 0; }
+    [data-drawer]:not([data-drawer='bottom']) { max-height: 100dvh; margin: 0; }
     .header, .footer { padding: .6em; }
     .body { padding: 0 .6em .6em; }
   }

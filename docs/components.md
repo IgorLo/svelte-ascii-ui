@@ -53,3 +53,9 @@ The accessibility addon runs axe checks per story. Inconclusive results require 
 ## Reading text
 
 Article supports the public Theme reading tokens. Inline Link and Badge additionally accept `size="inherit"` to match a source line, caption or paragraph; existing S/M/L defaults are preserved. See [reading text](composition.md#reading-text-without-enlarging-controls) and Storybook **Foundation / Reading typography** for independent text settings and representative compositions.
+
+## Bottom drawer
+
+Use `Drawer side="bottom"` for a modal detail sheet. It fills viewport width, grows with short content and limits long content to the visible viewport, with a scrollable body and a persistent header/footer. `size` continues to set width for left/right drawers; it does not narrow a bottom sheet. Centered Dialog and existing left/right Drawer defaults remain separate patterns.
+
+The bottom drawer accounts for safe-area insets and responds to visual viewport changes where supported. The host page should include `viewport-fit=cover` in its viewport meta tag to expose device safe-area insets. The body reserves scroll clearance so focused framed inputs remain visible above footer actions. Native modal focus, Escape, backdrop dismissal and focus return remain in place; the background stays locked while a bottom modal is open. Pinch zoom does not reposition the sheet to chase the magnified visual viewport. Physical keyboard/safe-area behavior still needs testing on the intended devices. Drag-to-dismiss is not provided. See Storybook **Overlays / Drawer / Bottom** and **Bottom long content**.
