@@ -38,3 +38,18 @@ textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
 
 @media(max-width:760px){.ascii-theme[data-size='s'],.ascii-theme [data-size='s']{--field-height:34.4px}.ascii-theme[data-size='m'],.ascii-theme [data-size='m']{--field-height:42px}}
 @media(pointer:coarse){.ascii-theme,.ascii-theme [data-size]{--control-height:44px;--field-height:44px}.ascii-theme[data-size='l'],.ascii-theme [data-size='l']{--control-height:48px;--field-height:48px}.ascii-theme .aui-button{min-inline-size:44px}}
+
+/* Opt in on an application-owned native scroll container. Keep system hit areas. */
+@media (forced-colors: none) {
+ .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:var(--muted) var(--bg);scrollbar-width:auto}
+ .ascii-theme.aui-scrollbar:focus-within,.ascii-theme .aui-scrollbar:focus-within{scrollbar-color:var(--accent) var(--bg)}
+ @media(hover:hover){.ascii-theme.aui-scrollbar:hover,.ascii-theme .aui-scrollbar:hover{scrollbar-color:var(--accent) var(--bg)}}
+ @supports not (scrollbar-color: red blue) {
+  .ascii-theme.aui-scrollbar::-webkit-scrollbar,.ascii-theme .aui-scrollbar::-webkit-scrollbar{background:var(--bg)}
+  .ascii-theme.aui-scrollbar::-webkit-scrollbar-thumb,.ascii-theme .aui-scrollbar::-webkit-scrollbar-thumb{background:var(--muted)}
+  .ascii-theme.aui-scrollbar:focus-within::-webkit-scrollbar-thumb,.ascii-theme .aui-scrollbar:focus-within::-webkit-scrollbar-thumb{background:var(--accent)}
+  @media(hover:hover){.ascii-theme.aui-scrollbar:hover::-webkit-scrollbar-thumb,.ascii-theme .aui-scrollbar:hover::-webkit-scrollbar-thumb{background:var(--accent)}}
+ }
+}
+.ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline:2px dashed var(--text);outline-offset:2px}
+@media(forced-colors:active){.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:auto}.ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline-color:Highlight}}

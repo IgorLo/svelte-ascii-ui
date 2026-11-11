@@ -39,3 +39,7 @@ The current version does not include tables, drop zones, upload queues, gallerie
 Storybook's Examples/Form contracts and Examples/Editor/Save and retry also contain replayable interaction assertions. Forms have submission/reset and retry examples. Run the catalogue's `/story-smoke.html` page to load every story and report rendering failures; this all-story smoke page and the Storybook play functions are not part of the automated browser suite. CI builds the catalogue and runs the separate behavioral tests. This baseline is not an accessibility or behavioral certification of every component/state.
 
 The accessibility addon runs axe checks per story. Inconclusive results require manual inspection. Keyboard and focus checks complement automation; actual screen-reader and physical mobile-device testing remain separate from desktop browser checks.
+
+## Public native scrollbar style
+
+`aui-scrollbar` is an opt-in class provided by the Theme stylesheet, not a ScrollArea component. Add it to an application-owned scroll container under Theme. See [native scroll containers](composition.md#native-scroll-containers) for keyboard naming, layout ownership and platform fallbacks.

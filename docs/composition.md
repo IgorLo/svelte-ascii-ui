@@ -76,3 +76,23 @@ Progress has progressbar semantics and a normalized value from 0 to 1. Use it fo
 Native meter appearance varies by browser. Thresholds such as low, high and optimum should only be set when the application's domain gives them a clear meaning.
 
 Keep action placement in the application layout. Panel footer is ordinary document flow, not a sticky action bar. If a page needs persistent actions, account for the scroll container, visible focus, mobile safe areas and unobscured content rather than relying on Panel to create that behavior.
+
+## Native scroll containers
+
+Apply `class="aui-scrollbar"` to an application-owned scroll container inside Theme (or on Theme itself). This public style uses `muted` for the thumb, `background` for the track and `accent` on hover-capable hover or focus within the container. It keeps the system scrollbar width and native wheel, drag, keyboard and touch behavior. A custom palette must keep those colors distinguishable.
+
+The application owns height, `overflow: auto`, layout and the decision to make the scroll region focusable. For a standalone keyboard-scrollable area, use `tabindex="0"` and an accessible name, and keep the provided focus outline visible. Do not add a tab stop to every small nested scroller.
+
+```svelte
+<Theme>
+  <section class="aui-scrollbar settings" tabindex="0" aria-label="Display settings">
+    <!-- Application content -->
+  </section>
+</Theme>
+
+<style>
+  .settings { max-height: 24rem; overflow: auto; padding: 4px; }
+</style>
+```
+
+Only opted-in containers receive this treatment. Supporting browsers use standard `scrollbar-color`; older WebKit implementations can use the native pseudo-element color fallback. Unsupported styling falls back to the platform scrollbar. Forced-colors uses system colors. Overlay scrollbar visibility, shape and touch appearance remain platform-controlled; the class does not draw an artificial ASCII scrollbar or promise identical pixels across engines. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.

@@ -87,3 +87,7 @@ For imports, ownership, extension points and migration checks, follow the
 [consumer guide](agents/using.md). For suspected kit problems, use the
 [feedback workflow](agents/feedback.md). These are the authoritative operational
 rules; this document defines the visual and interaction principles.
+
+## Scrollbars
+
+Native scrolling belongs to the application container. The public `aui-scrollbar` class opts a container into Theme colors without reducing the system width or replacing native interaction. Keep a visible keyboard focus indication for focusable scroll regions. Forced-colors and unsupported styling use the native system treatment. See the [composition example](composition.md#native-scroll-containers).
