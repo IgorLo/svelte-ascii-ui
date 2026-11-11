@@ -95,3 +95,7 @@ Native scrolling belongs to the application container. The public `aui-scrollbar
 ## Control artwork
 
 Checkbox frame tiles fit the available mark using complete rescaled repeats. A small mark must keep its middle strokes without increasing the selected control size. Slider and Range share geometric endcaps and a dashed rail on one axis, independent of font glyph metrics; their native inputs, hit areas and thumb-to-value positions remain unchanged. The art uses 1px strokes and 4px dash/gap segments, checked at small/wide scales and multiple raster densities. CSS zoom, DPR and native browser zoom are separate checks. See Storybook **Forms / Control artwork** for S/M/L comparisons.
+
+## Reading typography
+
+Body and long Article text can use a separate reading scale while controls retain their S/M/L geometry. Theme text tokens and `size="inherit"` for inline Link/Badge are documented in the [composition guide](composition.md#reading-text-without-enlarging-controls). Existing compact defaults remain supported. Compare longer reading text at 16–18px with Regular 400 using real content; this is a design starting point, not a universal accessibility threshold. Keep sources and adjacent dates at one scale, permit wrapping and preserve browser text enlargement.

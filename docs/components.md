@@ -49,3 +49,7 @@ The accessibility addon runs axe checks per story. Inconclusive results require 
 `Select showPlaceholder={false}` omits the inserted empty choice. Supply a bound initial value matching an enabled option when a visible initial selection is required. On initial render an empty or unmatched bound value remains unselected; the component does not silently choose the first option. Native form reset is a separate action: if no option matches the initial value, the browser selects the first enabled option and the binding follows that value. With the default `showPlaceholder={true}`, `placeholder` supplies the empty option label and an optional Select can return to an empty value.
 
 `required` independently controls native form validity. It does not show or hide choices. Bindings, `name`/FormData and native form reset remain supported; reset restores the matching initial selection. See Storybook **Forms / Select / Options only**, **Optional** and **Required**.
+
+## Reading text
+
+Article supports the public Theme reading tokens. Inline Link and Badge additionally accept `size="inherit"` to match a source line, caption or paragraph; existing S/M/L defaults are preserved. See [reading text](composition.md#reading-text-without-enlarging-controls) and Storybook **Foundation / Reading typography** for independent text settings and representative compositions.

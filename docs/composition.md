@@ -96,3 +96,33 @@ The application owns height, `overflow: auto`, layout and the decision to make t
 ```
 
 In browsers supporting `scrollbar-color`, the opted-in container sets that native inherited property, so descendant scroll containers also inherit the color unless they explicitly set their own. Applying the class on Theme therefore colors descendant native scrollers in those browsers. The WebKit pseudo-element fallback colors only scroll containers carrying the class. For consistent cross-engine behavior, put the class on each actual scroll container instead of relying on inheritance. Add the class again within a nested Theme when its scrollbar should use the nested palette; use `scrollbar-color: auto` on a nested application-owned scroller to retain system colors. Sibling containers outside the opted-in subtree keep their existing styling. Supporting browsers use standard `scrollbar-color`; older WebKit implementations can use the native pseudo-element color fallback. Unsupported styling falls back to the platform scrollbar. Forced-colors uses system colors. Overlay scrollbar visibility, shape and touch appearance remain platform-controlled; the class does not draw an artificial ASCII scrollbar or promise identical pixels across engines. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
+
+## Reading text without enlarging controls
+
+Control S/M/L sizes describe geometry and short UI text. Keep them independent of long-form reading. Existing defaults remain 16px body text at Light 300, 14px Article at the default browser root size, and 13/13/15px control text. Those compact defaults are a style choice, not an accessibility size threshold. For a long explanation, start around 16–18px and compare Regular 400 with Light using the actual font, language and theme. A dense tool panel may keep smaller labels while its help text uses a reading scale.
+
+Theme accepts these public text tokens through its `style` attribute:
+
+| Token | Responsibility and default |
+| --- | --- |
+| `--font-size` | Theme body size; `16px` |
+| `--text-weight` | Theme body and Article weight; `300` |
+| `--article-font-size` | Article text size; `.875rem` |
+| `--article-font-weight` | Optional Article weight override; follows `--text-weight` |
+| `--article-line-height` | Unitless Article line height; `1.8` |
+
+Use relative lengths when text should follow the browser's root font setting. Nested Theme instances start their own body/Article defaults; apply the intended text settings to each independent Theme. These tokens do not change control size or font weight, and framed controls/panels keep their UI text treatment. Article explicitly uses the reading tokens even within a Panel.
+
+```svelte
+<Theme style="--font-size:1.125rem;--text-weight:400;--article-font-size:1.09375rem;--article-line-height:1.6">
+  <Article>
+    <p>A longer explanation can use a reading scale independently of the form.</p>
+    <p><Link href="#source" size="inherit">Source</Link> · Updated today</p>
+    <Badge size="inherit" label="Verified" tone="success" />
+  </Article>
+</Theme>
+```
+
+Inline Link and Badge use the surrounding font size with `size="inherit"`; explicit S/M/L and existing defaults retain their UI scale. For button-style Link, use S/M/L: its text and hit area follow control geometry. Article retains semantic HTML, wrapping and heading hierarchy. Its width remains application-owned; around 68ch is a useful starting measure.
+
+Storybook **Foundation / Reading typography** compares a dense form, list, native table, numerical summary and long article. Check long Cyrillic/Latin text, source/date pairs, text resizing and narrow layouts in the actual application. Browser zoom, OS display scaling and device pixel ratio are distinct checks; CSS zoom is not proof of native browser zoom behavior. Text size alone does not establish WCAG conformance.
