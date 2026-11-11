@@ -3,6 +3,7 @@
   import type { Size } from '../types';
   import type { Mark } from './types';
   import ScaleMarks from './ScaleMarks.svelte';
+  import ScaleTrack from './ScaleTrack.svelte';
   import { align, marksFor, ratio } from './scale';
   import { formReset } from './form-reset';
   import { untrack } from 'svelte';
@@ -31,7 +32,6 @@
   const right = $derived(Math.max(left, align(upper, min, end, step)));
   const leftPosition = $derived(ratio(left, min, end));
   const rightPosition = $derived(ratio(right, min, end));
-  const cells = Array.from({ length: 41 }, (_, i) => i);
   function update(input: HTMLInputElement, edge: 'lower' | 'upper') {
     if (edge === 'lower') { lower = Math.min(right, input.valueAsNumber); input.value = String(lower); }
     else { upper = Math.max(left, input.valueAsNumber); input.value = String(upper); }
@@ -48,8 +48,7 @@
 <div {...attrs} class={['scale', className]} data-size={size} dir="ltr" role="group" aria-label={accessibleLabel ?? label} aria-describedby={describedBy}>
   <div class="track" style:--split={(leftPosition + rightPosition) / 2}>
     <div class="drawing" aria-hidden="true">
-      <span class="start">├</span><span class="end">┤</span>
-      <div class="dashes">{#each cells as cell (cell)}<span class={{ chosen: cell / 40 >= leftPosition && cell / 40 <= rightPosition }}>-</span>{/each}</div>
+      <ScaleTrack start={leftPosition} end={rightPosition} />
       <span class="handle lower-handle" style:left={`calc(26px + (100% - 52px) * ${leftPosition})`}>[‹]</span>
       <span class="handle upper-handle" style:left={`calc(26px + (100% - 52px) * ${rightPosition})`}>[›]</span>
     </div>
@@ -67,12 +66,7 @@
   .scale[data-size='l'] { --scale-height: 30px; }
   .track { position: relative; height: var(--scale-height); margin-block: 6px; }
   .drawing { position: absolute; inset: 0; color: var(--muted); font: 16px/20px var(--art-font); font-variant-east-asian: normal; pointer-events: none; }
-  .start, .end, .handle { position: absolute; top: 50%; transform: translateY(-50%); }
-  .start { left: 10px; } .end { right: 10px; }
-  .dashes { position: absolute; inset: 0 26px; display: flex; justify-content: space-between; align-items: center; overflow: hidden; }
-  .dashes span { min-width: 0; }
-  .dashes .chosen, .handle { color: var(--accent); font-weight: 700; }
-  .handle { width: 32px; transform: translate(-50%,-50%); text-align: center; background: var(--bg); white-space: nowrap; }
+  .handle { position: absolute; top: 50%; width: 32px; transform: translate(-50%,-50%); color: var(--accent); font-weight: 700; text-align: center; background: var(--bg); white-space: nowrap; }
   [data-size='s'] .handle { font-size: 14px; }
   input { position: absolute; inset: 0 16px; width: calc(100% - 32px); height: 100%; margin: 0; padding: 0; border: 0; appearance: none; opacity: 0; touch-action: pan-y; cursor: pointer; }
   input::-webkit-slider-runnable-track { height: 100%; background: transparent; }
@@ -83,7 +77,7 @@
   input:disabled { cursor: not-allowed; }
   .track:has(input:focus-visible) { outline: 2px dashed var(--accent); outline-offset: 2px; }
   @media (pointer: coarse) { .scale, .scale[data-size] { --scale-height: 44px; } }
-  @media (forced-colors: active) { .track:has(input:focus-visible) { outline-color: Highlight; } .dashes .chosen, .handle { color: Highlight; } }
+  @media (forced-colors: active) { .track:has(input:focus-visible) { outline-color: Highlight; } .handle { color: Highlight; } }
   .lower { clip-path: inset(0 calc(100% - (10px + (100% - 20px) * var(--split))) 0 0); }
   .upper { clip-path: inset(0 0 0 calc(10px + (100% - 20px) * var(--split))); }
   .track:has(.lower:focus-visible) .lower-handle, .track:has(.upper:focus-visible) .upper-handle { z-index: 1; color: var(--text); }

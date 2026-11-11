@@ -91,3 +91,7 @@ rules; this document defines the visual and interaction principles.
 ## Scrollbars
 
 Native scrolling belongs to the application container. The public `aui-scrollbar` class opts a container into Theme colors without reducing the system width or replacing native interaction. Keep a visible keyboard focus indication for focusable scroll regions. Forced-colors and unsupported styling use the native system treatment. See the [composition example](composition.md#native-scroll-containers).
+
+## Control artwork
+
+Checkbox frame tiles fit the available mark using complete rescaled repeats. A small mark must keep its middle strokes without increasing the selected control size. Slider and Range share geometric endcaps and a dashed rail on one axis, independent of font glyph metrics; their native inputs, hit areas and thumb-to-value positions remain unchanged. The art uses 1px strokes and 4px dash/gap segments, checked at small/wide scales and multiple raster densities. CSS zoom, DPR and native browser zoom are separate checks. See Storybook **Forms / Control artwork** for S/M/L comparisons.
