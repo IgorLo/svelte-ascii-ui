@@ -79,9 +79,13 @@ Keep action placement in the application layout. Panel footer is ordinary docume
 
 ## Native scroll containers
 
-Apply `class="aui-scrollbar"` to an application-owned scroll container inside Theme (or on Theme itself). This public style uses `muted` for the thumb, `background` for the track and `accent` on hover-capable hover or focus within the container. It keeps the system scrollbar width and native wheel, drag, keyboard and touch behavior. A custom palette must keep those colors distinguishable.
+Apply `class="aui-scrollbar"` to each application-owned scroll container inside Theme (or on Theme when it is itself the scroller). The class keeps native wheel, drag, keyboard, buttons and touch behavior; it does not replace the scrollbar with a JavaScript widget.
 
-The application owns height, `overflow: auto`, layout and the decision to make the scroll region focusable. For a standalone keyboard-scrollable area, use `tabindex="0"` and an accessible name, and keep the provided focus outline visible. Do not add a tab stop to every small nested scroller.
+In Chromium and WebKit the style uses a 16px gutter, a rectangular thumb without rounded corners or side insets, a black track at 12% opacity, and small stepped pixel arrows on native scrollbar buttons. The thumb uses `muted` at rest and `accent` on hover or focus within the region. A custom palette must keep the thumb distinguishable from the rendered track. Setting a gutter size makes these browsers use a classic scrollbar and reduces the available content width by that gutter.
+
+Firefox uses standard `scrollbar-color` with theme colors and the same quiet track, retaining system width, shape and overlay behavior. Standard CSS does not expose thumb radius or native button graphics there. Exact rectangular geometry is therefore an engine-dependent enhancement, not a cross-engine promise. Forced-colors restores native system treatment.
+
+The application owns height, overflow, layout and the decision to make the scroll region focusable. For a standalone keyboard-scrollable area, use `tabindex="0"` and an accessible name, and keep the focus outline visible. Do not add a tab stop to every small nested scroller.
 
 ```svelte
 <Theme>
@@ -95,7 +99,7 @@ The application owns height, `overflow: auto`, layout and the decision to make t
 </style>
 ```
 
-In browsers supporting `scrollbar-color`, the opted-in container sets that native inherited property, so descendant scroll containers also inherit the color unless they explicitly set their own. Applying the class on Theme therefore colors descendant native scrollers in those browsers. The WebKit pseudo-element fallback colors only scroll containers carrying the class. For consistent cross-engine behavior, put the class on each actual scroll container instead of relying on inheritance. Add the class again within a nested Theme when its scrollbar should use the nested palette; use `scrollbar-color: auto` on a nested application-owned scroller to retain system colors. Sibling containers outside the opted-in subtree keep their existing styling. Supporting browsers use standard `scrollbar-color`; older WebKit implementations can use the native pseudo-element color fallback. Unsupported styling falls back to the platform scrollbar. Forced-colors uses system colors. Overlay scrollbar visibility, shape and touch appearance remain platform-controlled; the class does not draw an artificial ASCII scrollbar or promise identical pixels across engines. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
+The pseudo-element geometry targets actual containers carrying the class. In Firefox, standard scrollbar colors naturally inherit within the opted-in subtree; Chromium/WebKit use their explicit per-container styling. Put the class on each desired scroller rather than relying on inherited colors. Unclassed sibling scrollers retain system styling, and nested regions can keep their own treatment. Overlay visibility and touch appearance remain platform-controlled. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
 
 ## Reading text without enlarging controls
 

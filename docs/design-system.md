@@ -90,7 +90,7 @@ rules; this document defines the visual and interaction principles.
 
 ## Scrollbars
 
-Native scrolling belongs to the application container. The public `aui-scrollbar` class opts a container into Theme colors without reducing the system width or replacing native interaction. Keep a visible keyboard focus indication for focusable scroll regions. Forced-colors and unsupported styling use the native system treatment. See the [composition example](composition.md#native-scroll-containers).
+Native scrolling belongs to the application container. The public `aui-scrollbar` class provides square, full-width thumbs and a quiet black track at 12% opacity in Chromium/WebKit, using a 16px gutter and small pixel arrows on native scrollbar buttons. Firefox uses theme colors with system geometry. Keep native scrolling and a visible keyboard focus indication for focusable scroll regions. Forced-colors and unsupported styling use system treatment. See the [composition example](composition.md#native-scroll-containers) for engine limits and opt-in scope.
 
 ## Control artwork
 
