@@ -9,7 +9,8 @@ export default defineConfig({
     include: ['tests/**/*.browser.test.ts'],
     browser: {
       enabled: true,
-      provider: playwright(),
+      // Render native parts so scrollbar tests can count the visible arrows.
+      provider: playwright({ launchOptions: { ignoreDefaultArgs: ['--hide-scrollbars'] } }),
       headless: true,
       instances: [{ browser: 'chromium' }],
     },

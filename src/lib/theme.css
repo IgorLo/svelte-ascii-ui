@@ -1,15 +1,15 @@
 /* Explicitly import this entry once. No resets or selectors for host-page elements. */
 .ascii-theme {
  --bg:#181c19;--surface:#202621;--text:#e2e6d9;--muted:#a7b29e;--line:#65715f;--accent:#c4ed83;--danger:#ffb6a8;--warning:#e6d99b;
- --text-font:'Monocraft',monospace;--art-font:Consolas,monospace;--font-size:16px;
+ --text-font:'Monocraft',monospace;--art-font:Consolas,monospace;--font-size:16px;--text-weight:300;--article-font-size:.875rem;--article-font-weight:var(--text-weight);--article-line-height:1.8;
  --component-font:13px;--control-height:39px;--field-height:39px;--control-frame:9px;--frame-art:9px;--choice-box:30px;--choice-row:36px;--choice-gap:12px;--radio-width:30px;--radio-font:16px;--group-gap:12px;--panel-inset:12px;--icon-size:18px;--control-padding:1ch;--field-gap:8px;--frame-source:var(--ascii-frame);--button-source:var(--ascii-button);--accent-source:var(--ascii-accent);--error-source:var(--ascii-error);
 }
-.ascii-theme{font-family:var(--text-font);font-size:var(--font-size);font-weight:300;font-synthesis:none;line-height:1.6;font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-variant-east-asian:normal;color:var(--text);color-scheme:dark}
+.ascii-theme{font-family:var(--text-font);font-size:var(--font-size);font-weight:var(--text-weight);font-synthesis:none;line-height:1.6;font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-variant-east-asian:normal;color:var(--text);color-scheme:dark}
 .ascii-theme[data-palette='paper']{color-scheme:light}
 .ascii-theme[data-size='s'],.ascii-theme [data-size='s']{--component-font:13px;--control-height:32px;--field-height:32px;--control-frame:6px;--frame-art:9px;--choice-box:26px;--choice-row:32px;--choice-gap:10px;--radio-width:30px;--radio-font:16px;--group-gap:10px;--panel-inset:10px;--icon-size:18px;--control-padding:.75ch;--field-gap:6px;--frame-source:var(--ascii-frame-compact);--button-source:var(--ascii-button-compact);--accent-source:var(--ascii-accent-compact);--error-source:var(--ascii-error-compact)}
 .ascii-theme[data-size='m'],.ascii-theme [data-size='m']{--component-font:13px;--control-height:39px;--field-height:39px;--control-frame:9px;--frame-art:9px;--choice-box:30px;--choice-row:36px;--choice-gap:12px;--radio-width:30px;--radio-font:16px;--group-gap:12px;--panel-inset:12px;--icon-size:18px;--control-padding:1ch;--field-gap:8px;--frame-source:var(--ascii-frame);--button-source:var(--ascii-button);--accent-source:var(--ascii-accent);--error-source:var(--ascii-error)}
 .ascii-theme[data-size='l'],.ascii-theme [data-size='l']{--component-font:15px;--control-height:48px;--field-height:48px;--control-frame:12px;--frame-art:12px;--choice-box:40px;--choice-row:52px;--choice-gap:14px;--radio-width:42px;--radio-font:20px;--group-gap:24px;--panel-inset:20px;--icon-size:24px;--control-padding:1ch;--field-gap:8px;--frame-source:var(--ascii-frame);--button-source:var(--ascii-button);--accent-source:var(--ascii-accent);--error-source:var(--ascii-error)}
-.ascii-theme :where([data-size]){font-size:var(--component-font)}
+.ascii-theme :where([data-size]:not(.ascii-theme)){font-size:var(--component-font)}
 .ascii-theme :is(h1,h2,h3,h4,h5,h6,strong,b){font-weight:600}
 .ascii-theme *, .aui-control,.aui-button,.aui-frame{box-sizing:border-box}
 .aui-control,.aui-button,.aui-frame{font-family:var(--text-font);font-weight:300;font-variant-east-asian:inherit;font-size:var(--component-font);color:var(--text);border:var(--control-frame) solid transparent;border-image:var(--frame-source,var(--ascii-frame)) 12 / var(--frame-art) space;border-radius:0;max-width:100%;min-width:0}
@@ -38,3 +38,30 @@ textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
 
 @media(max-width:760px){.ascii-theme[data-size='s'],.ascii-theme [data-size='s']{--field-height:34.4px}.ascii-theme[data-size='m'],.ascii-theme [data-size='m']{--field-height:42px}}
 @media(pointer:coarse){.ascii-theme,.ascii-theme [data-size]{--control-height:44px;--field-height:44px}.ascii-theme[data-size='l'],.ascii-theme [data-size='l']{--control-height:48px;--field-height:48px}.ascii-theme .aui-button{min-inline-size:44px}}
+
+/* Opt in on each application-owned native scroll container. No scrolling handlers. */
+@media (forced-colors: none) {
+ .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{--_aui-scrollbar-thumb:var(--muted);--_aui-scrollbar-track:rgba(0,0,0,.12);scrollbar-color:var(--_aui-scrollbar-thumb) var(--_aui-scrollbar-track);scrollbar-width:auto}
+ .ascii-theme.aui-scrollbar:focus-within,.ascii-theme .aui-scrollbar:focus-within{--_aui-scrollbar-thumb:var(--accent)}
+ @media(hover:hover){.ascii-theme.aui-scrollbar:hover,.ascii-theme .aui-scrollbar:hover{--_aui-scrollbar-thumb:var(--accent)}}
+ @supports selector(::-webkit-scrollbar) {
+  /* Non-auto standard colors suppress the native-part styling in Chromium. */
+  .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:auto}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar{width:6px;height:6px;background:transparent}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-track,
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-corner{background:var(--_aui-scrollbar-track);border:0;border-radius:0}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-thumb{background:var(--_aui-scrollbar-thumb);border:0;border-radius:0;box-shadow:none}
+  /* Keep one native arrow per end, including platforms with paired buttons. */
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button{display:block;width:6px;height:6px;border:0;border-radius:0;color:var(--_aui-scrollbar-thumb);background-color:var(--_aui-scrollbar-track);background-repeat:no-repeat}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:start:increment,
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:end:decrement{display:none}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,3px 1px,5px 1px}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:decrement{background-position:center calc(50% - 1px),center,center calc(50% + 1px)}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:increment{background-position:center calc(50% + 1px),center,center calc(50% - 1px)}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,1px 3px,1px 5px}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:decrement{background-position:calc(50% - 1px) center,center,calc(50% + 1px) center}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:increment{background-position:calc(50% + 1px) center,center,calc(50% - 1px) center}
+ }
+}
+.ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline:2px dashed var(--text);outline-offset:2px}
+@media(forced-colors:active){.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:auto}.ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline-color:Highlight}}

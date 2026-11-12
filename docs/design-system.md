@@ -87,3 +87,19 @@ For imports, ownership, extension points and migration checks, follow the
 [consumer guide](agents/using.md). For suspected kit problems, use the
 [feedback workflow](agents/feedback.md). These are the authoritative operational
 rules; this document defines the visual and interaction principles.
+
+## Scrollbars
+
+Native scrolling belongs to the application container. The public `aui-scrollbar` class provides square, full-width thumbs and a quiet black track at 12% opacity in Chromium/WebKit, using a 6px gutter and one small pixel arrow at each end of the native scrollbar. Firefox uses theme colors with system geometry. Keep native scrolling and a visible keyboard focus indication for focusable scroll regions. Forced-colors and unsupported styling use system treatment. See the [composition example](composition.md#native-scroll-containers) for engine limits and opt-in scope.
+
+## Control artwork
+
+Checkbox frame tiles fit the available mark using complete rescaled repeats. A small mark must keep its middle strokes without increasing the selected control size. Slider and Range share geometric endcaps and a dashed rail on one axis, independent of font glyph metrics; their native inputs, hit areas and thumb-to-value positions remain unchanged. The art uses 1px strokes and 4px dash/gap segments, checked at small/wide scales and multiple raster densities. A selected interval includes its terminal tail and endcap when it reaches the minimum or maximum; Range endcaps outside the selected interval stay muted. Numeric tick labels stay whole and centered, even in a host that allows arbitrary text wrapping. Custom text labels wrap within bounded space, align inward near the endpoints and reserve their height. Keep labels concise enough to distinguish neighboring ticks. CSS zoom, DPR and native browser zoom are separate checks. See Storybook **Forms / Control artwork** for S/M/L comparisons.
+
+## Reading typography
+
+Body and long Article text can use a separate reading scale while controls retain their S/M/L geometry. Theme text tokens and `size="inherit"` for inline Link/Badge are documented in the [composition guide](composition.md#reading-text-without-enlarging-controls). Existing compact defaults remain supported. Compare longer reading text at 16–18px with Regular 400 using real content; this is a design starting point, not a universal accessibility threshold. Keep sources and adjacent dates at one scale, permit wrapping and preserve browser text enlargement.
+
+## Modal detail sheets
+
+Use one `Dialog mobilePlacement="bottom"` when the same task should be a centered window on wide screens and a bottom sheet at widths up to 600px. Keep one content/form instance and preserve state and focus as the viewport changes. Centered confirmations remain available through the default `center` mode. Use `Drawer side="bottom"` when the intended pattern is bottom-aligned at every width. Short sheets use content height; long sheets scroll while keeping header/footer actions accessible. Preserve safe-area space and keyboard focus. The [component guidance](components.md#one-dialog-across-desktop-and-narrow-layouts) describes the responsive contract and device-testing limits.

@@ -10,19 +10,23 @@
     size?: Size;
     options: Option[];
     placeholder?: string;
+    /** Include an empty option before the supplied choices. Defaults to true. */
+    showPlaceholder?: boolean;
     loading?: boolean;
     loadingText?: string;
     error?: string;
   }
   const uid = $props.id();
-  let { value = $bindable(''), size = 'm', options, placeholder = 'Choose an option', disabled, loading, loadingText = 'Loading options…', error, class: className, 'aria-describedby': describedBy, 'aria-invalid': invalid, ...attrs }: Props = $props();
+  let { value = $bindable(''), size = 'm', options, placeholder = 'Choose an option', showPlaceholder = true, disabled, loading, loadingText = 'Loading options…', error, class: className, 'aria-describedby': describedBy, 'aria-invalid': invalid, ...attrs }: Props = $props();
   const initial = untrack(() => value);
 </script>
 
 <div class="select" data-size={size}>
   <div class="target">
     <select {...attrs} bind:value disabled={disabled || loading} aria-busy={loading} aria-invalid={error ? true : invalid} aria-describedby={[describedBy, error && !loading && uid + '-error'].filter(Boolean).join(' ') || undefined} class={['aui-control', className]}>
-    <option value="" selected={!initial}>{placeholder}</option>
+    {#if showPlaceholder}
+      <option value="" selected={!initial}>{placeholder}</option>
+    {/if}
     {#each options as option (option.value)}
       <option value={option.value} disabled={option.disabled} selected={initial === option.value}>{option.label}</option>
     {/each}

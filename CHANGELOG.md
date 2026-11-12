@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- Add `Dialog mobilePlacement="bottom"` for one form or detail view that stays centered above 600px and opens as a bottom sheet on narrower screens. Resizing preserves the same content, input values and focus, and keeps the active control visible. The default centered presentation remains unchanged.
+- Add `Drawer side="bottom"` for a full-width panel with natural short-content height, a scrollable long body, persistent header/footer, safe-area padding, visual-viewport handling and background scroll locking. Existing left/right placement and size behavior remain available.
+- Add Theme reading tokens for independently configuring body and Article size, weight and line height, and `size="inherit"` for inline Link and Badge. Existing defaults and explicit control sizes remain unchanged; nested Themes honor their own body text size.
+- Add `Select showPlaceholder={false}` to show only supplied options, independently of the current value and native required validation. The default remains `true`; pass a matching initial value when an initial selection is required.
+- Add the opt-in `aui-scrollbar` class for themed native scrolling. Chromium and WebKit use a 6px gutter, a square full-width thumb, a subtle dark track and one outward-pointing pixel arrow at each end. Firefox retains native geometry with theme colors; forced-colors retains system treatment.
+
+### Patch Changes
+
+- Keep the middle strokes of the small Checkbox frame visible without enlarging its mark or control.
+- Align Slider and Range endcaps and dashed rails, color the terminal tail and cap when selection reaches the minimum or maximum, and avoid muted traces at fractional display scales. Numeric tick labels stay on one line; custom prose labels wrap within the scale and reserve their height.
+- Expand gallery, Storybook, public usage documentation and installed-package/SSR examples for the supported controls, reading typography and responsive overlays. Add a README cover and gallery screenshots for component states and all three palettes.
+- Require focused temporary before/after demos for component visual approval, and clarify that incoming UI reports describe the end-to-end workflow and desktop/mobile expectations before proposing a component.
+
 ## 0.2.0
 
 ### Minor Changes

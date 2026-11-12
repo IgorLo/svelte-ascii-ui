@@ -39,3 +39,31 @@ The current version does not include tables, drop zones, upload queues, gallerie
 Storybook's Examples/Form contracts and Examples/Editor/Save and retry also contain replayable interaction assertions. Forms have submission/reset and retry examples. Run the catalogue's `/story-smoke.html` page to load every story and report rendering failures; this all-story smoke page and the Storybook play functions are not part of the automated browser suite. CI builds the catalogue and runs the separate behavioral tests. This baseline is not an accessibility or behavioral certification of every component/state.
 
 The accessibility addon runs axe checks per story. Inconclusive results require manual inspection. Keyboard and focus checks complement automation; actual screen-reader and physical mobile-device testing remain separate from desktop browser checks.
+
+## Public native scrollbar style
+
+`aui-scrollbar` is an opt-in class provided by the Theme stylesheet, not a ScrollArea component. Add it to an application-owned scroll container under Theme. See [native scroll containers](composition.md#native-scroll-containers) for keyboard naming, layout ownership and platform fallbacks.
+
+## Optional native Select choices
+
+`Select showPlaceholder={false}` omits the inserted empty choice. Supply a bound initial value matching an enabled option when a visible initial selection is required. On initial render an empty or unmatched bound value remains unselected; the component does not silently choose the first option. Native form reset is a separate action: if no option matches the initial value, the browser selects the first enabled option and the binding follows that value. With the default `showPlaceholder={true}`, `placeholder` supplies the empty option label and an optional Select can return to an empty value.
+
+`required` independently controls native form validity. It does not show or hide choices. Bindings, `name`/FormData and native form reset remain supported; reset restores the matching initial selection. See Storybook **Forms / Select / Options only**, **Optional** and **Required**.
+
+## Reading text
+
+Article supports the public Theme reading tokens. Inline Link and Badge additionally accept `size="inherit"` to match a source line, caption or paragraph; existing S/M/L defaults are preserved. See [reading text](composition.md#reading-text-without-enlarging-controls) and Storybook **Foundation / Reading typography** for independent text settings and representative compositions.
+
+## Bottom drawer
+
+Use `Drawer side="bottom"` for a modal detail sheet. It fills viewport width, grows with short content and limits long content to the visible viewport, with a scrollable body and a persistent header/footer. `size` continues to set width for left/right drawers; it does not narrow a bottom sheet. Centered Dialog and existing left/right Drawer defaults remain separate patterns.
+
+The bottom drawer accounts for safe-area insets and responds to visual viewport changes where supported. The host page should include `viewport-fit=cover` in its viewport meta tag to expose device safe-area insets. The body reserves scroll clearance so focused framed inputs remain visible above footer actions. Native modal focus, Escape, backdrop dismissal and focus return remain in place; the background stays locked while a bottom modal is open. Pinch zoom does not reposition the sheet to chase the magnified visual viewport. Physical keyboard/safe-area behavior still needs testing on the intended devices. Drag-to-dismiss is not provided. See Storybook **Overlays / Drawer / Bottom** and **Bottom long content**.
+
+## One Dialog across desktop and narrow layouts
+
+Use `Dialog mobilePlacement="bottom"` when the same detail view or form should be centered on a wide screen and sit at the bottom on a narrow screen. At widths up to and including 600px, it uses the bottom-sheet geometry and scrolling; above 600px, its normal centered size applies. The application supplies one Dialog, one `open` binding and one content/form instance. Resizing an open Dialog keeps that DOM instance, input values and focus, and reveals the active control within the new content viewport.
+
+`mobilePlacement` defaults to `center`, preserving centered confirmations. This is a presentation choice for the user task, not a requirement that every phone modal be a sheet. Drawer keeps explicit side placement; it does not accept this Dialog-only option. Bottom Dialog shares safe-area padding, visual-viewport handling, focus clearance and background scroll locking with the bottom Drawer. The [bottom-drawer device requirements](#bottom-drawer) still apply, including actual-device keyboard testing.
+
+See Storybook **Overlays / Dialog / Responsive details** and **Responsive long content**. Change the viewport while the dialog stays open and a field contains edited text; no consumer media query or conditional Dialog/Drawer rendering is needed.
