@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Theme, Button, Panel, Progress, Quote, Background, createSineWaves, Article, Badge, Link, Select, Drawer, Checkbox, Slider, Range } from 'svelte-ascii-ui';
+  import { Theme, Button, Panel, Progress, Quote, Background, createSineWaves, Article, Badge, Link, Select, Drawer, Dialog, Checkbox, Slider, Range } from 'svelte-ascii-ui';
   import 'svelte-ascii-ui/styles.css';
   import 'svelte-ascii-ui/fonts.css';
   let count = $state(0);
@@ -17,6 +17,7 @@
     <Checkbox size="s" label="Маленькая рамка" /><Slider aria-label="Значение" size="s" /><Range label="Диапазон" size="s" />
     <div class="aui-scrollbar scrolling"><p>Публичное оформление нативного скроллбара.</p></div>
     <Button label="Открыть шторку" onclick={() => sheetOpen = true} />
+    <Dialog title="Responsive material details" mobilePlacement="bottom"><p>The same dialog supports desktop and narrow screens.</p></Dialog>
     <Drawer side="bottom" title="Подробности" bind:open={sheetOpen}><p>Нижняя шторка из установленного пакета.</p></Drawer>
     <div style="height:140px"><Background {pattern} paused /></div>
   </main>

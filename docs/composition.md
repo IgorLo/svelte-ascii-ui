@@ -130,3 +130,18 @@ Use relative lengths when text should follow the browser's root font setting. Ne
 Inline Link and Badge use the surrounding font size with `size="inherit"`; explicit S/M/L and existing defaults retain their UI scale. For button-style Link, use S/M/L: its text and hit area follow control geometry. Article retains semantic HTML, wrapping and heading hierarchy. Its width remains application-owned; around 68ch is a useful starting measure.
 
 Storybook **Foundation / Reading typography** compares a dense form, list, native table, numerical summary and long article. Check long Cyrillic/Latin text, source/date pairs, text resizing and narrow layouts in the actual application. Browser zoom, OS display scaling and device pixel ratio are distinct checks; CSS zoom is not proof of native browser zoom behavior. Text size alone does not establish WCAG conformance.
+
+## One responsive detail flow
+
+Use one Dialog when a user is editing or inspecting the same content across layouts. Select the presentation through its public option rather than maintaining separate Dialog and Drawer branches:
+
+```svelte
+<Dialog bind:open title="Material details" mobilePlacement="bottom">
+  <Field label="Note">
+    {#snippet children(control)}<Input {...control} bind:value={note} />{/snippet}
+  </Field>
+  {#snippet footer()}<Button label="Done" onclick={() => open = false} />{/snippet}
+</Dialog>
+```
+
+The centered desktop window becomes a bottom sheet at 600px and narrower; the content, current values and focus remain in the same native dialog while resizing. Keep the default `mobilePlacement="center"` for a confirmation that should remain centered. Use an explicit bottom Drawer for a panel that belongs at the bottom at all widths. Neither geometry implies drag-to-dismiss. Check long content, the last focused field, dismissal, viewport resizing and the intended devices before accepting the flow.
