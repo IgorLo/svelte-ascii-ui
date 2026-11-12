@@ -94,7 +94,7 @@ Native scrolling belongs to the application container. The public `aui-scrollbar
 
 ## Control artwork
 
-Checkbox frame tiles fit the available mark using complete rescaled repeats. A small mark must keep its middle strokes without increasing the selected control size. Slider and Range share geometric endcaps and a dashed rail on one axis, independent of font glyph metrics; their native inputs, hit areas and thumb-to-value positions remain unchanged. The art uses 1px strokes and 4px dash/gap segments, checked at small/wide scales and multiple raster densities. CSS zoom, DPR and native browser zoom are separate checks. See Storybook **Forms / Control artwork** for S/M/L comparisons.
+Checkbox frame tiles fit the available mark using complete rescaled repeats. A small mark must keep its middle strokes without increasing the selected control size. Slider and Range share geometric endcaps and a dashed rail on one axis, independent of font glyph metrics; their native inputs, hit areas and thumb-to-value positions remain unchanged. The art uses 1px strokes and 4px dash/gap segments, checked at small/wide scales and multiple raster densities. A selected interval includes its terminal tail and endcap when it reaches the minimum or maximum; Range endcaps outside the selected interval stay muted. Numeric tick labels stay whole and centered, even in a host that allows arbitrary text wrapping. Custom text labels wrap within bounded space, align inward near the endpoints and reserve their height. Keep labels concise enough to distinguish neighboring ticks. CSS zoom, DPR and native browser zoom are separate checks. See Storybook **Forms / Control artwork** for S/M/L comparisons.
 
 ## Reading typography
 
