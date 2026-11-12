@@ -105,7 +105,7 @@ for (const side of ['left', 'right'] as const) {
     expect(rect.width).toBe(396);
     expect(rect.height).toBe(720);
     expect(rect.top).toBe(0);
-    expect(side === 'left' ? rect.left : rect.right).toBe(side === 'left' ? 0 : 1200);
+    expect(side === 'left' ? rect.left : rect.right).toBe(side === 'left' ? 0 : document.documentElement.clientWidth);
   });
 }
 

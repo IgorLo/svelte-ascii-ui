@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/svelte';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import Fixture from './ScrollbarFixture.svelte';
 
 afterEach(cleanup);
@@ -30,13 +30,13 @@ for (const [palette, thumb] of [
   });
 }
 
-test('square thumb fills an 8px gutter without a narrow inset', () => {
+test('square thumb fills a 6px gutter without a narrow inset', () => {
   if (!hasParts) return;
   render(Fixture);
   const region = screen.getByRole('region', { name: 'Themed settings' });
   const thumb = part(region, '-thumb');
-  expect(part(region, '').width).toBe('8px');
-  expect(part(region, '').height).toBe('8px');
+  expect(part(region, '').width).toBe('6px');
+  expect(part(region, '').height).toBe('6px');
   expect(thumb.borderRadius).toBe('0px');
   expect(thumb.borderWidth).toBe('0px');
   expect(thumb.boxShadow).toBe('none');
@@ -47,7 +47,7 @@ test('a Theme scroll container receives the same opt-in treatment', () => {
   const region = screen.getByRole('region', { name: 'Theme scroll container' });
   expect(region.scrollHeight).toBeGreaterThan(region.clientHeight);
   if (hasParts) {
-    expect(part(region, '').width).toBe('8px');
+    expect(part(region, '').width).toBe('6px');
     expect(part(region, '-thumb').backgroundColor).toBe('rgb(167, 178, 158)');
   } else expect(getComputedStyle(region).scrollbarColor).toBe('rgb(167, 178, 158) rgba(0, 0, 0, 0.12)');
 });
@@ -82,3 +82,45 @@ test('nested containers keep native geometry until explicitly opted in', () => {
   } else expect(getComputedStyle(nested).scrollbarColor).toBe('rgb(167, 178, 158) rgba(0, 0, 0, 0.12)');
   if (hasColors) expect(getComputedStyle(screen.getByRole('region', { name: 'Native settings' })).scrollbarColor).toBe('auto');
 });
+
+for (const orientation of ['vertical', 'horizontal']) {
+  test(orientation + ': native scrollbar has one visible arrow at each end', async ({ onTestFinished }) => {
+    if (!hasParts) return;
+    // Exercise platforms that expose both native buttons at each end.
+    const nativeButtons = document.createElement('style');
+    nativeButtons.textContent = ':where(.aui-scrollbar)::-webkit-scrollbar-button { display: block; }';
+    document.head.append(nativeButtons);
+    onTestFinished(() => nativeButtons.remove());
+    render(Fixture);
+    const vertical = orientation === 'vertical';
+    const name = vertical ? 'Themed settings' : 'Wide settings';
+    const region = screen.getByRole('region', { name });
+    region.scrollTo({ top: (region.scrollHeight - region.clientHeight) / 2, left: (region.scrollWidth - region.clientWidth) / 2 });
+    const base64 = await page.screenshot({ element: page.getByRole('region', { name, exact: true }), save: false });
+    const image = new Image();
+    image.src = 'data:image/png;base64,' + base64;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width; canvas.height = image.height;
+    const context = canvas.getContext('2d')!;
+    context.drawImage(image, 0, 0);
+    const ratio = image.width / region.offsetWidth;
+    const gutter = Math.round((vertical ? region.offsetWidth - region.clientWidth : region.offsetHeight - region.clientHeight) * ratio);
+    const length = Math.round((vertical ? region.clientHeight : region.clientWidth) * ratio);
+    function arrowGroups(from: number, to: number) {
+      let groups = 0, previous = false;
+      for (let offset = from; offset < to; offset++) {
+        const pixels = vertical
+          ? context.getImageData(image.width - gutter, offset, gutter, 1).data
+          : context.getImageData(offset, image.height - gutter, 1, gutter).data;
+        let visible = false;
+        for (let i = 0; i < pixels.length; i += 4) if (pixels[i] > 100 && pixels[i + 1] > 100 && pixels[i + 2] > 70) visible = true;
+        if (visible && !previous) groups++;
+        previous = visible;
+      }
+      return groups;
+    }
+    expect(arrowGroups(0, gutter * 2)).toBe(1);
+    expect(arrowGroups(length - gutter * 2, length)).toBe(1);
+  });
+}
