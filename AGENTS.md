@@ -2,7 +2,7 @@
 
 Work from the current issue, code and product request. Public documentation describes the library's supported contracts and contribution process.
 
-- For component, token, accessibility or public API changes, follow `docs/agents/maintaining.md`, including its documentation impact checklist before declaring completion.
+- For component, token, accessibility or public API changes, follow `docs/agents/maintaining.md`, including the temporary diff-demo for visual approval and its documentation impact checklist before declaring completion.
 - For use in another project, follow `docs/agents/using.md`. It defines application vs library ownership and the consumer-project instruction to install.
 - For incoming issue triage, closure, a bug, missing capability or proposed exception, follow `docs/agents/feedback.md`. **Show the user the complete issue draft and obtain approval before publishing it.** Approval to report a problem does not approve a workaround or a library redesign.
 - For design-related issues and audits, follow `docs/agents/design-review.md` for evidence, skill selection and research before proposing fixes.
