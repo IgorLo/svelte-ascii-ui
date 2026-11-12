@@ -1,10 +1,13 @@
 <script lang="ts">
-  import { Theme } from '../src/lib';
+  import { Drawer, Theme } from '../src/lib';
   import type { Palette } from '../src/lib';
-  let { palette = 'phosphor' }: { palette?: Palette } = $props();
+  let { palette = 'phosphor', drawerOpen = false }: { palette?: Palette; drawerOpen?: boolean } = $props();
 </script>
 
 <Theme {palette}>
+  {#if drawerOpen}
+    <Drawer title="Preferences" open><div style="height:150vh">Long preference list</div></Drawer>
+  {/if}
   <div class="layout">
     <!-- svelte-ignore a11y_no_noninteractive_tabindex (Native scroll regions need keyboard focus.) -->
     <div class="aui-scrollbar scroll" role="region" aria-label="Themed settings" tabindex="0">

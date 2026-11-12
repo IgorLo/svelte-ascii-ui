@@ -42,7 +42,7 @@
 </button>
 {#if open}
   <div bind:this={panel} {id} popover="manual" role="dialog" aria-label={title ?? label} tabindex="-1"
-    class="aui-frame aui-floating" data-size={size} onkeydown={(event) => {
+    class="aui-frame aui-floating aui-scrollbar" data-size={size} onkeydown={(event) => {
       if (event.key === 'Escape' && !event.defaultPrevented) { event.preventDefault(); event.stopPropagation(); dismiss(); }
     }}>
     {@render children?.(dismiss)}

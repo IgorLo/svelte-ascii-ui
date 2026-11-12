@@ -8,10 +8,15 @@
     Loader, MultiSelect, NumberInput, Pagination, Panel, PasswordInput, Popover,
     Progress, Quote, RadioGroup, Range, SearchInput, Select, Separator, Skeleton,
     Slider, Switch, Tabs, TagInput, Textarea, Theme, Toast, ToggleGroup, Toolbar, Tooltip, createSineWaves,
-    type Palette, type Size,
+    palettes, type Palette, type Size,
   } from './lib';
 
   let palette = $state<Palette>('phosphor');
+  // The viewport lives above Theme and shares the selected gallery palette.
+  $effect(() => {
+    document.documentElement.style.setProperty('--muted', palettes[palette].muted);
+    document.documentElement.style.setProperty('--accent', palettes[palette].accent);
+  });
   let paused = $state(false);
   let dialogOpen = $state(false);
   let drawerOpen = $state(false);

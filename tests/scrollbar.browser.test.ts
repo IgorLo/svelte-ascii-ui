@@ -124,3 +124,29 @@ for (const orientation of ['vertical', 'horizontal']) {
     expect(arrowGroups(length - gutter * 2, length)).toBe(1);
   });
 }
+
+test('site scope themes the viewport and unmarked nested scrollers', ({ onTestFinished }) => {
+  const root = document.documentElement;
+  root.classList.add('aui-scrollbars');
+  onTestFinished(() => root.classList.remove('aui-scrollbars'));
+  render(Fixture, { palette: 'plum' });
+  const nested = screen.getByRole('region', { name: 'Nested settings' });
+  if (hasParts) {
+    expect(part(root, '').width).toBe('6px');
+    expect(part(nested, '').width).toBe('6px');
+    expect(part(nested, '-thumb').backgroundColor).toBe('rgb(185, 167, 189)');
+  } else if (hasColors) expect(getComputedStyle(nested).scrollbarColor).toBe('rgb(185, 167, 189) rgba(0, 0, 0, 0.12)');
+});
+
+test('a standalone Drawer exposes a themed scrollbar on its scrollable content', () => {
+  render(Fixture, { drawerOpen: true });
+  const dialog = screen.getByRole('dialog', { name: 'Preferences' });
+  const scroller = Array.from(dialog.querySelectorAll('div')).find(element =>
+    getComputedStyle(element).overflowY === 'auto' && element.scrollHeight > element.clientHeight
+  );
+  expect(scroller).toBeDefined();
+  scroller!.scrollTop = 64;
+  expect(scroller!.scrollTop).toBe(64);
+  if (hasParts) expect(part(scroller!, '').width).toBe('6px');
+  else if (hasColors) expect(getComputedStyle(scroller!).scrollbarColor).toContain('rgba(0, 0, 0, 0.12)');
+});

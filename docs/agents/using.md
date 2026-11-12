@@ -6,7 +6,8 @@ Read this when adopting the package, building an interface with it, diagnosing a
 
 1. Identify the installed package name and exact version from the application lockfile/package metadata. Read that version's README, public types and [component inventory](../components.md). Use matching Storybook examples where available. Completion: the implementation and documentation refer to the same version.
 2. Import components through the public package entry and the documented CSS/font entries. Start with Theme and its supported settings. Read the [design guide](../design-system.md) before choosing density, typography or composition. Completion: no prototype files or internal package paths are required.
-3. Map the requested screen and its loading, empty, error, success and disabled cases onto existing components. Use real text, long values and narrow layouts. Completion: the whole task can be performed, not merely viewed as a static screenshot.
+3. For site-wide native scrollbars, follow [native scroll containers](../composition.md#native-scroll-containers), including the document viewport and nested overflow.
+4. Map the requested screen and its loading, empty, error, success and disabled cases onto existing components. Use real text, long values and narrow layouts. Completion: the whole task can be performed, not merely viewed as a static screenshot.
 
 Use the package identity and installation method in the matching README. Pin the exact version while evaluating a prerelease and commit the application lockfile; record each deliberate upgrade.
 
