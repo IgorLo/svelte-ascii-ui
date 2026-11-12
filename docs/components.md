@@ -42,7 +42,7 @@ The accessibility addon runs axe checks per story. Inconclusive results require 
 
 ## Public native scrollbar style
 
-`aui-scrollbar` is an opt-in class provided by the Theme stylesheet, not a ScrollArea component. Add it to an application-owned scroll container under Theme. See [native scroll containers](composition.md#native-scroll-containers) for keyboard naming, layout ownership and platform fallbacks.
+Use the public `aui-scrollbars` class on `html` for the whole site, on Theme for an embedded subtree, or `aui-scrollbar` for an individual native scroll container under Theme. The kit styles its own overflow surfaces inside Theme. See [native scroll containers](composition.md#native-scroll-containers) for keyboard naming, layout ownership and platform fallbacks.
 
 ## Optional native Select choices
 

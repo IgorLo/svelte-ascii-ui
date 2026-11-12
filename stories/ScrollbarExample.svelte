@@ -3,20 +3,20 @@
   let { palette = 'phosphor', horizontal = false }: { palette?: Palette; horizontal?: boolean } = $props();
 </script>
 
-<Theme {palette}>
+<Theme {palette} class="aui-scrollbars">
   <div class="workspace">
     <!-- svelte-ignore a11y_no_noninteractive_tabindex (Native scrolling needs a keyboard focus target.) -->
-    <section class="aui-scrollbar settings" tabindex="0" aria-label="Настройки представления">
+    <section class="settings" tabindex="0" aria-label="Настройки представления">
       <h2>Настройки</h2>
       <p>Прокрутка остаётся нативной: колесо, клавиатура и перетаскивание ползунка.</p>
       {#each Array.from({ length: 16 }, (_, i) => i) as item (item)}
         <Checkbox size="s" label={`Показывать группу ${item + 1}`} />
       {/each}
     </section>
-    <div class="preview"><h2>Предпросмотр</h2><p>Сетка, высота и overflow принадлежат приложению. Класс aui-scrollbar добавляет цвета темы и прямоугольную геометрию в Chromium/WebKit. Firefox сохраняет системную форму.</p></div>
+    <div class="preview"><h2>Предпросмотр</h2><p>Сетка, высота и overflow принадлежат приложению. Общий класс aui-scrollbars на Theme добавляет цвета темы и прямоугольную геометрию в Chromium/WebKit. Firefox сохраняет системную форму.</p></div>
     {#if horizontal}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex (Native scrolling needs a keyboard focus target.) -->
-      <section class="aui-scrollbar wide" tabindex="0" aria-label="Широкая таблица">
+      <section class="wide" tabindex="0" aria-label="Широкая таблица">
         <div class="columns">Период 01 · Период 02 · Период 03 · Период 04 · Период 05 · Период 06 · Период 07 · Период 08</div>
       </section>
     {/if}

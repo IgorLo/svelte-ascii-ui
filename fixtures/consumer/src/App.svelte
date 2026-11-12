@@ -8,14 +8,14 @@
   const pattern = createSineWaves({ seed: 42, waveRandomness: .9 });
 </script>
 <p class="host">Host content retains its own font and colors.</p>
-<Theme style="--font-size:1.125rem;--text-weight:400;--article-font-size:1.09375rem">
+<Theme class="aui-scrollbars" style="--font-size:1.125rem;--text-weight:400;--article-font-size:1.09375rem">
   <main>
     <h1>Установленный пакет</h1>
     <Panel title="Проверка зависимости"><Button label={`Счётчик: ${count}`} onclick={() => count++} /><Progress value={count / 10} label="Счётчик" /><Quote text="Компоненты импортированы из установленного tarball." /></Panel>
     <Article><p>Публичные настройки читаемого текста.</p><Link href="#source" size="inherit" label="Источник" /> <Badge size="inherit" label="Проверено" /></Article>
     <Select aria-label="Сортировка" showPlaceholder={false} bind:value={sort} options={[{value:'author',label:'По прикольности'},{value:'date',label:'По дате'}]} />
     <Checkbox size="s" label="Маленькая рамка" /><Slider aria-label="Значение" size="s" /><Range label="Диапазон" size="s" />
-    <div class="aui-scrollbar scrolling"><p>Публичное оформление нативного скроллбара.</p></div>
+    <div class="scrolling"><p>Публичное оформление нативного скроллбара.</p></div>
     <Button label="Открыть шторку" onclick={() => sheetOpen = true} />
     <Dialog title="Responsive material details" mobilePlacement="bottom"><p>The same dialog supports desktop and narrow screens.</p></Dialog>
     <Drawer side="bottom" title="Подробности" bind:open={sheetOpen}><p>Нижняя шторка из установленного пакета.</p></Drawer>

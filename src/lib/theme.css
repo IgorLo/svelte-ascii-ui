@@ -39,28 +39,30 @@ textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
 @media(max-width:760px){.ascii-theme[data-size='s'],.ascii-theme [data-size='s']{--field-height:34.4px}.ascii-theme[data-size='m'],.ascii-theme [data-size='m']{--field-height:42px}}
 @media(pointer:coarse){.ascii-theme,.ascii-theme [data-size]{--control-height:44px;--field-height:44px}.ascii-theme[data-size='l'],.ascii-theme [data-size='l']{--control-height:48px;--field-height:48px}.ascii-theme .aui-button{min-inline-size:44px}}
 
-/* Opt in on each application-owned native scroll container. No scrolling handlers. */
+/* Opt in per container or once for a site or embedded subtree. No scrolling handlers. */
 @media (forced-colors: none) {
- .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{--_aui-scrollbar-thumb:var(--muted);--_aui-scrollbar-track:rgba(0,0,0,.12);scrollbar-color:var(--_aui-scrollbar-thumb) var(--_aui-scrollbar-track);scrollbar-width:auto}
- .ascii-theme.aui-scrollbar:focus-within,.ascii-theme .aui-scrollbar:focus-within{--_aui-scrollbar-thumb:var(--accent)}
- @media(hover:hover){.ascii-theme.aui-scrollbar:hover,.ascii-theme .aui-scrollbar:hover{--_aui-scrollbar-thumb:var(--accent)}}
- @supports selector(::-webkit-scrollbar) {
-  /* Non-auto standard colors suppress the native-part styling in Chromium. */
-  .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:auto}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar{width:6px;height:6px;background:transparent}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-track,
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-corner{background:var(--_aui-scrollbar-track);border:0;border-radius:0}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-thumb{background:var(--_aui-scrollbar-thumb);border:0;border-radius:0;box-shadow:none}
-  /* Keep one native arrow per end, including platforms with paired buttons. */
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button{display:block;width:6px;height:6px;border:0;border-radius:0;color:var(--_aui-scrollbar-thumb);background-color:var(--_aui-scrollbar-track);background-repeat:no-repeat}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:start:increment,
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:end:decrement{display:none}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,3px 1px,5px 1px}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:decrement{background-position:center calc(50% - 1px),center,center calc(50% + 1px)}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:increment{background-position:center calc(50% + 1px),center,center calc(50% - 1px)}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,1px 3px,1px 5px}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:decrement{background-position:calc(50% - 1px) center,center,calc(50% + 1px) center}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:increment{background-position:calc(50% + 1px) center,center,calc(50% - 1px) center}
+ :is(.ascii-theme.aui-scrollbar, .ascii-theme .aui-scrollbar, .aui-scrollbars, .aui-scrollbars *) {
+  --_aui-scrollbar-thumb:var(--muted, GrayText);--_aui-scrollbar-track:rgba(0,0,0,.12);scrollbar-color:var(--_aui-scrollbar-thumb) var(--_aui-scrollbar-track);scrollbar-width:auto;
+  &:focus-within{--_aui-scrollbar-thumb:var(--accent, Highlight)}
+  @media(hover:hover){&:hover{--_aui-scrollbar-thumb:var(--accent, Highlight)}}
+  @supports selector(::-webkit-scrollbar) {
+   /* Non-auto standard colors suppress the native-part styling in Chromium. */
+   scrollbar-color:auto;
+   &::-webkit-scrollbar{width:6px;height:6px;background:transparent}
+   &::-webkit-scrollbar-track,
+   &::-webkit-scrollbar-corner{background:var(--_aui-scrollbar-track);border:0;border-radius:0}
+   &::-webkit-scrollbar-thumb{background:var(--_aui-scrollbar-thumb);border:0;border-radius:0;box-shadow:none}
+   /* Keep one native arrow per end, including platforms with paired buttons. */
+   &::-webkit-scrollbar-button{display:block;width:6px;height:6px;border:0;border-radius:0;color:var(--_aui-scrollbar-thumb);background-color:var(--_aui-scrollbar-track);background-repeat:no-repeat}
+   &::-webkit-scrollbar-button:start:increment,
+   &::-webkit-scrollbar-button:end:decrement{display:none}
+   &::-webkit-scrollbar-button:vertical{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,3px 1px,5px 1px}
+   &::-webkit-scrollbar-button:vertical:decrement{background-position:center calc(50% - 1px),center,center calc(50% + 1px)}
+   &::-webkit-scrollbar-button:vertical:increment{background-position:center calc(50% + 1px),center,center calc(50% - 1px)}
+   &::-webkit-scrollbar-button:horizontal{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,1px 3px,1px 5px}
+   &::-webkit-scrollbar-button:horizontal:decrement{background-position:calc(50% - 1px) center,center,calc(50% + 1px) center}
+   &::-webkit-scrollbar-button:horizontal:increment{background-position:calc(50% + 1px) center,center,calc(50% - 1px) center}
+  }
  }
 }
 .ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline:2px dashed var(--text);outline-offset:2px}

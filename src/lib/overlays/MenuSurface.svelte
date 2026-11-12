@@ -59,7 +59,7 @@
 }} />
 
 <div bind:this={panel} {@attach mountFocus} {id} role="menu" aria-label={label} popover="manual"
-  tabindex="-1" class="aui-frame aui-floating menu" data-size={size} onkeydown={navigate}>
+  tabindex="-1" class="aui-frame aui-floating aui-scrollbar menu" data-size={size} onkeydown={navigate}>
   {#each items as item (item.id)}
     <button class="item" type="button" role="menuitem" disabled={item.disabled} data-id={item.id}
       tabindex={current === item.id ? 0 : -1} onfocus={() => active = item.id}

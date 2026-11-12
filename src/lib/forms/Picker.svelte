@@ -87,7 +87,7 @@
     />
     {#if loading}<span class="loader" aria-hidden="true"><Loader {size} /></span>{/if}
     {#if expanded}
-      <div class="popup aui-frame" {@attach (element) => { popup = element; return () => { popup = undefined; }; }}>
+      <div class="popup aui-frame aui-scrollbar" {@attach (element) => { popup = element; return () => { popup = undefined; }; }}>
         <div id={uid + '-list'} role="listbox" aria-label={listLabel} aria-multiselectable={multiple || undefined}>
           {#each matches as option (option.value)}
             <button type="button" role="option" tabindex="-1" id={optionId(option.value)} aria-selected={selected.includes(option.value)}

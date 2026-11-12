@@ -46,7 +46,7 @@
   {#if trigger}{@render trigger()}{:else}<span aria-hidden="true">[?]</span> {label}{/if}
 </button>
 <div bind:this={bubble} {id} role="tooltip" popover="manual" hidden={!visible}
-  class="aui-frame aui-floating tooltip" data-size="s" onpointerenter={enter} onpointerleave={exit}>{text}</div>
+  class="aui-frame aui-floating aui-scrollbar tooltip" data-size="s" onpointerenter={enter} onpointerleave={exit}>{text}</div>
 
 <style>
   .tooltip { width: max-content; max-width: min(32ch, calc(100vw - 16px)); }

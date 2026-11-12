@@ -79,7 +79,7 @@ Keep action placement in the application layout. Panel footer is ordinary docume
 
 ## Native scroll containers
 
-Apply `class="aui-scrollbar"` to each application-owned scroll container inside Theme (or on Theme when it is itself the scroller). The class keeps native wheel, drag, keyboard, buttons and touch behavior; it does not replace the scrollbar with a JavaScript widget.
+For a full-page application, put `class="aui-scrollbars"` on the real `html` element. This styles the viewport and nested scroll containers, including those created later. Set `--muted` and `--accent` on the root from your palette for the viewport; without those values it uses system GrayText and Highlight. Descendant Themes supply their own colors. For an embedded application put `class="aui-scrollbars"` on its Theme instead. For one scroller use `class="aui-scrollbar"` inside Theme. The class keeps native wheel, drag, keyboard, buttons and touch behavior; it does not replace the scrollbar with a JavaScript widget.
 
 In Chromium and WebKit the style uses a 6px gutter, a rectangular thumb without rounded corners or side insets, a black track at 12% opacity, and one small stepped pixel arrow at each end of the native scrollbar. The thumb uses `muted` at rest and `accent` on hover or focus within the region. A custom palette must keep the thumb distinguishable from the rendered track. Setting a gutter size makes these browsers use a classic scrollbar and reduces the available content width by that gutter.
 
@@ -99,7 +99,7 @@ The application owns height, overflow, layout and the decision to make the scrol
 </style>
 ```
 
-The pseudo-element geometry targets actual containers carrying the class. In Firefox, standard scrollbar colors naturally inherit within the opted-in subtree; Chromium/WebKit use their explicit per-container styling. Put the class on each desired scroller rather than relying on inherited colors. Unclassed sibling scrollers retain system styling, and nested regions can keep their own treatment. Overlay visibility and touch appearance remain platform-controlled. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
+Dialog and Drawer bodies, the Figure viewer, Textarea, Picker and floating popups already use the kit style inside Theme. For the individual-container option, the pseudo-element geometry targets actual containers carrying the class. In Firefox, standard scrollbar colors naturally inherit within the opted-in subtree; Chromium/WebKit use their explicit per-container styling. Put the class on each desired scroller rather than relying on inherited colors. Unclassed sibling scrollers retain system styling, and nested regions can keep their own treatment. Overlay visibility and touch appearance remain platform-controlled. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
 
 ## Reading text without enlarging controls
 

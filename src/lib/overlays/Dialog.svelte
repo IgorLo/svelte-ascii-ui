@@ -111,7 +111,7 @@
     <div><h2 id={titleId}>{title}</h2>{@render header?.()}</div>
     <IconButton label={closeLabel} size="s" onclick={() => open = false} />
   </div>
-  <div class="body">{@render children?.()}</div>
+  <div class="body aui-scrollbar">{@render children?.()}</div>
   {#if footer}<div class="footer">{@render footer()}</div>{/if}
 </dialog>
 
@@ -126,7 +126,7 @@
   .header, .footer { display: flex; justify-content: space-between; align-items: flex-start; gap: .75em; padding: 1em; flex: 0 0 auto; }
   .header > div { min-width: 0; overflow-wrap: anywhere; }
   .header h2 { margin: 0; font-size: 1.15em; font-weight: 600; }
-  .body { padding: 0 1em 1em; min-height: 0; overflow: auto; overscroll-behavior: contain; overflow-wrap: anywhere; scrollbar-color: var(--muted) var(--bg); }
+  .body { padding: 0 1em 1em; min-height: 0; overflow: auto; overscroll-behavior: contain; overflow-wrap: anywhere; }
   .body :global(p:first-child) { margin-top: 0; }
   .footer { justify-content: flex-end; flex-wrap: wrap; border-top: 1px dashed var(--line); }
   [data-drawer] { --overlay-width: 33vw; height: 100dvh; max-height: 100dvh; max-width: 100vw; width: var(--overlay-width); }

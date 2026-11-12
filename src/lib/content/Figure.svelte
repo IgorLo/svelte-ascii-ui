@@ -12,6 +12,6 @@
  {#if caption||children}<figcaption>{#if children}{@render children()}{:else}{caption}{/if}</figcaption>{/if}
 </figure>
 {#if expandable}
-<dialog {@attach (element)=>{dialog=element;}} class="aui-frame" aria-label={caption||expandLabel} onclick={backdrop} onkeydown={(event)=>{if(event.key==='Escape')dialog.close();}}><div class="close"><IconButton label="Закрыть изображение" onclick={()=>dialog.close()}/></div><img {src} {alt}/>{#if caption}<p>{caption}</p>{/if}</dialog>
+<dialog {@attach (element)=>{dialog=element;}} class="aui-frame aui-scrollbar" aria-label={caption||expandLabel} onclick={backdrop} onkeydown={(event)=>{if(event.key==='Escape')dialog.close();}}><div class="close"><IconButton label="Закрыть изображение" onclick={()=>dialog.close()}/></div><img {src} {alt}/>{#if caption}<p>{caption}</p>{/if}</dialog>
 {/if}
 <style>figure{margin:1.5em 0;min-width:0}img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}figcaption{margin-top:.7em;color:var(--muted);font-size:.85em}.image-trigger{display:block;border:0;padding:0;background:none;width:100%;cursor:zoom-in}.image-trigger:focus-visible{outline:2px dashed var(--text);outline-offset:4px}dialog{width:min(1100px,calc(100vw - 24px));max-width:calc(100vw - 12px);max-height:90dvh;overflow:auto;background:var(--bg);color:var(--text);margin:auto}dialog::backdrop{background:#000a}.close{display:flex;justify-content:flex-end;margin-bottom:.5em}dialog img{max-height:70dvh}dialog p{color:var(--muted)}</style>

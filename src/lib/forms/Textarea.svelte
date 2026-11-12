@@ -10,7 +10,7 @@
   let { defaultValue, value = $bindable(defaultValue ?? ''), size = 'm', class: className, ...attrs }: Props = $props();
 </script>
 
-<textarea {...attrs} {defaultValue} bind:value data-size={size} class={['aui-control', className]}></textarea>
+<textarea {...attrs} {defaultValue} bind:value data-size={size} class={['aui-control', 'aui-scrollbar', className]}></textarea>
 <style>
   textarea { min-height: calc(var(--control-height, 48px) * 1.7); resize: vertical; }
 </style>
