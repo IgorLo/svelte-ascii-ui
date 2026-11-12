@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { MediaQuery } from 'svelte/reactivity';
   import type { HTMLDialogAttributes } from 'svelte/elements';
   import IconButton from '../IconButton.svelte';
 
@@ -7,20 +8,71 @@
     open?: boolean; title: string; size?: 's' | 'm' | 'l' | 'xl' | 'fit';
     header?: Snippet; children?: Snippet; footer?: Snippet;
     closeOnEscape?: boolean; closeOnBackdrop?: boolean; closeLabel?: string;
-    drawerSide?: 'left' | 'right';
+    drawerSide?: 'left' | 'right' | 'bottom';
+    mobilePlacement?: 'center' | 'bottom';
   };
   let {
     open = $bindable(false), title, size = 'm', header, children, footer,
-    closeOnEscape = true, closeOnBackdrop = true, closeLabel = 'Close', drawerSide,
+    closeOnEscape = true, closeOnBackdrop = true, closeLabel = 'Close', drawerSide, mobilePlacement = 'center',
     class: className, onclose, oncancel, onclick, onkeydown, onpointerdown, ...rest
   }: Props = $props();
   const titleId = $props.id();
+  const narrowViewport = new MediaQuery('(max-width: 600px)', false);
+  const bottomSheet = $derived(drawerSide === 'bottom' || (!drawerSide && mobilePlacement === 'bottom' && narrowViewport.current));
   let element: HTMLDialogElement;
   let backdropPressed = false;
+
+  function revealFocusedControl() {
+    const active = document.activeElement;
+    if (element.open && active instanceof HTMLElement && active.closest('dialog') === element)
+      active.scrollIntoView({ block: 'nearest' });
+  }
 
   $effect(() => {
     if (open && !element.open) element.showModal();
     else if (!open && element.open) element.close();
+  });
+
+
+  $effect(() => {
+    if (!open || !bottomSheet || !window.visualViewport) return;
+    const viewport = window.visualViewport;
+    function updateViewport() {
+      // Pinch zoom keeps the layout size so users can pan across the content.
+      if (viewport.scale !== 1) {
+        element.style.removeProperty('--drawer-viewport-height');
+        element.style.removeProperty('--drawer-viewport-bottom');
+        return;
+      }
+      element.style.setProperty('--drawer-viewport-height', `${viewport.height}px`);
+      element.style.setProperty('--drawer-viewport-bottom', `${Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)}px`);
+      revealFocusedControl();
+    }
+    updateViewport();
+    viewport.addEventListener('resize', updateViewport);
+    viewport.addEventListener('scroll', updateViewport);
+    return () => {
+      viewport.removeEventListener('resize', updateViewport);
+      viewport.removeEventListener('scroll', updateViewport);
+      element.style.removeProperty('--drawer-viewport-height');
+      element.style.removeProperty('--drawer-viewport-bottom');
+    };
+  });
+
+  $effect(() => {
+    if (!open) return;
+    let frame = 0;
+    function revealAfterLayout() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(revealFocusedControl);
+    }
+    const observer = new ResizeObserver(revealAfterLayout);
+    observer.observe(element);
+    revealAfterLayout();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
   });
 
   function onBackdrop(event: MouseEvent | PointerEvent) {
@@ -49,7 +101,7 @@
 </script>
 
 <dialog {...rest} bind:this={element} class={['aui-frame', 'dialog', className]} data-overlay-size={size}
-  data-drawer={drawerSide} aria-labelledby={titleId} tabindex="-1"
+  data-drawer={drawerSide} data-bottom-sheet={bottomSheet || undefined} aria-labelledby={titleId} tabindex="-1"
   onclose={(event) => { if (!element.open) open = false; onclose?.(event); }}
   oncancel={(event) => { oncancel?.(event); if (!closeOnEscape) event.preventDefault(); }}
   onpointerdown={(event) => { onpointerdown?.(event); backdropPressed = !event.defaultPrevented && onBackdrop(event); }}
@@ -84,9 +136,17 @@
   [data-drawer][data-overlay-size='s'] { --overlay-width: 25vw; }
   [data-drawer][data-overlay-size='l'] { --overlay-width: 50vw; }
   [data-drawer][data-overlay-size='xl'] { --overlay-width: 67vw; }
+  .dialog[data-bottom-sheet] {
+    position: fixed; inset: auto 0 var(--drawer-viewport-bottom, 0); margin: 0;
+    width: 100%; max-width: 100%; height: auto;
+    max-height: var(--drawer-viewport-height, 100dvh);
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  .dialog[data-bottom-sheet] .body { scroll-padding-block: var(--control-height); }
+  :global(html:has(dialog[data-bottom-sheet]:modal)) { overflow: hidden; }
   @media (max-width: 600px) {
     .dialog { width: 100vw; max-width: 100vw; max-height: 75dvh; }
-    [data-drawer] { max-height: 100dvh; margin: 0; }
+    [data-drawer]:not([data-drawer='bottom']) { max-height: 100dvh; margin: 0; }
     .header, .footer { padding: .6em; }
     .body { padding: 0 .6em .6em; }
   }

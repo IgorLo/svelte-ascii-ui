@@ -8,8 +8,21 @@ Read this for changes to components, tokens, accessibility, packaging, docs, or 
 2. Choose the smallest coherent change: usage guidance, composition, existing API, then a new primitive if justified. Changes to system-wide defaults need representative screen comparisons. Completion: decision and acceptance checks are recorded in the task/issue or a linked repo note.
 3. Implement in the library. Keep routing, fetching and business state in consumers. Update stories for the changed states and add meaningful regression tests for behavior. Completion: consumers can reach the result through public exports and documented extension points.
 4. Verify the affected variants, multiple instances where relevant, keyboard behavior and responsive composition. Use a fixed seed/paused motion for visual comparisons. Run appropriate checks from package.json; packaging/API changes require an installed-package consumer and SSR check. Completion: report actual commands/results and untested cases.
-5. Apply the documentation impact table below in the same change. Completion: every affected row is updated or explicitly marked not applicable with a reason in the handoff.
-6. For release work, build/inspect the package, test its installation, and follow the agreed release channel. Record consumer retest separately from library verification. Completion: changelog, package identity/version, shipped docs and supported behavior agree; publication is not implied by preparing a release.
+5. Build and open the [temporary diff-demo](#temporary-diff-demo-for-visual-approval) for component changes. Completion: every changed case is demonstrated with an explanation, and the user's visual approval is recorded or explicitly pending; test results alone do not supply that approval.
+6. Apply the documentation impact table below in the same change. Completion: every affected row is updated or explicitly marked not applicable with a reason in the handoff.
+7. For release work, build/inspect the package, test its installation, and follow the agreed release channel. Record consumer retest separately from library verification. Completion: changelog, package identity/version, shipped docs and supported behavior agree; publication is not implied by preparing a release.
+
+## Temporary diff-demo for visual approval
+
+Whenever a component is changed, prepare a temporary, interactive diff-demo and open its direct URL for the user before treating visual review as complete. Show only the cases that demonstrate this task's changes. The full gallery and Storybook remain durable references; they do not replace this focused review page.
+
+- Map every changed appearance, interaction or public option to a case. Include the affected sizes, states, themes and viewport conditions needed to see the difference; group shared causes and leave unrelated components out.
+- For each case, name the component and scenario, explain the previous result, the change and its purpose in plain language, and say what the user should inspect or try. Make the effect visible without reading source code.
+- Show actual baseline and changed implementations side by side, or provide an equally clear before/after switch, under matching data, theme, size, viewport and paused/seeded motion. Identify the baseline revision. For a new capability, explain what was unavailable before and demonstrate the supported result; do not fabricate an old implementation.
+- Use the real library implementations and public API. Keep comparison scaffolding separate from component behavior. Inspect the rendered page and exercise its changed interactions before handing it over; state untested conditions.
+- Keep the page, baseline snapshot and review assets in ignored local or temporary storage while review is active. Leave the page available for the user's review and approval. Do not commit it, add it to the public gallery/Storybook or include it in the package. After review ends, remove the temporary page, baseline and assets; retain the final implementation, useful regression tests, supported stories and authoritative documentation.
+
+Record visual approval in the task discussion. Verified implementation may be committed while approval is pending, but merging or closing the affected work waits for that approval. A screenshot, automated check or the agent's own inspection is not the user's approval.
 
 ## Documentation is part of the change
 

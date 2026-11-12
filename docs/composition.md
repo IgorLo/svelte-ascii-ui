@@ -76,3 +76,72 @@ Progress has progressbar semantics and a normalized value from 0 to 1. Use it fo
 Native meter appearance varies by browser. Thresholds such as low, high and optimum should only be set when the application's domain gives them a clear meaning.
 
 Keep action placement in the application layout. Panel footer is ordinary document flow, not a sticky action bar. If a page needs persistent actions, account for the scroll container, visible focus, mobile safe areas and unobscured content rather than relying on Panel to create that behavior.
+
+## Native scroll containers
+
+Apply `class="aui-scrollbar"` to each application-owned scroll container inside Theme (or on Theme when it is itself the scroller). The class keeps native wheel, drag, keyboard, buttons and touch behavior; it does not replace the scrollbar with a JavaScript widget.
+
+In Chromium and WebKit the style uses a 6px gutter, a rectangular thumb without rounded corners or side insets, a black track at 12% opacity, and one small stepped pixel arrow at each end of the native scrollbar. The thumb uses `muted` at rest and `accent` on hover or focus within the region. A custom palette must keep the thumb distinguishable from the rendered track. Setting a gutter size makes these browsers use a classic scrollbar and reduces the available content width by that gutter.
+
+Firefox uses standard `scrollbar-color` with theme colors and the same quiet track, retaining system width, shape and overlay behavior. Standard CSS does not expose thumb radius or native button graphics there. Exact rectangular geometry is therefore an engine-dependent enhancement, not a cross-engine promise. Forced-colors restores native system treatment.
+
+The application owns height, overflow, layout and the decision to make the scroll region focusable. For a standalone keyboard-scrollable area, use `tabindex="0"` and an accessible name, and keep the focus outline visible. Do not add a tab stop to every small nested scroller.
+
+```svelte
+<Theme>
+  <section class="aui-scrollbar settings" tabindex="0" aria-label="Display settings">
+    <!-- Application content -->
+  </section>
+</Theme>
+
+<style>
+  .settings { max-height: 24rem; overflow: auto; padding: 4px; }
+</style>
+```
+
+The pseudo-element geometry targets actual containers carrying the class. In Firefox, standard scrollbar colors naturally inherit within the opted-in subtree; Chromium/WebKit use their explicit per-container styling. Put the class on each desired scroller rather than relying on inherited colors. Unclassed sibling scrollers retain system styling, and nested regions can keep their own treatment. Overlay visibility and touch appearance remain platform-controlled. See Storybook **Foundation / Native scrollbar** for a responsive settings-panel composition.
+
+## Reading text without enlarging controls
+
+Control S/M/L sizes describe geometry and short UI text. Keep them independent of long-form reading. Existing defaults remain 16px body text at Light 300, 14px Article at the default browser root size, and 13/13/15px control text. Those compact defaults are a style choice, not an accessibility size threshold. For a long explanation, start around 16–18px and compare Regular 400 with Light using the actual font, language and theme. A dense tool panel may keep smaller labels while its help text uses a reading scale.
+
+Theme accepts these public text tokens through its `style` attribute:
+
+| Token | Responsibility and default |
+| --- | --- |
+| `--font-size` | Theme body size; `16px` |
+| `--text-weight` | Theme body and Article weight; `300` |
+| `--article-font-size` | Article text size; `.875rem` |
+| `--article-font-weight` | Optional Article weight override; follows `--text-weight` |
+| `--article-line-height` | Unitless Article line height; `1.8` |
+
+Use relative lengths when text should follow the browser's root font setting. Nested Theme instances start their own body/Article defaults; apply the intended text settings to each independent Theme. These tokens do not change control size or font weight, and framed controls/panels keep their UI text treatment. Article explicitly uses the reading tokens even within a Panel.
+
+```svelte
+<Theme style="--font-size:1.125rem;--text-weight:400;--article-font-size:1.09375rem;--article-line-height:1.6">
+  <Article>
+    <p>A longer explanation can use a reading scale independently of the form.</p>
+    <p><Link href="#source" size="inherit">Source</Link> · Updated today</p>
+    <Badge size="inherit" label="Verified" tone="success" />
+  </Article>
+</Theme>
+```
+
+Inline Link and Badge use the surrounding font size with `size="inherit"`; explicit S/M/L and existing defaults retain their UI scale. For button-style Link, use S/M/L: its text and hit area follow control geometry. Article retains semantic HTML, wrapping and heading hierarchy. Its width remains application-owned; around 68ch is a useful starting measure.
+
+Storybook **Foundation / Reading typography** compares a dense form, list, native table, numerical summary and long article. Check long Cyrillic/Latin text, source/date pairs, text resizing and narrow layouts in the actual application. Browser zoom, OS display scaling and device pixel ratio are distinct checks; CSS zoom is not proof of native browser zoom behavior. Text size alone does not establish WCAG conformance.
+
+## One responsive detail flow
+
+Use one Dialog when a user is editing or inspecting the same content across layouts. Select the presentation through its public option rather than maintaining separate Dialog and Drawer branches:
+
+```svelte
+<Dialog bind:open title="Material details" mobilePlacement="bottom">
+  <Field label="Note">
+    {#snippet children(control)}<Input {...control} bind:value={note} />{/snippet}
+  </Field>
+  {#snippet footer()}<Button label="Done" onclick={() => open = false} />{/snippet}
+</Dialog>
+```
+
+The centered desktop window becomes a bottom sheet at 600px and narrower; the content, current values and focus remain in the same native dialog while resizing. Keep the default `mobilePlacement="center"` for a confirmation that should remain centered. Use an explicit bottom Drawer for a panel that belongs at the bottom at all widths. Neither geometry implies drag-to-dismiss. Check long content, the last focused field, dismissal, viewport resizing and the intended devices before accepting the flow.

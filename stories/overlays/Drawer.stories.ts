@@ -6,7 +6,7 @@ const meta = {
   component: Component,
   tags: ['autodocs'],
   args: { title: 'Session details', side: 'right', size: 'm' },
-  argTypes: { size: { control: 'inline-radio', options: ['s', 'm', 'l', 'xl'] }, side: { control: 'inline-radio', options: ['left','right'] } }
+  argTypes: { size: { control: 'inline-radio', options: ['s', 'm', 'l', 'xl'] }, side: { control: 'inline-radio', options: ['left', 'right', 'bottom'] } }
 } satisfies Meta<typeof Component>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -15,3 +15,6 @@ export const Left: Story = { args: { side: 'left' } };
 export const Small: Story = { args: { size: 's' } };
 export const Large: Story = { args: { size: 'l' } };
 export const ExtraLarge: Story = { args: { size: 'xl' } };
+
+export const Bottom: Story = { args: { side: 'bottom' } };
+export const BottomLongContent: Story = { args: { side: 'bottom', longContent: true } };

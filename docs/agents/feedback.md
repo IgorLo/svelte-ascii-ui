@@ -16,6 +16,9 @@ Title: [Component / pattern] Observable problem in a concrete scenario
 
 Type: defect / missing capability / design question
 Consumer project and user task:
+End-to-end workflow (entry point, content/form state, completion and dismissal):
+Desktop and narrow-screen expectations for the same workflow:
+What must stay shared across layouts (content, state, focus and consumer code):
 Package name and exact version:
 Component, size, theme, relevant props:
 Browser / OS / viewport / input method:
@@ -44,7 +47,7 @@ Missing evidence must be marked unknown, not invented. A source standard is need
 
 For visual, interaction, accessibility or composition reports, follow [design analysis](design-review.md) to select skills, inspect shared causes and gather evidence before the decision table.
 
-Before implementation, read the relevant issues and comments together, reproduce against the reported version and current code, and separate the user's need from the reporter's proposed implementation. Mark unverified claims and missing evidence explicitly.
+Before implementation, read the relevant issues and comments together, reproduce against the reported version and current code, and separate the user's need from the reporter's proposed implementation. Mark unverified claims and missing evidence explicitly. Confirm the intended consumer usage before choosing a component: describe the same workflow on desktop and narrow screens, what content/state must persist between them, and whether the consumer needs one component or an explicitly separate interaction. A suggested Drawer, Dialog or prop is a possible solution, not the requirement itself.
 
 Check related components, shared tokens/styles and similar reports before deciding scope. Look for a common cause rather than patching only the named component. A shared cause can justify a system-wide correction; one screenshot does not justify changing unrelated controls. Consistent interaction rules need not produce identical visuals everywhere.
 

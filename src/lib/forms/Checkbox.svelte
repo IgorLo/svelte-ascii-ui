@@ -20,6 +20,8 @@
   .choice { position: relative; display: inline-flex; align-items: center; gap: .65ch; min-height: var(--control-height, 48px); cursor: pointer; }
   input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: inherit; }
   .mark { flex: none; min-width: var(--choice-box); display: grid; place-content: center; min-height: var(--choice-box); width: var(--choice-box); height: var(--choice-box); padding: 0; font-family: var(--art-font); font-variant-east-asian: normal; }
+  /* Fit the middle frame tile even when the 26px mark has only 8px between corners. */
+  .mark { border-image-repeat: round; }
   input:checked + .mark, input:indeterminate + .mark { color: var(--accent); }
   @media (hover: hover) {
     .choice:hover input:enabled:not(:focus-visible) + .mark { border-image-source: var(--ascii-accent); background-color: color-mix(in srgb, var(--text) 4%, var(--bg)); }
