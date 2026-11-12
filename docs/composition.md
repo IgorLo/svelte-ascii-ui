@@ -81,7 +81,7 @@ Keep action placement in the application layout. Panel footer is ordinary docume
 
 Apply `class="aui-scrollbar"` to each application-owned scroll container inside Theme (or on Theme when it is itself the scroller). The class keeps native wheel, drag, keyboard, buttons and touch behavior; it does not replace the scrollbar with a JavaScript widget.
 
-In Chromium and WebKit the style uses a 16px gutter, a rectangular thumb without rounded corners or side insets, a black track at 12% opacity, and small stepped pixel arrows on native scrollbar buttons. The thumb uses `muted` at rest and `accent` on hover or focus within the region. A custom palette must keep the thumb distinguishable from the rendered track. Setting a gutter size makes these browsers use a classic scrollbar and reduces the available content width by that gutter.
+In Chromium and WebKit the style uses an 8px gutter, a rectangular thumb without rounded corners or side insets, a black track at 12% opacity, and small stepped pixel arrows on native scrollbar buttons. The thumb uses `muted` at rest and `accent` on hover or focus within the region. A custom palette must keep the thumb distinguishable from the rendered track. Setting a gutter size makes these browsers use a classic scrollbar and reduces the available content width by that gutter.
 
 Firefox uses standard `scrollbar-color` with theme colors and the same quiet track, retaining system width, shape and overlay behavior. Standard CSS does not expose thumb radius or native button graphics there. Exact rectangular geometry is therefore an engine-dependent enhancement, not a cross-engine promise. Forced-colors restores native system treatment.
 

@@ -47,18 +47,18 @@ textarea.aui-control{padding-block:.5em;resize:vertical;min-height:6em}
  @supports selector(::-webkit-scrollbar) {
   /* Non-auto standard colors suppress the native-part styling in Chromium. */
   .ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar{scrollbar-color:auto}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar{width:16px;height:16px;background:transparent}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar{width:8px;height:8px;background:transparent}
   :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-track,
   :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-corner{background:var(--_aui-scrollbar-track);border:0;border-radius:0}
   :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-thumb{background:var(--_aui-scrollbar-thumb);border:0;border-radius:0;box-shadow:none}
   /* Decorate native arrow buttons where the engine provides them. */
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button{width:16px;height:16px;border:0;border-radius:0;color:var(--_aui-scrollbar-thumb);background-color:var(--_aui-scrollbar-track);background-repeat:no-repeat}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:2px 2px,6px 2px,10px 2px}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:decrement{background-position:center calc(50% - 2px),center,center calc(50% + 2px)}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:increment{background-position:center calc(50% + 2px),center,center calc(50% - 2px)}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:2px 2px,2px 6px,2px 10px}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:decrement{background-position:calc(50% - 2px) center,center,calc(50% + 2px) center}
-  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:increment{background-position:calc(50% + 2px) center,center,calc(50% - 2px) center}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button{width:8px;height:8px;border:0;border-radius:0;color:var(--_aui-scrollbar-thumb);background-color:var(--_aui-scrollbar-track);background-repeat:no-repeat}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,3px 1px,5px 1px}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:decrement{background-position:center calc(50% - 1px),center,center calc(50% + 1px)}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:vertical:increment{background-position:center calc(50% + 1px),center,center calc(50% - 1px)}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal{background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor);background-size:1px 1px,1px 3px,1px 5px}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:decrement{background-position:calc(50% - 1px) center,center,calc(50% + 1px) center}
+  :is(.ascii-theme.aui-scrollbar,.ascii-theme .aui-scrollbar)::-webkit-scrollbar-button:horizontal:increment{background-position:calc(50% + 1px) center,center,calc(50% - 1px) center}
  }
 }
 .ascii-theme.aui-scrollbar:focus-visible,.ascii-theme .aui-scrollbar:focus-visible{outline:2px dashed var(--text);outline-offset:2px}

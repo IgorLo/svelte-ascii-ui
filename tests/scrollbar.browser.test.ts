@@ -30,13 +30,13 @@ for (const [palette, thumb] of [
   });
 }
 
-test('square thumb fills a 16px gutter without a narrow inset', () => {
+test('square thumb fills an 8px gutter without a narrow inset', () => {
   if (!hasParts) return;
   render(Fixture);
   const region = screen.getByRole('region', { name: 'Themed settings' });
   const thumb = part(region, '-thumb');
-  expect(part(region, '').width).toBe('16px');
-  expect(part(region, '').height).toBe('16px');
+  expect(part(region, '').width).toBe('8px');
+  expect(part(region, '').height).toBe('8px');
   expect(thumb.borderRadius).toBe('0px');
   expect(thumb.borderWidth).toBe('0px');
   expect(thumb.boxShadow).toBe('none');
@@ -47,7 +47,7 @@ test('a Theme scroll container receives the same opt-in treatment', () => {
   const region = screen.getByRole('region', { name: 'Theme scroll container' });
   expect(region.scrollHeight).toBeGreaterThan(region.clientHeight);
   if (hasParts) {
-    expect(part(region, '').width).toBe('16px');
+    expect(part(region, '').width).toBe('8px');
     expect(part(region, '-thumb').backgroundColor).toBe('rgb(167, 178, 158)');
   } else expect(getComputedStyle(region).scrollbarColor).toBe('rgb(167, 178, 158) rgba(0, 0, 0, 0.12)');
 });
