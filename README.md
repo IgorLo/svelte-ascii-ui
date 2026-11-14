@@ -46,7 +46,7 @@ Run `npm run dev` (5173) for the component gallery. It uses the same public libr
 ## Install
 
 ```sh
-npm install --save-exact svelte-ascii-ui@0.3.0
+npm install --save-exact svelte-ascii-ui@0.4.0
 ```
 
 To test an unpublished local change instead:
@@ -55,7 +55,7 @@ To test an unpublished local change instead:
 # In this repository:
 npm pack
 # In your Svelte project:
-npm install /absolute/path/to/svelte-ascii-ui-0.3.0.tgz
+npm install /absolute/path/to/svelte-ascii-ui-0.4.0.tgz
 ```
 
 Use Svelte 5.57 or later. Svelte is a peer dependency. There are no other runtime dependencies; Build, Storybook and test tools are development-only. The optional Monocraft font is bundled locally; no font package is required.
@@ -157,7 +157,7 @@ GitHub Actions runs these checks plus demo and Storybook builds on pushes and pu
 
 Outputs: dist (library), demo-dist (visual specimen), storybook-static (static catalogue). The tarball contains dist, package metadata/README and the selected guidance listed in package.json. Stories, prototype files and fixtures stay out. Inspect `npm pack --dry-run --json` when changing package contents.
 
-Version 0.3.0 APIs may evolve with real project use. Accessibility checks are not certification: applications own labels, content, palette contrast and page structure.
+Version 0.4.0 APIs may evolve with real project use. Accessibility checks are not certification: applications own labels, content, palette contrast and page structure.
 
 Stable GitHub Releases trigger the npm publishing workflow after verification. Manual runs of that workflow only perform checks and a publication dry run. Maintainers must configure npm Trusted Publishing first; see the [release workflow](docs/agents/maintaining.md#github-release-workflow).
 
