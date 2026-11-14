@@ -251,7 +251,8 @@ test('external pause while playback is starting cancels quietly', async () => {
   render(Fixture, { tracks: songs() });
   playButton().click();
   music().pause();
-  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  // Native pause events and play() rejection use media tasks, not animation frames.
+  await expect.poll(() => screen.queryByRole('button', { name: 'Play music' }) !== null).toBe(true);
   expect(music().paused).toBe(true);
   expect(screen.queryByRole('alert')).toBeNull();
   expect(playButton()).toBeEnabled();
