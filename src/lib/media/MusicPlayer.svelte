@@ -38,6 +38,7 @@
   let feedbackUrl = $state<string>();
   let wantsPlayback = $state(false);
   let request = 0;
+  let startingPlayback = false;
   let disposed = false;
   let backdropPressed = false;
 
@@ -50,7 +51,7 @@
     loaded = undefined;
   }
   function load(item: MusicTrack) {
-    if (loaded?.id === item.id && loaded.source === item.src) return;
+    if (loaded?.id === item.id && loaded.source === item.src && !audio.error) return;
     audio.pause();
     audio.removeAttribute('src');
     releaseSource();
@@ -61,6 +62,7 @@
   }
   function pause() {
     wantsPlayback = false;
+    startingPlayback = false;
     request++;
     loading = false;
     audio.pause();
@@ -71,24 +73,31 @@
     const version = ++request;
     currentId = item.id;
     wantsPlayback = true;
+    startingPlayback = true;
     loading = true;
     error = '';
     try {
       load(item);
       await audio.play();
       if (version !== request && !wantsPlayback) audio.pause();
-    } catch {
+    } catch (failure) {
       if (version === request && !disposed && wantsPlayback) {
-        error = text.error;
+        // A browser/media-control pause aborts play() without being a source error.
+        error = failure instanceof DOMException && failure.name === 'AbortError' ? '' : text.error;
         wantsPlayback = false;
       }
     } finally {
-      if (version === request && !disposed) loading = false;
+      if (version === request && !disposed) { startingPlayback = false; loading = false; }
     }
+  }
+  function nativePause() {
+    // Source transitions pause internally; stale pause events must not cancel a new play().
+    if (audio.paused && !audio.ended && wantsPlayback && !startingPlayback) pause();
   }
   function toggle() { if (wantsPlayback || !paused) pause(); else void play(); }
   function choose(item: MusicTrack) {
     const resume = wantsPlayback;
+    startingPlayback = false;
     request++;
     audio.pause();
     currentId = item.id;
@@ -152,7 +161,7 @@
       const ids = new Set(sources.map(item => item.id));
       history = history.filter(id => ids.has(id));
       future = future.filter(id => ids.has(id));
-      bag = bag.filter(id => ids.has(id));
+      bag = bag.filter(id => ids.has(id) && id !== selected?.id);
       if (currentId !== undefined && !ids.has(currentId)) currentId = selected?.id;
       if (!selected) {
         pause(); audio.removeAttribute('src'); audio.load(); releaseSource();
@@ -231,7 +240,7 @@
 </script>
 
 {#snippet ticker()}
-  <span class={['ticker', { moving }]} title={title}>
+  <span class={['ticker', { moving, stationary: motionPaused || reducedMotion.current }]} title={title}>
     <span class="ticker-run"><span>{title}</span><span aria-hidden="true">{title}</span></span>
   </span>
 {/snippet}
@@ -243,7 +252,7 @@
 {/snippet}
 
 <section {...rest} class={['music-player', className]} aria-label={rest['aria-label'] ?? text.player} {@attach feedback}>
-  <audio bind:this={audio} preload="none" bind:paused bind:currentTime bind:duration bind:muted onended={next} onerror={failed} onwaiting={() => { if (wantsPlayback) loading = true; }} onplaying={() => loading = false}></audio>
+  <audio bind:this={audio} preload="none" bind:paused bind:currentTime bind:duration bind:muted onended={next} onpause={nativePause} onerror={failed} onwaiting={() => { if (wantsPlayback) loading = true; }} onplaying={() => loading = false}></audio>
   <audio bind:this={feedbackAudio} src={feedbackUrl} preload={clickSound ? 'auto' : 'none'}></audio>
   <div class="compact-player">
     {@render playControl()}
@@ -284,6 +293,10 @@
   .moving .ticker-run { animation:marquee 19s linear infinite; }
   .moving .ticker-run>span+span { display:block; }
   .ticker:hover .ticker-run { animation-play-state:paused; }
+  .stationary { white-space:normal;overflow-wrap:anywhere; }
+  .stationary .ticker-run { width:100%;animation:none; }
+  .stationary .ticker-run>span { flex:0 1 auto;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere; }
+  .stationary .ticker-run>span+span { display:none; }
   @keyframes marquee { 0%,15% {transform:translateX(0)} 90%,100% {transform:translateX(calc(-50% - 26px))} }
   .compact-copy .ticker { font-size:12px;line-height:1.6; }
   .mini-progress { height:2px;margin-top:5px;overflow:hidden;background:color-mix(in srgb,var(--muted) 25%,transparent); }

@@ -199,3 +199,60 @@ test('track changes are announced inside the active cassette modal', async () =>
   await userEvent.click(within(dialog).getByRole('button', { name: 'Next track' }));
   expect(within(dialog).getByRole('status')).toHaveTextContent('Two');
 });
+
+test('retry reloads a failed media resource at the same source', async () => {
+  render(Fixture, { tracks: [{ id: 'retry', title: 'Retry', src: new Blob(['invalid'], { type: 'audio/wav' }) }] });
+  await userEvent.click(playButton());
+  await expect.poll(() => screen.queryByRole('alert')?.textContent).toContain('Audio could not be played.');
+  let starts = 0;
+  music().addEventListener('loadstart', () => starts++);
+  await userEvent.click(screen.getByRole('button', { name: 'Retry playback' }));
+  await expect.poll(() => starts).toBeGreaterThan(0);
+});
+
+test('removing the selected shuffled track does not repeat its fallback selection', async () => {
+  const tracks = songs();
+  const view = render(Fixture, { tracks, shuffle: true });
+  await open();
+  await userEvent.click(screen.getByRole('button', { name: 'Next track' }));
+  const visited = title();
+  const unvisited = tracks.find(item => item.title !== 'One' && item.title !== visited)!;
+  await view.rerender({ tracks: [unvisited, tracks[0]] });
+  expect(title()).toBe(unvisited.title);
+  await userEvent.click(screen.getByRole('button', { name: 'Next track' }));
+  expect(title()).toBe('One');
+});
+
+test('external media pause updates the transport and one press resumes playback', async () => {
+  render(Fixture, { tracks: songs() });
+  await userEvent.click(playButton());
+  await expect.poll(() => !music().paused && music().currentTime > 0).toBe(true);
+  const position = music().currentTime;
+  music().pause(); // The same native pause event used by browser/OS media controls.
+  await expect.poll(() => screen.queryByRole('button', { name: 'Play music' }) !== null).toBe(true);
+  await userEvent.click(playButton());
+  await expect.poll(() => !music().paused && music().currentTime > position).toBe(true);
+});
+
+test('pausing motion reveals a complete long title without horizontal clipping', async () => {
+  await page.viewport(320, 568);
+  const long = 'A very long recording title that must remain fully readable when animation is paused';
+  render(Fixture, { tracks: [{ ...songs()[0], title: long }] });
+  await open();
+  await userEvent.click(screen.getByRole('button', { name: 'Pause animation' }));
+  await userEvent.click(screen.getByRole('button', { name: 'Close cassette' }));
+  const text = screen.getAllByText(long, { exact: true }).find(el => !el.closest('dialog') && el.getAttribute('role') !== 'status' && el.getAttribute('aria-hidden') !== 'true')!;
+  const clip = text.parentElement!.parentElement!;
+  expect(text.getBoundingClientRect().width).toBeLessThanOrEqual(clip.getBoundingClientRect().width + 1);
+  expect(text.getBoundingClientRect().height).toBeGreaterThan(25);
+});
+
+test('external pause while playback is starting cancels quietly', async () => {
+  render(Fixture, { tracks: songs() });
+  playButton().click();
+  music().pause();
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  expect(music().paused).toBe(true);
+  expect(screen.queryByRole('alert')).toBeNull();
+  expect(playButton()).toBeEnabled();
+});
