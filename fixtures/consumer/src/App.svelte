@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Theme, Button, Panel, Progress, Quote, Background, createSineWaves, Article, Badge, Link, Select, Drawer, Dialog, Checkbox, Slider, Range } from 'svelte-ascii-ui';
+  import { Theme, MusicPlayer, Button, Panel, Progress, Quote, Background, createSineWaves, Article, Badge, Link, Select, Drawer, Dialog, Checkbox, Slider, Range } from 'svelte-ascii-ui';
   import 'svelte-ascii-ui/styles.css';
   import 'svelte-ascii-ui/fonts.css';
   let count = $state(0);
@@ -11,6 +11,7 @@
 <Theme style="--font-size:1.125rem;--text-weight:400;--article-font-size:1.09375rem">
   <main>
     <h1>Установленный пакет</h1>
+    <MusicPlayer tracks={[{id:"demo",title:"Installed cassette player",src:"/music-demo.wav"}]} shuffle />
     <Panel title="Проверка зависимости"><Button label={`Счётчик: ${count}`} onclick={() => count++} /><Progress value={count / 10} label="Счётчик" /><Quote text="Компоненты импортированы из установленного tarball." /></Panel>
     <Article><p>Публичные настройки читаемого текста.</p><Link href="#source" size="inherit" label="Источник" /> <Badge size="inherit" label="Проверено" /></Article>
     <Select aria-label="Сортировка" showPlaceholder={false} bind:value={sort} options={[{value:'author',label:'По прикольности'},{value:'date',label:'По дате'}]} />

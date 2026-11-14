@@ -11,6 +11,7 @@ Public imports come from `svelte-ascii-ui`. Wrap the application or a section in
 | Overlays | Dialog, Drawer, Tooltip, Popover, DropdownMenu, ContextMenu |
 | Navigation | Tabs, Breadcrumbs, Pagination, Accordion, Collapsible, Toolbar |
 | Content | Article, Quote, Callout, Figure |
+| Media | MusicPlayer |
 | Effects | Background; createSineWaves and createAmbientWaves factories |
 
 ## Composition and state ownership
@@ -67,3 +68,36 @@ Use `Dialog mobilePlacement="bottom"` when the same detail view or form should b
 `mobilePlacement` defaults to `center`, preserving centered confirmations. This is a presentation choice for the user task, not a requirement that every phone modal be a sheet. Drawer keeps explicit side placement; it does not accept this Dialog-only option. Bottom Dialog shares safe-area padding, visual-viewport handling, focus clearance and background scroll locking with the bottom Drawer. The [bottom-drawer device requirements](#bottom-drawer) still apply, including actual-device keyboard testing.
 
 See Storybook **Overlays / Dialog / Responsive details** and **Responsive long content**. Change the viewport while the dialog stays open and a field contains edited text; no consumer media query or conditional Dialog/Drawer rendering is needed.
+
+
+## Music player
+
+`MusicPlayer` is a compact play/pause button, marquee, thin progress rail and cassette-icon opener. The cassette contains previous/next, shuffle, seek, volume, mute, motion pause and close controls. It uses Theme colors and the existing S controls (44px touch targets); the primary cassette play button uses L. Width belongs to the host composition, up to the player's compact 480px row. There is no queue editor, autoplay or persistence.
+
+```svelte
+<script lang="ts">
+  import { MusicPlayer, Theme, type MusicTrack } from 'svelte-ascii-ui';
+  import recording from './assets/recording.mp3?url';
+  import press from './assets/press.wav?url';
+  let shuffle = $state(true);
+  const tracks: MusicTrack[] = [
+    { id: 'evening', title: 'Evening recording', artist: 'Artist', src: recording },
+    { id: 'rain', title: 'Rain recording', src: '/audio/rain.mp3' },
+  ];
+</script>
+<Theme palette="plum">
+  <MusicPlayer {tracks} bind:shuffle clickSound={press} />
+</Theme>
+```
+
+Each track needs a stable unique `id`, `title` and `src`; `artist` is optional. `src` accepts a URL string or a Blob/File, so a host can pass selected files directly: `{ id: 'local', title: file.name, src: file }`. The host owns file selection and playlist loading. The component creates and revokes its own Blob URLs; it does not revoke host-supplied URL strings.
+
+The music element has no source until the user requests playback. Thereafter only the selected track is attached; switching does not preload other tracks. Browser buffering and byte-range requests depend on the audio format and serving host, so this is not a streaming service or a guarantee that the current file is downloaded in pieces. Remote sources need to be playable by the browser; serve local project assets through the application's normal public/imported-asset pipeline.
+
+`shuffle` and `volume` support binding. Shuffle visits each track once per cycle, avoids repeating the same track across the cycle boundary, and previous/next follow the visited navigation history when going back. With zero or one track shuffle is disabled and effectively off. A supplied `shuffle=true` is retained for later playlist expansion. A single recording repeats after it ends; an empty playlist disables playback. Replacing the playlist preserves the current stable ID when possible, otherwise selects the first remaining track, continuing only if playback was already requested. An empty replacement stops music. Replacing a source under the same ID reloads that source.
+
+Music volume defaults to `0.4` and is normalized to 0–1. `clickSound` is optional and independent of music; omitted means silent buttons. Its `clickVolume` defaults to `1/3`. Seek, volume and mute/unmute do not play feedback. Feedback failures do not prevent the player's action. The library contains no bundled recording or click sound; Storybook supplies its demo audio separately.
+
+Pass `labels` to translate individual visible and accessible strings; `MusicPlayerLabels` and the Storybook API are the complete reference. The cassette is one native modal: centered on wider screens and bottom-aligned at widths up to 600px, with focus containment, Escape/backdrop dismissal and focus return. Closing the cassette does not pause or recreate the music. Click the cassette reels, or focus them and press Enter/Space, to pause or resume the marquee and reel animation without stopping music. There is no separate animation transport icon; reduced-motion preferences disable animation. Multiple instances keep independent media and history; starting one does not automatically stop another.
+
+See **Media / MusicPlayer** for playlist, single-track, empty, long-title, shuffled, unavailable-audio and silent-feedback states, and **Media / MusicPlayer examples** for local Files and multiple instances. Automated browser checks cover real PCM playback, public controls, source replacement and ownership, modal focus and responsive composition. Physical mobile devices, screen readers and the consumer's own audio host require separate retesting.
