@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import MusicPlayerExample from '../stories/MusicPlayerExample.svelte';
   import UpdatesExample from './examples/UpdatesExample.svelte';
   import {
     Accordion, Alert, Article, Background, Badge, Breadcrumbs, Button, Callout,
@@ -52,13 +53,14 @@
       </div>
       <nav aria-label="Разделы витрины" class="links">
         {#each sizes as size (size)}<Link href={`#size-${size}`} label={`Размер ${size.toUpperCase()}`} />{/each}
-        <Link href="#updates" label="Новые возможности" />
+        <Link href="#updates" label="Новые возможности" /><Link href="#music-player" label="Музыка" />
         <Link href="#overlays" label="Окна и навигация" /><Link href="#article" label="Текст и изображения" />
       </nav>
     </header>
 
     <main id="components">
       <section id="updates" class="size-section" aria-labelledby="updates-title"><h2 id="updates-title">Новые возможности</h2><UpdatesExample {palette} /></section>
+      <section id="music-player" class="size-section" aria-labelledby="music-player-title"><h2 id="music-player-title">Кассетный плеер</h2><MusicPlayerExample mode="multiple" /></section>
       {#each sizes as size (size)}
         <section id={`size-${size}`} class="size-section" aria-labelledby={`heading-${size}`}>
           <h2 id={`heading-${size}`}>Размер {size.toUpperCase()}</h2>

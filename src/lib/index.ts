@@ -56,3 +56,6 @@ export { default as Collapsible } from './navigation/Collapsible.svelte';
 export { default as Toolbar } from './navigation/Toolbar.svelte';
 export type { MenuItem } from './overlays/types';
 export type { TabItem, BreadcrumbItem, AccordionItem } from './navigation/types';
+
+export { default as MusicPlayer } from './media/MusicPlayer.svelte';
+export type { MusicTrack, MusicPlayerLabels, MusicPlayerProps } from './media/music-player';

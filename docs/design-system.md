@@ -103,3 +103,9 @@ Body and long Article text can use a separate reading scale while controls retai
 ## Modal detail sheets
 
 Use one `Dialog mobilePlacement="bottom"` when the same task should be a centered window on wide screens and a bottom sheet at widths up to 600px. Keep one content/form instance and preserve state and focus as the viewport changes. Centered confirmations remain available through the default `center` mode. Use `Drawer side="bottom"` when the intended pattern is bottom-aligned at every width. Short sheets use content height; long sheets scroll while keeping header/footer actions accessible. Preserve safe-area space and keyboard focus. The [component guidance](components.md#one-dialog-across-desktop-and-narrow-layouts) describes the responsive contract and device-testing limits.
+
+## Compact music controls
+
+MusicPlayer keeps the page surface to play/pause, track text, a 2px progress rail and a literal cassette-icon opener. The expanded cassette supplies its own ASCII frame and close control; it has no extra modal heading or wrapper padding. Compact controls use S geometry with normal coarse-pointer expansion; the cassette's main playback action uses L. Keep the row inside an application-owned width, and supply semantic colors through Theme.
+
+Marquee and reel movement follow playback, have an independent pause action in the cassette, and respect reduced motion. Reduced motion permits long track text to wrap rather than hiding it behind required movement. The cassette reuses one modal instance across centered and bottom presentations; its scrolling and focus behavior must work at narrow and short viewports. Error text and Retry stay inside the active presentation. See the [MusicPlayer contract](components.md#music-player) for sources, buffering, feedback sounds and independent state.
