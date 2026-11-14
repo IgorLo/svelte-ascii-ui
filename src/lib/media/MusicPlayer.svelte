@@ -263,13 +263,15 @@
   {#if !open}<span class="aui-sr-only" role="status">{title}</span>{/if}
   <dialog bind:this={dialog} id={dialogId} class="aui-music-dialog" aria-label={text.player} onclose={() => { if (!dialog.open) open = false; }} onkeydown={keepFocus} onpointerdown={event => backdropPressed = outside(event)} onclick={event => { if (backdropPressed && outside(event)) open = false; backdropPressed = false; }}>
     <div class="cassette">
-      <div class="cassette-top"><span>{text.side}</span><div class="top-actions"><IconButton size="s" label={motionPaused || reducedMotion.current ? text.resumeMotion : text.pauseMotion} title={motionPaused || reducedMotion.current ? text.resumeMotion : text.pauseMotion} aria-pressed={motionPaused || reducedMotion.current} disabled={reducedMotion.current} onclick={() => motionPaused = !motionPaused}><MusicPlayerIcon name={motionPaused ? 'play' : 'pause'} /></IconButton><IconButton size="s" label={text.close} autofocus onclick={() => open = false} /></div></div>
+      <div class="cassette-top"><span>{text.side}</span><IconButton size="s" label={text.close} autofocus onclick={() => open = false} /></div>
       <div class="cassette-label">{@render ticker()}<span class="subtle">{String(track ? tracks.indexOf(track) + 1 : 0).padStart(2, '0')} / {String(tracks.length).padStart(2, '0')}</span></div>
+      <button type="button" class="reels-control" aria-label={motionPaused || reducedMotion.current ? text.resumeMotion : text.pauseMotion} title={motionPaused || reducedMotion.current ? text.resumeMotion : text.pauseMotion} aria-pressed={motionPaused || reducedMotion.current} disabled={reducedMotion.current} onclick={() => motionPaused = !motionPaused}>
       <svg class={['reels', { spinning: moving }]} viewBox="0 0 300 92" fill="none" aria-hidden="true">
         <path class="tape-path" d="M52 58V74H248V58M79 42H221" />
         {#each [56,244] as x (x)}<g transform={`translate(${x},42)`}><circle r="28" class="reel-ring"/><g class="reel"><circle r="9"/><path d="M0-22v9M0 13v9M-22 0h9M13 0h9M-16-16l7 7M9 9l7 7M-16 16l7-7M9-9l7-7"/></g></g>{/each}
         <path class="window-line" d="M105 28h90v27h-90zM116 36v11M125 36v11M134 36v11M143 36v11M152 36v11M161 36v11M170 36v11M179 36v11M188 36v11"/>
       </svg>
+      </button>
       <div class="progress-row"><span>{time(currentTime)}</span><div class="progress-rail"><Slider size="s" aria-label={text.seek} value={percent} disabled={!Number.isFinite(duration)} oninput={seek} /></div><span>{time(duration)}</span></div>
       <div class="cassette-controls">
         <IconButton size="s" label={shuffleActive ? text.shuffleOff : text.shuffleOn} aria-pressed={shuffleActive} disabled={tracks.length <= 1} variant={shuffleActive ? 'primary' : 'default'} onclick={() => shuffle = !shuffle}><MusicPlayerIcon name="shuffle" /></IconButton>
@@ -305,12 +307,15 @@
   .aui-music-dialog::backdrop { background:rgb(0 0 0 / .58); }
   :global(html:has(dialog.aui-music-dialog:modal)) { overflow:hidden; }
   .cassette { box-sizing:border-box;width:100%;max-width:100%;border:9px solid transparent;border-image:var(--ascii-frame) 12 / 9px space;padding:14px 22px 8px;background:color-mix(in srgb,var(--accent) 6%,var(--bg));background-clip:padding-box; }
-  .cassette-top,.top-actions { display:flex;align-items:center;gap:6px; }
+  .cassette-top { display:flex;align-items:center; }
   .cassette-top { justify-content:space-between;gap:12px;font-size:9px;color:var(--muted);padding-bottom:6px; }
   .cassette-label { text-align:center;padding:10px 6px 6px;border-block:1px dashed var(--player-line); }
   .cassette-label .ticker { font-size:13px; }
   .subtle { display:block;color:var(--muted);font-size:9px;margin-top:3px; }
-  .reels { display:block;max-width:100%;width:300px;height:92px;margin:4px auto 0;color:var(--accent);stroke:currentColor;stroke-width:2; }
+  .reels-control { display:block;appearance:none;width:300px;max-width:100%;height:92px;margin:4px auto 0;padding:0;border:0;background:transparent;color:var(--accent);cursor:pointer; }
+  .reels-control:disabled { cursor:default; }
+  .reels-control:focus-visible { outline:2px dashed var(--accent);outline-offset:2px; }
+  .reels { display:block;max-width:100%;width:100%;height:92px;margin:0;color:var(--accent);stroke:currentColor;stroke-width:2; }
   .tape-path,.window-line { opacity:.4;stroke-width:1; }
   .reel-ring { opacity:.6;stroke-dasharray:3 4; }
   .reel { transform-box:fill-box;transform-origin:center; }
@@ -325,5 +330,5 @@
   @media(max-width:700px) { .compact-player {gap:10px}.compact-copy .ticker{font-size:11px}.cassette{padding:10px 12px 6px}.cassette-top{font-size:8px}.transport{gap:6px} }
   @media(max-width:600px) { .aui-music-dialog{position:fixed;inset:auto 0 var(--music-viewport-bottom,0);width:min(430px,100vw);max-width:100vw;max-height:var(--music-viewport-height,100dvh);margin:0 auto}.cassette{padding-bottom:max(6px,env(safe-area-inset-bottom));padding-right:max(12px,env(safe-area-inset-right));padding-left:max(12px,env(safe-area-inset-left))} }
   @media(prefers-reduced-motion:reduce) { .moving .ticker-run,.spinning .reel{animation:none}.ticker-run>span+span{display:none !important}.ticker{white-space:normal;overflow-wrap:anywhere}.ticker-run{width:auto} }
-  @media(forced-colors:active) { .aui-music-dialog{background:Canvas}.cassette{border-image:none;border:1px solid CanvasText;background:Canvas}.mini-progress{background:CanvasText}.mini-progress>span{background:Highlight} }
+  @media(forced-colors:active) { .reels-control:focus-visible{outline-color:Highlight}.aui-music-dialog{background:Canvas}.cassette{border-image:none;border:1px solid CanvasText;background:Canvas}.mini-progress{background:CanvasText}.mini-progress>span{background:Highlight} }
 </style>

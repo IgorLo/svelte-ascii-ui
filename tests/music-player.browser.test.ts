@@ -119,7 +119,7 @@ test('cassette contains focus on narrow screens and restores its own opener', as
   const volume = screen.getByRole('slider', { name: 'Volume' });
   volume.focus();
   await userEvent.keyboard('{Tab}');
-  expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Pause animation' }));
+  expect(document.activeElement).toBe(close);
   await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
   expect(document.activeElement).toBe(volume);
   close.focus();
@@ -255,4 +255,21 @@ test('external pause while playback is starting cancels quietly', async () => {
   expect(music().paused).toBe(true);
   expect(screen.queryByRole('alert')).toBeNull();
   expect(playButton()).toBeEnabled();
+});
+
+test('reel artwork toggles animation by click and keyboard without pausing music', async () => {
+  render(Fixture, { tracks: songs() });
+  await open();
+  await userEvent.click(playButton());
+  await expect.poll(() => !music().paused && music().currentTime > 0).toBe(true);
+  const reels = screen.getByRole('button', { name: 'Pause animation' });
+  expect(reels.getBoundingClientRect().width).toBeGreaterThanOrEqual(180);
+  expect(reels.getBoundingClientRect().height).toBeGreaterThanOrEqual(80);
+  await userEvent.click(reels);
+  expect(screen.getByRole('button', { name: 'Resume animation' }).getAttribute('aria-pressed')).toBe('true');
+  expect(music().paused).toBe(false);
+  reels.focus();
+  await userEvent.keyboard(' ');
+  expect(screen.getByRole('button', { name: 'Pause animation' }).getAttribute('aria-pressed')).toBe('false');
+  expect(music().paused).toBe(false);
 });
