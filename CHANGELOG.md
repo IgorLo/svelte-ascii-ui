@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- Add `MusicPlayer` with a compact cassette opener and responsive cassette controls. Supply audio URLs or Blobs, set the initial shuffle state, seek, adjust volume, and navigate playback history. Shuffle avoids repeats within each cycle and is disabled for empty or single-track playlists. Playback starts manually and loads only the selected track. Optional button feedback has an independent volume, defaulting to one third; seeking and volume controls stay silent. Click the cassette reels or use Enter/Space to pause visual animation while music keeps playing. Theme colors, translated labels, reduced motion, and independent instances are supported. Storybook and installed-package examples document the public component.
+
 ## 0.3.0
 
 ### Minor Changes
