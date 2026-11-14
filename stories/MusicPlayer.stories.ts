@@ -11,6 +11,7 @@ const tracks = [
 ];
 const meta = {
   title: 'Media/MusicPlayer', component: MusicPlayer, tags: ['autodocs'],
+  parameters: { docs: { description: { component: 'Open the cassette, then click its reels or focus them and press Enter/Space to toggle visual animation independently of music playback.' } } },
   args: { tracks, shuffle: false, volume: .4, clickSound, clickVolume: 1 / 3 },
   argTypes: { shuffle: { control: 'boolean' }, volume: { control: { type: 'range', min: 0, max: 1, step: .01 } }, clickVolume: { control: { type: 'range', min: 0, max: 1, step: .01 } } },
 } satisfies Meta<typeof MusicPlayer>;
